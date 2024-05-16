@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+        <h2>THE PRICE STORE: YOUR MARKETPLACE FOR EVERYDAY PRODUCT PRICES</h2>
+{% endblock %}
+
+{% block content %}
+        <P></P>
+
+        <p><a href="{% url 'main' %}"><button>Back</button></a></p>
+
+        <h4>Currently Available Stores</h4>
+        <ul>
+            {% for x in mymembers %}
+            <li>{{x.shopname}} by {{x.ownersname}} | Phone: {{x.phone}} | Joined_date: {{x.joined_date}} <a href="/members/details/{{x.id}}">Details</a></li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="{% url 'main' %}"><button>Back</button></a></p>
+        <p></p>
+        <P>This will someday become the Price Store website and app <br>
+        with lots of traffic and producing good income </P>
+{% endblock %}
