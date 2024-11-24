@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD html 4.01//en">
+<html lang="en">
+<head>
+    <title>Contact us</title>
+</head>
+<body>
+    <h2>Contact us</h2>
+    <form action="." method="POST">
+        {% csrf_token %}
+        <ul>{{ form.as_table}}</ul>
+        <p><input type="submit" value="submit"></p>
+    </form>
+</body>
+</html>
