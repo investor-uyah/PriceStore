@@ -7,8 +7,6 @@ TOPIC_CHOICES = (
 )
 
 class ContactForm(forms.Form):
-    <ol>
-        <li>topic=forms.ChoiceField(choices=TOPIC_CHOICES)</li>
-        <li>message=forms.CharField(widget=forms.Textarea(), initial="Replace with your feedback")</li>
-        <li>sender=forms.EmailField(required='FALSE', initial='user@example.com')</li>'
-    </ol>
+    topic=forms.ChoiceField(choices=TOPIC_CHOICES),
+    message=forms.CharField(widget=forms.Textarea(), initial="Replace with your feedback"),
+    sender=forms.EmailField(required='FALSE', initial='user@example.com'),

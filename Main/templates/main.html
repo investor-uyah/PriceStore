@@ -6,8 +6,12 @@ The Price Marketplace
 
 {% block content %}
 
+{% if is_user.authenticated %}
+
 <h2>The Price Store</h2> 
 <img src="./the-price-marketplace.PNG" alt="The Price Marketplace" />
+
+<p>Hello {{ user.username }}, you are logged-in!</p>
 
 <p>Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. The Price Store offers you a platform to showcase the low, competitive price of your edible goods. 
    At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store. <br>
@@ -24,4 +28,18 @@ The Price Marketplace
 
     Have a complaint or suggestion? Contact us <a href="contact/">here</a> and we'd offer a quick solution. 
 </p>
+<form action ="{% url 'logout' %}", method="POST">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+</form>
+
+{% else %}
+<p>You are almost there! <strong>CATCH</strong> up on the latest foodstuff prices in your region</br>
+Login to continue.</p>
+<a href="{% url 'login' %}">Log In</a>
+
+<p>Don't have an account? SignUp in a few simple steps.</p>
+<a href="{% url 'signup' %}">SignUp</a>
+{% endif %}
 {% endblock %}
+

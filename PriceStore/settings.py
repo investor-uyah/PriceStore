@@ -52,10 +52,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'PriceStore.urls'
 
+# login redirect 
+LOGIN_REDIRECT_URL = "/"
+Logour_REDIRECT_URL = "/"
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/ "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

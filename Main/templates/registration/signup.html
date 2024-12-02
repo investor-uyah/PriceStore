@@ -1,0 +1,8 @@
+<h2>The Price Marketplace</h2>
+
+<p>SignUp to start seeing all the free prices.</p>
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Join</button>
+</form>

@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from .models import Memebers
 from .forms import ContactForm
 from django.shortcuts import redirect
+from django.contrib import auth
 
 # Create your views here.
 def members(request):
@@ -49,9 +50,34 @@ def contact(request):
         form = ContactForm()
     return render(request, 'contact.html', {'form':form})    
 
+def search_view(request):
+    query=request.GET.get('q', '')
+    results = []
+    if query:
+        results = Memebers.objects.filter(shopname_icontains=query)
+    return render(request, 'search_results.html', {'results': results, 'query': query})
+
 # def contact(request):
     template = loader.get_template('contact.html')
     context = {
         'forms': form,
     }
     return HttpResponse(template.render(context, request))
+
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+
+        auth.login(request, user)
+
+        return HttpResponseRedirect("/account/loggedin/")
+    else:
+        return HttpResponseRedirect("/account/invalid/")
+
+def logout(request):
+    auth.logout(request)
+    # redirect to a success page
+    return HttpResponseRedirect("/account/loggedout/")
