@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Memebers
 from .forms import ContactForm
-from django.shortcuts import redirect
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def members(request):
     mymembers = Memebers.objects.all().values()
     template = loader.get_template('myfirst.html')
@@ -17,6 +18,7 @@ def members(request):
 
     return HttpResponse(template.render(context, request))
 
+@login_required
 def details(request, id):
     memberid = Memebers.objects.get(id=id) 
     template = loader.get_template('details.html')
@@ -25,6 +27,7 @@ def details(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def main(request):
     template = loader.get_template('main.html')
     context = {
@@ -32,6 +35,7 @@ def main(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -50,6 +54,7 @@ def contact(request):
         form = ContactForm()
     return render(request, 'contact.html', {'form':form})    
 
+@login_required
 def search_view(request):
     query=request.GET.get('q', '')
     results = []

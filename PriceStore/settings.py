@@ -53,8 +53,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'PriceStore.urls'
 
 # login redirect 
-LOGIN_REDIRECT_URL = "/"
-Logour_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "main"
+LOGOUT_REDIRECT_URL = "login"
 
 TEMPLATES = [
     {
