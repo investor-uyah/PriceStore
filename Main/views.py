@@ -1,11 +1,18 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Memebers
-from .forms import ContactForm
+from .models import Price
+# from .forms import PurchaseForm
+# from .forms import StoreForm
+from django.db.models import Count
+from . import forms
+import datetime
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+
+count = 0
 
 # Create your views here.
 @login_required
@@ -38,34 +45,43 @@ def main(request):
 @login_required
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = forms.ContactForm(request.POST)
         if form.is_valid():
-            topic = form.cleaned_data['topic']
-            message = form.cleaned_data['message']
-            sender = form.cleaned_data.get('sender', 'noreply@example.com')
-            send_mail (
-                'Feedback from your site, topic: %s' % topic,
+           topic = form.cleaned_data['topic']
+           message = form.cleaned_data['message']
+           sender = form.cleaned_data.get('sender', 'noreply@example.com')
+
+           send_mail (
+                name,
+                topic,
                 message, 
                 sender,
                 ['investor@gmail.com']
             )
-            return redirect('main')
+        return redirect('main')
     else:
-        form = ContactForm()
-    return render(request, 'contact.html', {'form':form})    
+        form = forms.ContactForm()
+    return render(request, 'contact.html/', {'form':forms.ContactForm})    
 
 @login_required
 def search_view(request):
-    query=request.GET.get('q', '')
-    results = []
-    if query:
-        results = Memebers.objects.filter(shopname_icontains=query)
-    return render(request, 'search_results.html', {'results': results, 'query': query})
+    if request.method == 'POST':
+        
+        searched = request.POST['searched']
+        entry = Price.objects.filter(name_contains=searched)
+        return render(request, 'search_page.html/', {'searched':searched}, {'entry':entry})
+    else: 
+        return render(request, 'main.html/')
+
+@login_required
+def about(request):
+    return render(request, "about.html")
+
 
 # def contact(request):
     template = loader.get_template('contact.html')
     context = {
-        'forms': form,
+        'form': forms.ContactForm,
     }
     return HttpResponse(template.render(context, request))
 
@@ -86,3 +102,30 @@ def logout(request):
     auth.logout(request)
     # redirect to a success page
     return HttpResponseRedirect("/account/loggedout/")
+
+@login_required
+def purchase(request):
+    if request.method == 'POST':
+        form = forms.PurchaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main')
+    else:
+        form=forms.PurchaseForm(initial={'day': datetime.date.today()})
+    
+    return render(request, 'purchaseupdate.html/', {'form':forms.PurchaseForm})
+
+@login_required
+def prices(request):
+    prices = Price.objects.all()
+    return render(request, 'price_page.html/', {'prices': prices})
+
+@login_required
+def food_count(request):
+
+    # Iterate over the Price objects
+    food_items = Price.objects.all().values('foodstuff', 'price')
+    food_counts = list(food_items)
+
+    # Pass the list as a Json object to the template
+    return JsonResponse(food_counts, safe=False)

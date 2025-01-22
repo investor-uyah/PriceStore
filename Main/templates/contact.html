@@ -1,14 +1,32 @@
+{% extends "master.html" %}
+
+{% block content %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD html 4.01//en">
 <html lang="en">
 <head>
-    <title>Contact us</title>
+    
 </head>
 <body>
-    <h2>Contact us</h2>
+    <h3>Contact Form</h3>
+    <p>
     <form action="." method="POST">
         {% csrf_token %}
-        <ul>{{ form.as_table}}</ul>
-        <p><input type="submit" value="submit"></p>
+        <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        </p>
+        <p>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br>
+        </p>    
+        <p>
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message"><br>
+        </p>
+
+        <button type="submit">Submit</button>
     </form>
+    </p>
 </body>
 </html>
+{% endblock %}

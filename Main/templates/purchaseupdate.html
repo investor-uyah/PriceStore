@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+
+{% block title %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>Purchase Price Update</title>
+</head>
+{% endblock %}
+
+{% block content %}
+<body>
+<!-- form should allow users to enter foodstuff name, price, and date.-->
+  <h1>Purchase Update Form</h1>
+
+  <p>Please enter the name of the foodstuff you purchased, the buy price, and the date of purchase. 
+  </p>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
+
+{% endblock %}

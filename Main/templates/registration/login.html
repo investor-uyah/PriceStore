@@ -6,7 +6,7 @@
 <p>Welcome to the Price Marketplace! Kindly log-in to access our price information service.</p>
 <form action=".", method="POST">
 {% csrf_token %}
-{{ form }}
+{{ form.as_p }}
 
 <button type="submit">Login</button>
 </form> 
