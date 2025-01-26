@@ -1,28 +1,75 @@
 {% extends "master.html" %}
 
-{% block title %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width", initial-scale="1.0">
-    <title>Purchase Price Update</title>
-</head>
-{% endblock %}
+{% block title %}Purchase Price Update{% endblock %}
 
 {% block content %}
-<body>
-<!-- form should allow users to enter foodstuff name, price, and date.-->
-  <h1>Purchase Update Form</h1>
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <!-- Card Container -->
+    <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
+      <div class="card-body">
+        <h4 class="card-title text-center mb-4">Purchase Price Update</h4>
 
-  <p>Please enter the name of the foodstuff you purchased, the buy price, and the date of purchase. 
-  </p>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-  </form>
-</body>
-</html>
+        <!-- Form Start -->
+        <form method="post">
+          {% csrf_token %}
+          
+          <!-- Instructions / Description -->
+          <div class="mb-4">
+            <p>Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government. Kindly note that these information are all required.</p>
+          </div>
 
+          <!-- Form Fields -->
+          {{ form.as_p }}
+
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Update Price</button>
+          </div>
+        </form>
+        <!-- Form End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block styles %}
+  <style>
+    /* Ensures the page takes full height and centers content vertically and horizontally */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .container {
+      height: 100px;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    /* Optional: make form fields more compact */
+    .form-control {
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+
+    /* Customize the submit button to span across the card */
+    .d-grid .btn {
+      padding: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    /* Additional styling for form elements */
+    .form-label {
+      font-weight: bold;
+    }
+
+  </style>
 {% endblock %}

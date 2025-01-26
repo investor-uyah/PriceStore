@@ -22,7 +22,16 @@ class ContactForm(forms.Form):
 class PurchaseForm(forms.ModelForm):
     class Meta:
         model = Price
-        fields = ['foodstuff', 'price', 'description', 'author']
+        fields = ['foodstuff', 'price', 'description', 'market_store_name', 'state', 'lga']
+        widgets = {
+            'foodstuff': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'description': forms.TextInput(attrs={'class': 'form-control',}),
+            'market_store_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'state': forms.TextInput(attrs={'class': 'form-control', 'required':'required'}),
+            'lga': forms.TextInput(attrs={'class': 'form-control', 'required':'required'}),
+        }
+
 
 class StoreForm(forms.Form):
     item_name=forms.CharField(label="Name of foodstuff listed"),

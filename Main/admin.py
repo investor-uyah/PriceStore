@@ -7,7 +7,7 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = ('shopname', 'ownersname', 'phone', 'joined_date', 'bio')
     
 class PriceAdmin(admin.ModelAdmin):
-    list_display = ('foodstuff', 'price', 'description', 'author')
+    list_display = ('foodstuff', 'price', 'description', 'author', 'market_store_name', 'state', 'lga')
 
 admin.site.register(Memebers, MemberAdmin)
 admin.site.register(Price, PriceAdmin)

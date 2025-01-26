@@ -1,15 +1,48 @@
     {% extends "master.html" %}
 
     {% block content %}
-
-    <h2>The Price Store</h2> 
-    <img src="the-price-marketplace.png" alt="The Price Marketplace"/>
+    {% load static %}
+    <html>
+    <head>
+    <style>
+        .card {
+        float:inline-start;
+        width: 600px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-family: arial;
+        }
+        button:hover {
+        opacity: 0.8;
+        }
+        body {
+            padding-right: 5%;
+            padding-left: 5%;
+            padding-bottom: 10%;
+        }
+        a {
+        display: inline-block;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        }
+        p {
+        padding-top: 2%;
+        padding-left: 5%;
+        padding-right: 5%;
+        }
+    </style>
+    </head>
+    <body class ="body">
+    <h2>THE PRICE STORE: YOUR MARKETPLACE FOR FOODSTUFF PRICES</h2> 
 
     <p>Hello <strong>{{ user.username }}</strong>, you are logged-in! 🙂</p> 
 
     <p>Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. The Price Store offers you a platform to showcase the low, competitive prices of your edible goods. 
-    At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store. <br>
-    You can also participate as a customer by providing prices of foodstuffs based on purchases you've made in your locality. 
+    At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store. You can also participate as a consumer/customer by providing prices of foodstuffs based on purchases made in your locality. 
     <p>
     So what are you waiting for? Join our self-supported ecosystem of price checkers and validators. 🚀
     </p>
@@ -21,19 +54,27 @@
         Use the "details" button to look up further information about the merchant. 
     </p>
     -->
-    <p>
-        Get Involved! Provide information on foodstuffs in your region. Click <a href="purchaseupdate/">here</a> to begin.
-        Or jump ahead to see list of prices on the store <a href="prices/">here</a>. 
+    <div class="card">
+        <img src="{%static 'img/tag.jpg/' %}" alt="see-prices">
+        <p>See our list of foodstuff prices</p>
+        <p><a href="prices/" target="_blank" style="text-decoration: none">View Prices</a></p>
+    </div>
+    <div class="card" style="float: right;">
+        <img src="{%static 'img/add.jpg' %}" alt="add-prices">
+        <p>Add prices of foodstuffs you purchased in your locality</p>
+        <p><a href="purchaseupdate/" target="_blank" style="text-decoration: none">Add Prices</a></p>
+    </div>
+    <div class="card" style="float: left;">
+        <img src="{%static 'img/offer-feeback-new.jpg/' %}" alt="offer-feedback">
+        <p>What do you think of our product? Offer feedback</p>
+        <p><a href="contact/" target="_blank" style="text-decoration: none;">Leave Feedback</a></p>
+    </div>
+    
+
     </br>
-        Have a complaint or suggestion? Contact us <a href="contact/">here</a> and we'd offer a quick solution. 
-    </p>
-    <p>
-    <form action ="{% url 'logout' %}", method="POST">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-    </form>
-    </p>
     </br>
     </br>
-    </br>
+
+    </body>
+    </html>
     {% endblock %}

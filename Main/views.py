@@ -9,23 +9,23 @@ from .models import Price
 from django.db.models import Count
 from . import forms
 import datetime
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 
 count = 0
 
 # Create your views here.
-@login_required
-def members(request):
-    mymembers = Memebers.objects.all().values()
-    template = loader.get_template('myfirst.html')
-    context = {
-    'mymembers' : mymembers,
-    }
+# @login_required
+# def members(request):
+#    mymembers = Memebers.objects.all().values()
+#    template = loader.get_template('myfirst.html')
+#    context = {
+#    'mymembers' : mymembers,
+#    }
 
-    return HttpResponse(template.render(context, request))
+#    return HttpResponse(template.render(context, request))
 
-@login_required
+#@login_required
 def details(request, id):
     memberid = Memebers.objects.get(id=id) 
     template = loader.get_template('details.html')
@@ -108,8 +108,11 @@ def purchase(request):
     if request.method == 'POST':
         form = forms.PurchaseForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('main')
+            new_price = form.save(commit=False)
+            new_price.author = request.user
+            new_price.save()
+            messages.success = (request, "Form saved successfully!. Redirecting you to the prices page now.")
+            return redirect('prices')
     else:
         form=forms.PurchaseForm(initial={'day': datetime.date.today()})
     
@@ -117,8 +120,13 @@ def purchase(request):
 
 @login_required
 def prices(request):
-    prices = Price.objects.all()
+    prices = Price.objects.all().order_by('-id')
     return render(request, 'price_page.html/', {'prices': prices})
+
+@login_required
+def location(request):
+    locations = Price.objects.values('state').distinct()
+    return render(request, 'price_page.html/', {'locations': locations})
 
 @login_required
 def food_count(request):

@@ -4,16 +4,21 @@
 {% endblock %}
 
 {% block content %}
-<h2>Details of {{memberid.shopname}}</h2>
-<h4>Bio:</h4>
+<h2>{{memberid.shopname}}</h2>
+<h4>About:</h4>
 {% if bio == 'NULL' %}
     This information is not available at the moment. Check back later.
 {% else %}
     {{memberid.bio}}
 {% endif %}
+<p></p>
+<p></p>
+<h4>Our Prices</h4>
+    
 
-
-<p><a href="{% url 'members' %}"><button>Members</button></a></p>
+</br>
+</br>
+<p><a href="{% url 'members' %}"><button>◀ Back to Stores List</button></a></p>
 <p><a href="{% url 'main' %}"><button>Jump Home</button></a></p>
 
 {% endblock %}

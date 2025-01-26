@@ -1,3 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</body>
+</html>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{%static 'img/the-price-marketplace.png' %}" style="float: left;">
+        <img src="{%static 'img/the-price-marketplace.png' %}" alt="Logo" style="width: 40px;" class="rounded-pill">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>    
+        <li class="nav-item">
+            <form action="{% url 'logout' %}" method="post" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="nav-link btn btn-link">Logout</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-primary" onclick="myFunction()">🌗</button>
+        </li>
+      </ul>
+       <!-- <form class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search">
+            <button class="btn btn-primary" type="button">Search</button>
+        </form> -->
+    </div>
+  </div>
+</nav>
+<script>
+    function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+        }
+</script>
+{% block content %}
+{% endblock %}
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,6 +71,16 @@
           rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
+        <style>
+            .body {
+            background-color: white;
+            color: black;
+            }
+            .dark-mode {
+            background-color: black;
+            color: white;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -24,32 +97,28 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'main' %}">Home</a>
+                                    <button><a class="nav-link" href="{% url 'main' %}">Home</a></button>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'about' %}">About Us</a>                                    
+                                    <button><a class="nav-link" href="{% url 'about' %}">About Us</a></button>                                   
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                                    <button><a class="nav-link" href="{% url 'contact' %}">Contact</a></button>
                                 </li>
+                                <li class="nav-item">
+                                    <button><a class="nav-link" onclick="myFunction()">Dark Mood🌗</a></button>
+                                </li>
+                                <!-- 
                                 <form method=POST action="{% url 'search_results' %}">
                                     {% csrf_token %}
                                     <input type="text" name="searched" placeholder="Search for anything"
                                     aria-label="Search"><button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
+                                
                             </ul>
                         </div>
                 
             </div>
         </nav>
-
-        {% block content %}
-        {% endblock %}
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous">
-        </script>
-
-    </body>
-</html>
+-->
+    

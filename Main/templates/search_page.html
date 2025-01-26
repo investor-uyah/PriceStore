@@ -1,0 +1,20 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+<h2>"Search Results for {{ searched }}"</h2>
+
+{% if searched %}
+    <ul>
+        You searched for {{searched}}
+        <p>
+            {% for e in entry %}
+                {{ e }}<br/>
+            {% endfor %}
+        </p>
+    </ul>
+{% else %}
+    <p>"{{searched}} did not turn out any results.</p>
+{% endif %}
+
+{% endblock %}
