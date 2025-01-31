@@ -111,7 +111,7 @@ def purchase(request):
             new_price = form.save(commit=False)
             new_price.author = request.user
             new_price.save()
-            messages.success = (request, "Form saved successfully!. Redirecting you to the prices page now.")
+            messages.success = (request, "Your operation was successful!")
             return redirect('prices')
     else:
         form=forms.PurchaseForm(initial={'day': datetime.date.today()})
