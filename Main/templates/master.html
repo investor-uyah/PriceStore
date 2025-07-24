@@ -2,6 +2,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    .dark-mode {
+    background-color: darkslategray;
+    color: white;
+    }
+    .card {
+    float:inline-start;
+    width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: arial;
+    }
+    button:hover {
+    opacity: 0.8;
+    }
+    body {
+        padding-right: 5%;
+        padding-left: 5%;
+        padding-bottom: 10%;
+    }
+    a {
+    display: inline-block;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    }
+    p {
+    padding-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    }
+  </style>
   <title>The Price Marketplace</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,7 +73,7 @@
             </form>
         </li>
         <li class="nav-item">
-            <button class="btn btn-primary" onclick="myFunction()">🌗</button>
+            <button class="btn btn-primary" onclick=myFunction()>🌗</button>
         </li>
       </ul>
        <!-- <form class="d-flex">
@@ -49,7 +84,7 @@
   </div>
 </nav>
 <script>
-    function myFunction() {
+    function myFunction(){
         var element = document.body;
         element.classList.toggle("dark-mode");
         }
@@ -106,7 +141,6 @@
                                 <li class="nav-item">
                                     <button><a class="nav-link" onclick="myFunction()">Dark Mood🌗</a></button>
                                 </li>
-                                <!-- 
                                 <form method=POST action="{% url 'search_results' %}">
                                     {% csrf_token %}
                                     <input type="text" name="searched" placeholder="Search for anything"
