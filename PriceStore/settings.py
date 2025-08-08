@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-htyp3wqt^!$_7xzjszyze)=!ik*k#*ey((+@x=2o^9ur39^t9)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['price-store.vercel.app']
 
 
 # Application definition
