@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-htyp3wqt^!$_7xzjszyze)=!ik*k#*ey((+@x=2o^9ur39^t9)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['price-store.vercel.app']
+ALLOWED_HOSTS = ['price-store.vercel.app', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://price-store.vercel.app']
 SESSION_COOKIE_SECURE = True
@@ -84,11 +85,15 @@ WSGI_APPLICATION = 'PriceStore.wsgi.application'
 # database has changed from this https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 # to a Supabase postgres database.
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'), encoding='utf8') #Apply UTF-8 encoding
+
+# Add these lines for debugging:
+database_url_value = env('DATABASE_URL', cast=str)
+
+
 DATABASES = {
-    'default': {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL')
-    )
+    'default': dj_database_url.parse(database_url_value)
 }
 
 

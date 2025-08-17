@@ -190,6 +190,15 @@ window.onclick = function(event) {
 <p>Don't have an account? SignUp in a few simple steps.</p>
 <button style="width: 75px; height: 45px; text-align: center; background-color: #04AA6D;"><a href="{% url 'signup' %}">SignUp</a></button>
 
+{% if messages %}
+  <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+
 </body>
 </html>
 

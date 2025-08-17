@@ -6,129 +6,166 @@ Foodstuff Price List
 
 {% block content %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        summary {
-            padding-top:20px;
-        }
 
-        .flip-card {
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        padding-top: 70px;
-        padding-bottom: 70px;
-        width: 100%;
-       
-        height: auto;
-        perspective: 1000px;
-        }
+<style>
+    summary {
+        padding-top:20px;
+    }
 
-        .flip-card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        transition: transform 1s;
-        transform-style: preserve-3d;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        }
+    .card1 {
+        background: #fff;
+        border-radius: 12px;
+        width: 80%;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card2 {
+        margin-top: 60px;
+        margin-bottom: 15px;
+        background: #fff;
+        border-radius: 12px;
+        width: 20%;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-        .flip-card:hover .flip-card-inner {
-        transform: rotateY(180deg);
-        }
+</style>
 
-        .flip-card-front, .flip-card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        }
-
-        .flip-card-front {
-        background-color: white;
-        color: black;
-        }
-
-        .flip-card-back {
-        background-color: white;
-        color: black;
-        transform: rotateY(180deg);
-        }
-
-    </style>
-    
-</head>
-<body>
-
-<div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-        <h4>Hover on the card to see our foodstuff prices summary</h4>
-        
+<div class="card2">
+    <h4>Some Nigerian States with Foodstuff Prices Listed 🌍</h4>
+    {% for location in locations_list %}
+        <div class="row">
+            {{ location.state }}
         </div>
-        <div class="flip-card-back">
-
-            <div id="summary"></div>
-
-                <script>
-                    // Fetch food data from the Django backend
-                    fetch('/food-count/')
-                        .then(response => response.json())  // Parse the JSON response
-                        .then(data => {
-                            console.log(data);
-                            const foodItems = data;
-
-                            // Calculate average price for each food item
-                            const summary = {};
-                            foodItems.forEach(item => {
-                                if (!summary[item.foodstuff]) {
-                                    summary[item.foodstuff] = {
-                                        total: 0,
-                                        count: 0
-                                    };
-                                }
-                                summary[item.foodstuff].total += item.price;
-                                summary[item.foodstuff].count += 1;
-                            });
-
-                            // Create and display the summary
-                            let summaryHtml = "";
-                            for (const foodName in summary) {
-                                const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
-                                summaryHtml += `<strong>${foodName}:</strong> Average Price = ₦${avgPrice} `;
-                            }
-
-                            console.log(summaryHtml);
-                            document.getElementById('summary').innerHTML = summaryHtml;
-                        })
-                        .catch(error => console.error('Error fetching data:', error));
-                </script>
-        </div>
-    </div>
+    {% empty %}
+        <p>No states listed yet</p>
+    {% endfor %}
 </div>
-      
 
-<h4>List of Prices 📃</h4>
-<p>This list is updated in real-time for your convenience. 😏 The newest listings appear at the top.</p>
-{% for price in prices %}
-    <article class='list'>
-        {{ price.foodstuff }} at {{ price.price }} naira • updated on {{ price.created_at }} • by {{ price.author }} • location {{ price.state }}, {{ price.lga }}
-    </article>
-{% endfor %}
-<p></p>
-<h4>Nigerian States with Foodstuff Prices Listed 🌍</h4>
-{% for location in locations %}
-    {{ location.state }}</br>
-{% empty %}
-    <p>No states listed yet</p>
-{% endfor %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Cheapest -->
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Top 3 Cheapest Foodstuffs</h5>
+        </div>
+        <div class="card-body">
+          {% if cheapest %}
+            <ul class="list-group">
+              {% for item in cheapest %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ item.foodstuff }}
+                  <span class="badge bg-success">₦{{ item.price }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
 
-</body>
-</html>
+    <!-- Most Expensive -->
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-danger text-white">
+          <h5 class="mb-0">Top 3 Most Expensive Foodstuffs</h5>
+        </div>
+        <div class="card-body">
+          {% if expensive %}
+            <ul class="list-group">
+              {% for item in expensive %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ item.foodstuff }}
+                  <span class="badge bg-danger">₦{{ item.price }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="accordion" id="priceAccordion">
+
+    <!-- Average Food Prices -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingCheapest">
+        <button class="accordion-button text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCheapest" aria-expanded="true" aria-controls="collapseCheapest">
+          <b>Average Food Prices</b>
+        </button>
+      </h2>
+        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+            <div class="accordion-body">
+            <li class="list-group-item d-flex justify-content-between align-items-center">  
+                <div id="summary">Loading summary...</div>
+            </li>
+            </div>
+        </div>
+        </div>
+
+    <!-- Real-time Foodstuff Prices List -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingExpensive">
+        <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
+          <b>Real-time Foodstuff Prices List</b>
+        </button>
+      </h2>
+      <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">
+          <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
+            {% for price in prices %}
+                <article class='list'>
+                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+                </article>
+            {% empty %}
+                <p>No food prices listed yet</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+    window.onload = function () {
+        fetch('/food-count/')
+            .then(response => response.json())
+            .then(data => {
+                const summary = {};
+
+                data.forEach(item => {
+                    if (!summary[item.foodstuff]) {
+                        summary[item.foodstuff] = { total: 0, count: 0 };
+                    }
+                    summary[item.foodstuff].total += item.price;
+                    summary[item.foodstuff].count += 1;
+                });
+
+                let summaryHtml = "<h5>Average Prices:</h5><ul>";
+                for (const foodName in summary) {
+                    const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
+                    summaryHtml += `<strong>${foodName}:</strong> ₦${avgPrice}  `;
+                }
+                summaryHtml += "</ul>";
+
+                document.getElementById('summary').innerHTML = summaryHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('summary').innerText = "Could not load summary.";
+            });
+    }
+</script>
+
 {% endblock %}

@@ -11,6 +11,7 @@ from . import forms
 import datetime
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+import random
 
 count = 0
 
@@ -75,7 +76,7 @@ def search_view(request):
 
 @login_required
 def about(request):
-    return render(request, "about.html")
+    return render(request, "about.html/")
 
 
 # def contact(request):
@@ -94,14 +95,15 @@ def login(request):
 
         auth.login(request, user)
 
-        return HttpResponseRedirect("/account/loggedin/")
+        return redirect("main")
     else:
-        return HttpResponseRedirect("/account/invalid/")
+        messages.error(request, "Invalid username or password")
+        return redirect("login")  # back to login page
 
 def logout(request):
     auth.logout(request)
     # redirect to a success page
-    return HttpResponseRedirect("/account/loggedout/")
+    return HttpResponseRedirect("/accounts/login/")
 
 @login_required
 def purchase(request):
@@ -121,12 +123,15 @@ def purchase(request):
 @login_required
 def prices(request):
     prices = Price.objects.all().order_by('-id')
-    return render(request, 'price_page.html/', {'prices': prices})
-
-@login_required
-def location(request):
     locations = Price.objects.values('state').distinct()
-    return render(request, 'price_page.html/', {'locations': locations})
+    locations_list = list(locations)
+    random.shuffle(locations_list) # randoms the list of all available locations
+    locations_list = (locations_list)[:3] # Picks top 3 off the list
+    return render(request, 'price_page.html', {
+        'prices': prices, 
+        'locations': locations,
+        'locations_list': locations_list
+        })
 
 @login_required
 def food_count(request):
@@ -137,3 +142,16 @@ def food_count(request):
 
     # Pass the list as a Json object to the template
     return JsonResponse(food_counts, safe=False)
+
+@login_required
+def price_summary(request):
+    # Top 3 cheapest
+    cheapest = Price.objects.all().values('foodstuff', 'price').order_by('price')[:3]
+
+    # Top 3 most expensive
+    expensive = Price.objects.all().values('foodstuff', 'price').order_by('-price')[:3]
+
+    return render(request, 'price_page.html', {
+        'cheapest': cheapest,
+        'expensive': expensive
+        })

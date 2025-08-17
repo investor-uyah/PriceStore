@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
 from . import views
 
 #insert your views here
@@ -13,6 +14,8 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('about/', views.about, name="about"),
     path('search/', views.search_view, name='search_results'),
+    path('accounts/', include('django.contrib.auth.urls')), # This includes login, logout, password reset, etc.
+    path('accounts/login/', views.login, name='login'), # Custom view for the login path
 
 
     # path(login/ login/ [name:='login']),
