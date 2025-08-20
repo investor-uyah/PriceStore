@@ -14,7 +14,6 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('about/', views.about, name="about"),
     path('search/', views.search_view, name='search_results'),
-    path('accounts/', include('django.contrib.auth.urls')), # This includes login, logout, password reset, etc.
     path('accounts/login/', views.login, name='login'), # Custom view for the login path
 
 
