@@ -88,18 +88,21 @@ def about(request):
 
 
 def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = auth.authenticate(username=username, password=password)
-    if user is not None and user.is_active:
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = auth.authenticate(username=username, password=password)
 
-        auth.login(request, user)
+        if user is not None and user.is_active:
+            auth.login(request, user)
+            return redirect("main")
+        else:
+            messages.error(request, "Invalid login credentials")
+            return redirect("login")  # or re-render with error
 
-        return redirect("main")
-    else:
-        messages.error(request, "Invalid username or password")
-        return redirect("login")  # back to login page
-
+    # For GET requests, just render the login page
+    return render(request, "registration/login.html")
+    
 def logout(request):
     auth.logout(request)
     # redirect to a success page
