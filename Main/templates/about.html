@@ -3,141 +3,61 @@
 {% extends "master.html" %}
 
 {% block content %}
-<section class="pmx-container">
-  <style>
-    .pmx-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px 16px;
-      line-height: 1.6;
-      color: #111827;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-    }
-    .pmx-section {
-      background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-    .pmx-section h1,
-    .pmx-section h2 {
-      margin: 0 0 10px 0;
-      line-height: 1.25;
-    }
-    .pmx-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
-    .pmx-subtitle {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-top: 10px;
-    }
-    .pmx-list {
-      margin: 8px 0 0 18px;
-      padding: 0;
-    }
-    .pmx-list li {
-      margin: 6px 0;
-    }
-    .pmx-muted {
-      color: #4b5563;
-    }
-    @media (min-width: 768px) {
-      .pmx-title { font-size: 1.5rem; }
-      .pmx-subtitle { font-size: 1.15rem; }
-      .pmx-section { padding: 22px; }
-    }
-  </style>
+<style>
+  body {
+    padding-top: 70px; /* fixes content hidden by navbar */
+  }
+</style>
 
-  <!-- 01. INTRODUCTION – Project Overview -->
-  <article class="pmx-section">
-    <h2 class="pmx-title">01. Introduction – Project Overview</h2>
-    <p>
-      The <strong>Price Marketplace</strong> is a digital platform designed to reduce the wide and frustrating price
-      variations across food markets in Nigeria.
-    </p>
-      <ul class="pmx-list">
-        <li><strong>Merchants</strong> can log in daily to update the prices of their food items.</li>
-        <li><strong>Consumers</strong> can access the platform to see up-to-date prices and make better shopping decisions.</li>
-        <li><strong>Government agencies and research bodies</strong> can use the aggregated price data for monitoring, regulation, and policy development.</li>
-      </ul>
-    <p class="pmx-muted">
-      By promoting price transparency, the platform helps consumers save money, gives merchants visibility, and enables
-      policymakers to work with reliable food price data.
-    </p>
-  </article>
+<div class="container main-content">
+  <h2 class="fw-bold mb-4">The Price Marketplace</h2>
 
-  <!-- 02. MORE DETAILS -->
-  <article class="pmx-section">
-    <h2 class="pmx-title">02. More Details</h2>
-    <p>
-      The Price Marketplace will serve as a <strong>crowdsourced, community-driven platform</strong> where users
-      (merchants and consumers) upload and access foodstuff prices from their local markets.
-    </p>
+  <!-- INTRODUCTION -->
+  <h4 class="fw-bold fs-5 mb-3">Introduction: Project Overview</h4>
+  <p class="ms-3 text-muted">
+    The Price Marketplace aims to reduce the frustrating price variations across food markets in Nigeria. 
+    Merchants will log in to update the prices of their food items daily, while consumers will log in to see 
+    these updates in real time. Governments and research bodies will also gain access to food price data 
+    for better decision-making.
+  </p>
 
-    <h3 class="pmx-subtitle">Key Features (Available at Launch)</h3>
-      <ul class="pmx-list">
-        <li>Daily Price Updates: Real-time information from merchants and consumers.</li>
-        <li>Market Comparisons: Identify markets or stores offering lower foodstuff prices.</li>
-        <li>Reliable Data: Governments and research institutions gain insight into foodstuff availability and affordability.</li>
-      </ul>
+  <!-- MORE DETAILS -->
+  <h4 class="fw-bold fs-5 mb-3">More Details</h4>
+  <p class="ms-3 text-muted">
+    The Price Marketplace is designed as a platform where consumers and merchants can upload the 
+    prices at which they buy and sell foodstuffs in their area or region. The core idea is to reduce 
+    widespread price discrepancies in Nigeria’s foodstuff markets.  
+  </p>
+  <p class="ms-3 text-muted">
+    By using the platform, users will be able to identify stores and markets with lower foodstuff prices, 
+    saving money while gaining insights into food availability. Over time, the platform will also introduce 
+    additional planned features such as:
+  </p>
+  <ul class="ms-3">
+    <li class="text-muted">Best Time to Shop: Recommendations on when to shop specific foodstuffs at the lowest prices.</li>
+    <li class="text-muted">Shortest Routes: Navigation to the nearest/cheapest market with real-time traffic updates.</li>
+  </ul>
 
-    <h3 class="pmx-subtitle">Planned Features (Coming in Future Updates)</h3>
-      <ul class="pmx-list">
-        <li>Best Time to Shop: Recommendations on when foodstuff prices are lowest.</li>
-        <li>Shortest Routes: Navigation to the nearest/cheapest market with real-time traffic updates.</li>
-      </ul>
-    <p class="pmx-muted">These updates will make the platform more intelligent and impactful over time.</p>
-  </article>
+  <!-- BEYOND PRICES -->
+  <h4 class="fw-bold fs-5 mb-3">Beyond Prices: Reducing Carbon Emissions</h4>
+  <p class="ms-3 text-muted">
+    The Price Marketplace supports sustainable transportation by helping users make informed shopping 
+    decisions. This reduces unnecessary trips and associated transport-related emissions.  
+  </p>
+  <ul class="ms-3">
+    <li class="text-muted">Information Instrument: Users can access updated commodity prices, helping them decide when 
+      and where to shop. This prevents unnecessary shopping trips and the emissions they generate.</li>
+    <li class="text-muted">Technology Instrument: With planned navigation features, users will be able to find the shortest 
+      and most efficient routes to markets, reducing travel time and lowering transport-related carbon emissions.</li>
+  </ul>
 
-  <!-- 03. Beyond Prices – Reducing Carbon Emissions -->
-  <article class="pmx-section">
-    <h2 class="pmx-title">03. Beyond Prices – Reducing Carbon Emissions</h2>
+  <!-- GUARANTEE PRICE ACCURACY -->
+  <h4 class="fw-bold fs-5 mb-3">Guaranteeing Price Accuracy</h4>
+  <p class="ms-3 text-muted">
+    The platform is user-driven. While some individuals may provide false information, the majority of users 
+    will share accurate prices. The collective volume of reliable data will naturally outweigh outliers, ensuring 
+    that the average displayed price of a food item is trustworthy.
+  </p>
+</div>
 
-    <h3 class="pmx-subtitle">Background</h3>
-    <p>
-      Transportation is a leading source of greenhouse gas (GHG) emissions worldwide.
-      <strong>Carbon dioxide (CO₂)</strong> accounts for the largest share.
-      <strong>Road transport</strong> contributes roughly <strong>76%</strong> of transport emissions.
-      Over the past 30 years, transport emissions have risen faster than those of any other sector, and developing
-      countries like Nigeria are experiencing rapid increases.
-    </p>
-
-    <h3 class="pmx-subtitle">The Price Marketplace Contribution</h3>
-    <ol class="pmx-list">
-        <li>
-          Information Instrument –
-          By checking food prices online, consumers can <em>decide when and where to shop</em>.
-          This prevents unnecessary trips, cutting down on transport fuel use and emissions.
-        </li>
-        <li>
-          Technology Instrument (Future Updates) –
-          <em>Shortest Routes</em> will direct users to the nearest or cheapest markets with real-time traffic updates, helping
-          avoid congestion and minimizing time and emissions in transit.
-        </li>
-    </ol>
-    <p class="pmx-muted">Together, these tools encourage smarter shopping decisions that also contribute to climate sustainability.</p>
-  </article>
-
-  <!-- 04. GUARANTEEING PRICE ACCURACY -->
-  <article class="pmx-section">
-    <h2 class="pmx-title">04. Guaranteeing Price Accuracy</h2>
-    <p>
-      Since the platform depends on user input, accuracy is ensured through scale and validation:
-    </p>
-      <ul class="pmx-list">
-        <li>The majority of users will provide genuine prices because it benefits them.</li>
-        <li>False data, if entered, will be outweighed by the volume of accurate entries, shifting averages toward the real market price.</li>
-        <li>Community reporting tools and data validation systems will further strengthen accuracy.</li>
-      </ul>
-    <p class="pmx-muted">
-      This ensures that the average price displayed for each item reflects reality and remains reliable for consumers,
-      merchants, and governments.
-    </p>
-  </article>
-</section>
 {% endblock %}
