@@ -2,6 +2,53 @@
 {% load static %}
 
 {% block content %}
+<style>
+  .card {
+    width: 280px;
+    padding: 16px;
+    margin: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    margin: 8px 0;
+    color: #333;
+    font-size: 14px;
+  }
+
+  .card a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #0066cc; /* brand accent */
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .card a:hover {
+    background: #004d99;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  }
+</style>
+
 <div class="container mx-auto px-4 py-8">
     <!-- Brand Heading -->
     <div class="text-center mb-10">
@@ -28,49 +75,23 @@
         </p>
     </div>
 
-    <!-- Feature Cards -->
-    <div class="clearfix">
-        <!-- Card 1 -->
-        <div class="w-72 float-left mb-6 mr-6">
-            <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white">
-                <img src="{% static 'img/tag.jpg' %}" alt="see-prices" class="w-full h-40 object-cover">
-                <div class="p-4 text-center">
-                    <p class="mb-2 font-medium">See our list of foodstuff prices</p>
-                    <a href="prices/" target="_blank" 
-                       class="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                       View Prices
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Card 2 -->
-        <div class="w-72 float-right mb-6 ml-6">
-            <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white">
-                <img src="{% static 'img/add.jpg' %}" alt="add-prices" class="w-full h-40 object-cover">
-                <div class="p-4 text-center">
-                    <p class="mb-2 font-medium">Add prices of foodstuffs you purchased in your locality</p>
-                    <a href="purchaseupdate/" target="_blank" 
-                       class="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                       Add Prices
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="card" style="float: left;">
+      <img src="{% static 'img/tag.jpg' %}" alt="see-prices">
+      <p>See our list of foodstuff prices</p>
+      <p><a href="prices/">View Prices</a></p>
+    </div>
 
-        <!-- Card 3 -->
-        <div class="w-72 float-left mb-6 mr-6">
-            <div class="rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white">
-                <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback" class="w-full h-40 object-cover">
-                <div class="p-4 text-center">
-                    <p class="mb-2 font-medium">What do you think of our product? Offer feedback</p>
-                    <a href="contact/" target="_blank" 
-                       class="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                       Leave Feedback
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="card" style="float: right;">
+      <img src="{% static 'img/add.jpg' %}" alt="add-prices">
+      <p>Add prices of foodstuffs you purchased in your locality</p>
+      <p><a href="purchaseupdate/">Add Prices</a></p>
+    </div>
+
+    <div class="card" style="float: left;">
+      <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
+      <p>What do you think of our product? Offer feedback</p>
+      <p><a href="contact/">Leave Feedback</a></p>
     </div>
 </div>
 {% endblock %}
