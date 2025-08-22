@@ -1,48 +1,67 @@
-    {% extends "master.html" %}
+{% extends "master.html" %}
+{% load static %}
 
-    {% block content %}
-    {% load static %}
-    <html>
-    <head></head>
-    <body class ="body">
-    <h2>THE PRICE STORE: YOUR MARKETPLACE FOR FOODSTUFF PRICES</h2> 
-
-    <p>Hello <strong>{{ user.username }}</strong>, you are logged-in! 🙂</p> 
-
-    <p>Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. The Price Store offers you a platform to showcase the low, competitive prices of your edible goods. 
-    At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store. You can also participate as a consumer/customer by providing prices of foodstuffs based on purchases made in your locality. 
-    <p>
-    So what are you waiting for? Join our self-supported ecosystem of price checkers and validators. 🚀
-    </p>
-    <!-- </p>
-     <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=largesrgb&w=300&h=200&dpr=2" />
-    <p>
-    
-        Take a look at <a href="prices/">all stores</a> currently listing their prices on our platform here 
-        Use the "details" button to look up further information about the merchant. 
-    </p>
-    -->
-    <div class="card">
-        <img src="{%static 'img/tag.jpg/' %}" alt="see-prices">
-        <p>See our list of foodstuff prices</p>
-        <p><a href="prices/" target="_blank" style="text-decoration: none">View Prices</a></p>
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Brand Heading -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-green-700">
+            THE PRICE STORE
+        </h1>
+        <p class="text-lg text-gray-600">
+            Your Marketplace for Foodstuff Prices
+        </p>
     </div>
-    <div class="card" style="float: right;">
-        <img src="{%static 'img/add.jpg' %}" alt="add-prices">
-        <p>Add prices of foodstuffs you purchased in your locality</p>
-        <p><a href="purchaseupdate/" target="_blank" style="text-decoration: none">Add Prices</a></p>
-    </div>
-    <div class="card" style="float: left;">
-        <img src="{%static 'img/offer-feeback-new.jpg/' %}" alt="offer-feedback">
-        <p>What do you think of our product? Offer feedback</p>
-        <p><a href="contact/" target="_blank" style="text-decoration: none;">Leave Feedback</a></p>
-    </div>
-    
 
-    </br>
-    </br>
-    </br>
+    <!-- Welcome Message -->
+    <div class="bg-white shadow-md rounded-2xl p-6 mb-10 text-center">
+        <p class="text-gray-700 text-lg">
+            Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
+        </p>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+            Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you.
+            The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
+        </p>
+        <p class="mt-2 text-gray-600 leading-relaxed">
+            At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store.  
+            You can also participate as a consumer/customer by providing prices of foodstuffs based on purchases made in your locality. 🚀
+        </p>
+    </div>
 
-    </body>
-    </html>
-    {% endblock %}
+    <!-- Feature Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition">
+            <img src="{% static 'img/tag.jpg' %}" alt="see-prices" class="w-full h-40 object-cover">
+            <div class="p-4 text-center">
+                <p class="font-semibold text-gray-700">See our list of foodstuff prices</p>
+                <a href="{% url 'prices' %}" class="mt-3 inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                    View Prices
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition">
+            <img src="{% static 'img/add.jpg' %}" alt="add-prices" class="w-full h-40 object-cover">
+            <div class="p-4 text-center">
+                <p class="font-semibold text-gray-700">Add prices of foodstuffs in your locality</p>
+                <a href="{% url 'purchaseupdate' %}" class="mt-3 inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                    Add Prices
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition">
+            <img src="{% static 'img/offer-feedback-new.jpg' %}" alt="offer-feedback" class="w-full h-40 object-cover">
+            <div class="p-4 text-center">
+                <p class="font-semibold text-gray-700">What do you think of our product?</p>
+                <a href="{% url 'contact' %}" class="mt-3 inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                    Leave Feedback
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
