@@ -10,25 +10,39 @@
     }
 
     .card1 {
-    background: #fff;
-    border-radius: 12px;
-    max-width: 800px;   /* instead of 80% */
-    width: 100%;        /* shrink gracefully */
-    padding: 20px;
-    margin: 0 auto 25px auto;  /* centers it */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-   }
-
-    .card2 {
-        margin: 60px auto 15px auto;  /* centers it */
         background: #fff;
         border-radius: 12px;
-        max-width: 400px;   /* keep desktop limit */
-        width: 100%;        /* full on mobile */
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+        margin: 0 auto 25px auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* "Some Nigerian States" card → keep left-aligned */
+    .card2 {
+        margin: 60px 0 15px 0;
+        background: #fff;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 100%;
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
+    /* Responsive: half width on desktop, stack on mobile */
+    @media (min-width: 768px) {
+        .food-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+    @media (max-width: 767px) {
+        .food-col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
 </style>
 
 <div class="card2">
@@ -41,12 +55,13 @@
         <p>No states listed yet</p>
     {% endfor %}
 </div>
-<!--
+
+<!-- Cheapest & Most Expensive Cards -->
 <div class="container mt-4">
   <div class="row">
     <!-- Cheapest -->
-    <div class="col-md-6">
-      <div class="card shadow-sm mb-4">
+    <div class="food-col mb-3">
+      <div class="card shadow-sm h-100">
         <div class="card-header bg-success text-white">
           <h5 class="mb-0">Top 3 Cheapest Foodstuffs</h5>
         </div>
@@ -68,8 +83,8 @@
     </div>
 
     <!-- Most Expensive -->
-    <div class="col-md-6">
-      <div class="card shadow-sm mb-4">
+    <div class="food-col mb-3">
+      <div class="card shadow-sm h-100">
         <div class="card-header bg-danger text-white">
           <h5 class="mb-0">Top 3 Most Expensive Foodstuffs</h5>
         </div>
@@ -91,8 +106,8 @@
     </div>
   </div>
 </div>  
--->
 
+<!-- Accordion -->
 <div class="container mt-4">
   <div class="accordion" id="priceAccordion">
 
@@ -103,14 +118,14 @@
           <b>Average Food Prices</b>
         </button>
       </h2>
-        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
-            <div class="accordion-body">
-            <li class="list-group-item d-flex justify-content-between align-items-center">  
-                <div id="summary">Loading summary...</div>
-            </li>
-            </div>
+      <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">
+          <li class="list-group-item d-flex justify-content-between align-items-center">  
+            <div id="summary">Loading summary...</div>
+          </li>
         </div>
-        </div>
+      </div>
+    </div>
 
     <!-- Real-time Foodstuff Prices List -->
     <div class="accordion-item">
@@ -122,13 +137,13 @@
       <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
           <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
-            {% for price in prices %}
-                <article class='list'>
-                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
-                </article>
-            {% empty %}
-                <p>No food prices listed yet</p>
-            {% endfor %}
+          {% for price in prices %}
+            <article class='list'>
+              {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+            </article>
+          {% empty %}
+            <p>No food prices listed yet</p>
+          {% endfor %}
         </div>
       </div>
     </div>
