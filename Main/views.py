@@ -6,7 +6,7 @@ from .models import Memebers
 from .models import Price
 # from .forms import PurchaseForm
 # from .forms import StoreForm
-from django.db.models import Count
+from django.db.models import Count, Avg
 from . import forms
 import datetime
 from django.contrib import auth, messages
@@ -158,3 +158,56 @@ def price_summary(request):
         'cheapest': cheapest,
         'expensive': expensive
         })
+
+@login_required
+def get_price_trends(request):
+    today = datetime.date.today()
+    this_week_start = today - datetime.timedelta(days=7)
+    last_week_start = today - datetime.timedelta(days=14)
+    two_weeks_ago_start = today - datetime.timedelta(days=21)
+
+    items = ["Rice", "Beans", "Yam", "Garri"]
+    trends = {}
+
+    for item in items:
+        # Get average price for the last 7 days (this week)
+        current_price_query = Price.objects.filter(
+            foodstuff__iexact=item, # Use `iexact` for case-insensitive matching
+            created_at__gte=this_week_start,
+            created_at__lte=today # Added to define the upper bound
+        ).aggregate(avg=Avg("price"))
+
+        # Get average price for the 7 days before that (last week)
+        previous_price_query = Price.objects.filter(
+            foodstuff__iexact=item,
+            created_at__gte=last_week_start,
+            created_at__lt=this_week_start # Use `lt` to avoid overlapping days
+        ).aggregate(avg=Avg("price"))
+
+        current_price = current_price_query['avg']
+        previous_price = previous_price_query['avg']
+
+        if current_price is not None and previous_price is not None:
+            # Correct formula with parentheses
+            if previous_price > 0:
+                change = ((current_price - previous_price) / previous_price) * 100
+            else:
+                change = 0
+
+            if change > 2:
+                status = f"⬆️ +{round(change, 1)}%"
+            elif change < -2:
+                status = f"⬇️ {round(change, 1)}%"
+            else:
+                status = "➡️ stable"
+        else:
+            status = "No data available."
+
+        trends[item] = status
+
+    return render(request, 'price_page.html', {
+        'trends': trends
+    })
+        
+
+           
