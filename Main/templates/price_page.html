@@ -6,79 +6,79 @@
 {% block content %}
 <style>
     body {
-        padding-top:20px;
+        padding-top: 20px;
     }
 
-    .card1 {
+    .card-custom {
         background: #fff;
         border-radius: 12px;
-        max-width: 800px;  
-        width: 100%;        
         padding: 20px;
-        margin: 0 auto 25px auto;  
+        margin-bottom: 20px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .card2 {
-        margin: 20px auto;  
-        background: #fff;
-        border-radius: 12px;
-        max-width: 400px;   
-        width: 100%;        
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        height: 100%;  /* keeps them aligned */
     }
 </style>
 
-<!-- Top 3 Cheapest -->
-<div class="card2">
-    <h5 class="text-success">Top 3 Cheapest Foodstuffs</h5>
-    {% if cheapest %}
-        <ul class="list-group mt-3">
-            {% for item in cheapest %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ item.foodstuff }}
-                    <span class="badge bg-success">₦{{ item.price }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No data available.</p>
-    {% endif %}
+<!-- Row for States + Top 3 cards -->
+<div class="container mb-4">
+  <div class="row g-3">
+
+    <!-- Some Nigerian States -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h4>Some Nigerian States with Foodstuff Prices Listed 🌍</h4>
+        {% for location in locations_list %}
+            <div class="row">{{ location.state }}</div>
+        {% empty %}
+            <p>No states listed yet</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Top 3 Cheapest -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h5 class="text-success">Top 3 Cheapest Foodstuffs</h5>
+        {% if cheapest %}
+            <ul class="list-group mt-3">
+                {% for item in cheapest %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.foodstuff }}
+                        <span class="badge bg-success">₦{{ item.price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Top 3 Most Expensive -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h5 class="text-danger">Top 3 Most Expensive Foodstuffs</h5>
+        {% if expensive %}
+            <ul class="list-group mt-3">
+                {% for item in expensive %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.foodstuff }}
+                        <span class="badge bg-danger">₦{{ item.price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- Top 3 Most Expensive -->
-<div class="card2">
-    <h5 class="text-danger">Top 3 Most Expensive Foodstuffs</h5>
-    {% if expensive %}
-        <ul class="list-group mt-3">
-            {% for item in expensive %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ item.foodstuff }}
-                    <span class="badge bg-danger">₦{{ item.price }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No data available.</p>
-    {% endif %}
-</div>
-
-<!-- Some Nigerian States -->
-<div class="card2">
-    <h4>Some Nigerian States with Foodstuff Prices Listed 🌍</h4>
-    {% for location in locations_list %}
-        <div class="row">
-            {{ location.state }}
-        </div>
-    {% empty %}
-        <p>No states listed yet</p>
-    {% endfor %}
-</div>
-
+<!-- Accordion (Average + Real-time) -->
 <div class="container mt-4">
   <div class="accordion" id="priceAccordion">
-
     <!-- Average Food Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingCheapest">
@@ -88,9 +88,9 @@
       </h2>
         <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
             <div class="accordion-body">
-            <li class="list-group-item d-flex justify-content-between align-items-center">  
-                <div id="summary">Loading summary...</div>
-            </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">  
+                  <div id="summary">Loading summary...</div>
+              </li>
             </div>
         </div>
     </div>
@@ -115,7 +115,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 {% endblock %}
