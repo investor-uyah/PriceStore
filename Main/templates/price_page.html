@@ -111,9 +111,11 @@
      <div class="card">
         <h3>Price Trends</h3>
             <ul class="ms-3 text-muted">
-                Rice ⬆️ +5% this week
-                Beans ⬇️ -2% this week
-                Yam ➡️ stable
+               {% for item, status in trends.items %}
+                  <li>{{ item }} {{ status }}</li>
+               {% empty %}
+                  <li>No trend data available.</li>
+               {% endfor %}
             </ul>
      </div>
 
