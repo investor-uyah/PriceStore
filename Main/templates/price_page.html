@@ -1,32 +1,30 @@
 {% extends "master.html" %}
-
-{% block title %}
-Foodstuff Price List
-{% endblock %}
-
-{% block content %}
 {% load static %}
 
+{% block title %}Foodstuff Price List{% endblock %}
+
+{% block content %}
 <style>
-    summary {
+    body {
         padding-top:20px;
     }
 
     .card1 {
-        background: #fff;
-        border-radius: 12px;
-        width: 80%;
-        padding: 20px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+    background: #fff;
+    border-radius: 12px;
+    max-width: 800px;   /* instead of 80% */
+    width: 100%;        /* shrink gracefully */
+    padding: 20px;
+    margin: 0 auto 25px auto;  /* centers it */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+   }
+
     .card2 {
-        margin-top: 60px;
-        margin-bottom: 15px;
+        margin: 60px auto 15px auto;  /* centers it */
         background: #fff;
         border-radius: 12px;
-        width: 40%;
-        max-width: 400px;
+        max-width: 400px;   /* keep desktop limit */
+        width: 100%;        /* full on mobile */
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
@@ -136,8 +134,9 @@ Foodstuff Price List
 
   </div>
 </div>
+{% endblock %}
 
-
+{% block scripts %}
 <script>
     window.onload = function () {
         fetch('/food-count/')
@@ -168,5 +167,4 @@ Foodstuff Price List
             });
     }
 </script>
-
 {% endblock %}
