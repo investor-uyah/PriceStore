@@ -37,7 +37,7 @@
   <style>
     /* Ensures the page takes full height, centers content vertically and horizontally */
     html, body {
-      height: 100%;
+      height: 70%;
       margin: 0;
     }
 
@@ -78,3 +78,32 @@
 
   </style>
 {% endblock %}
+<script>
+  let stateSelect = document.getElementById("state");
+  let lgaSelect = document.getElementById("lga");
+
+  // Fetch states & LGAs
+  fetch("{% static 'data/lga.json' %}")
+    .then(res => res.json())
+    .then(data => {
+      // Load states
+      Object.keys(data).forEach(state => {
+        let opt = document.createElement("option");
+        opt.value = state;
+        opt.textContent = state;
+        stateSelect.appendChild(opt);
+      });
+
+      // Load LGAs on state change
+      stateSelect.addEventListener("change", function() {
+        let lgas = data[this.value] || [];
+        lgaSelect.innerHTML = "";
+        lgas.forEach(lga => {
+          let opt = document.createElement("option");
+          opt.value = lga;
+          opt.textContent = lga;
+          lgaSelect.appendChild(opt);
+        });
+      });
+    });
+</script>
