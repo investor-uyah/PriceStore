@@ -12,39 +12,59 @@
     .card1 {
         background: #fff;
         border-radius: 12px;
-        max-width: 800px;
-        width: 100%;
+        max-width: 800px;  
+        width: 100%;        
         padding: 20px;
-        margin: 0 auto 25px auto;
+        margin: 0 auto 25px auto;  
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    /* "Some Nigerian States" card → keep left-aligned */
     .card2 {
-        margin: 60px 0 15px 0;
+        margin: 20px auto;  
         background: #fff;
         border-radius: 12px;
-        max-width: 400px;
-        width: 100%;
+        max-width: 400px;   
+        width: 100%;        
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    /* Responsive: half width on desktop, stack on mobile */
-    @media (min-width: 768px) {
-        .food-col {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-    }
-    @media (max-width: 767px) {
-        .food-col {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
     }
 </style>
 
+<!-- Top 3 Cheapest -->
+<div class="card2">
+    <h5 class="text-success">Top 3 Cheapest Foodstuffs</h5>
+    {% if cheapest %}
+        <ul class="list-group mt-3">
+            {% for item in cheapest %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.foodstuff }}
+                    <span class="badge bg-success">₦{{ item.price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</div>
+
+<!-- Top 3 Most Expensive -->
+<div class="card2">
+    <h5 class="text-danger">Top 3 Most Expensive Foodstuffs</h5>
+    {% if expensive %}
+        <ul class="list-group mt-3">
+            {% for item in expensive %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.foodstuff }}
+                    <span class="badge bg-danger">₦{{ item.price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</div>
+
+<!-- Some Nigerian States -->
 <div class="card2">
     <h4>Some Nigerian States with Foodstuff Prices Listed 🌍</h4>
     {% for location in locations_list %}
@@ -56,58 +76,6 @@
     {% endfor %}
 </div>
 
-<!-- Cheapest & Most Expensive Cards -->
-<div class="container mt-4">
-  <div class="row">
-    <!-- Cheapest -->
-    <div class="food-col mb-3">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-success text-white">
-          <h5 class="mb-0">Top 3 Cheapest Foodstuffs</h5>
-        </div>
-        <div class="card-body">
-          {% if cheapest %}
-            <ul class="list-group">
-              {% for item in cheapest %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ item.foodstuff }}
-                  <span class="badge bg-success">₦{{ item.price }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p>No data available.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Most Expensive -->
-    <div class="food-col mb-3">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-danger text-white">
-          <h5 class="mb-0">Top 3 Most Expensive Foodstuffs</h5>
-        </div>
-        <div class="card-body">
-          {% if expensive %}
-            <ul class="list-group">
-              {% for item in expensive %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ item.foodstuff }}
-                  <span class="badge bg-danger">₦{{ item.price }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p>No data available.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>  
-
-<!-- Accordion -->
 <div class="container mt-4">
   <div class="accordion" id="priceAccordion">
 
@@ -118,13 +86,13 @@
           <b>Average Food Prices</b>
         </button>
       </h2>
-      <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
-        <div class="accordion-body">
-          <li class="list-group-item d-flex justify-content-between align-items-center">  
-            <div id="summary">Loading summary...</div>
-          </li>
+        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+            <div class="accordion-body">
+            <li class="list-group-item d-flex justify-content-between align-items-center">  
+                <div id="summary">Loading summary...</div>
+            </li>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Real-time Foodstuff Prices List -->
@@ -137,13 +105,13 @@
       <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
           <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
-          {% for price in prices %}
-            <article class='list'>
-              {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
-            </article>
-          {% empty %}
-            <p>No food prices listed yet</p>
-          {% endfor %}
+            {% for price in prices %}
+                <article class='list'>
+                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+                </article>
+            {% empty %}
+                <p>No food prices listed yet</p>
+            {% endfor %}
         </div>
       </div>
     </div>
