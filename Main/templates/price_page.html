@@ -1,222 +1,209 @@
 {% extends "master.html" %}
 {% load static %}
 
+{% block title %}Foodstuff Price List{% endblock %}
+
 {% block content %}
 <style>
-  body {
-    padding-top: 100px; /* fixes content hidden by navbar */
-  }
+    body {
+        padding-top: 20px;
+    }
 
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .card {
-    flex: 1 1 280px; /* responsive width */
-    max-width: 320px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: left;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 10px;
-  }
-
-  .card p {
-    margin: 6px 0;
-    color: #444;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-  }
-
-  /* New Feature Cards CSS */
-  .row.g-4 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem; /* g-4 equivalent */
-  }
-
-  .col-md-4 {
-    flex: 1 0 calc(33.333% - 1rem); /* 3 cards per row */
-    max-width: calc(33.333% - 1rem);
-  }
-  
+    .card-custom {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        height: 100%;  /* keeps them aligned */
+    }
 </style>
 
-<div class="container mx-auto px-4 py-16">
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">Basket of Essentials</h5>
-                <p class="card-text">
-                    Weekly estimate of staple foods (rice, beans, garri, yam, oil).  
-                    See how much it costs to feed a family of 4 per week.
-                </p>
-                <ul class="ms-3 text-muted">
-                    <li>Rice (50kg) – ₦X</li>
-                    <li>Beans (50kg) – ₦Y</li>
-                    <li>Garri (50kg) – ₦Z</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<!-- Row for States + Top 3 cards -->
+<div class="container mb-4">
+  <div class="row g-3">
 
-        <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">Price Trends</h5>
-                <p class="card-text">
-                    Monitor price changes over time. Track whether food prices are rising or falling.
-                </p>
-                <ul class="ms-3 text-muted">
-                    <li>Rice ⬆️ +5% this week</li>
-                    <li>Beans ⬇️ -2% this week</li>
-                    <li>Yam ➡️ stable</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <!-- Some Nigerian States -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h4>Some Nigerian States with Foodstuff Prices Listed 🌍</h4>
+        {% for location in locations_list %}
+            <div class="row">{{ location.state }}</div>
+        {% empty %}
+            <p>No states listed yet</p>
+        {% endfor %}
+      </div>
+    </div>
 
-        <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">Regional Comparison</h5>
-                <p class="card-text">
-                    Compare average food basket costs across regions.  
-                    Find out where food is cheapest or most expensive.
-                </p>
-                <ul class="ms-3 text-muted">
-                    <li>North: ₦A</li>
-                    <li>South: ₦B</li>
-                    <li>West: ₦C</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-  </div>
+    <!-- Top 3 Cheapest -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h5 class="text-success">Top 3 Cheapest Foodstuffs</h5>
+        {% if cheapest %}
+            <ul class="list-group mt-3">
+                {% for item in cheapest %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.foodstuff }}
+                        <span class="badge bg-success">₦{{ item.price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+      </div>
+    </div>
 
-    <div class="card-container mt-8">
-    <div class="card">
-      <h3>Cheapest Foodstuff</h3>
-      <p>Rice – ₦32,000 per bag</p>
-      <p>Yam – ₦1,500 per tuber</p>
-    </div>
+    <!-- Top 3 Most Expensive -->
+    <div class="col-12 col-md-4">
+      <div class="card-custom">
+        <h5 class="text-danger">Top 3 Most Expensive Foodstuffs</h5>
+        {% if expensive %}
+            <ul class="list-group mt-3">
+                {% for item in expensive %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.foodstuff }}
+                        <span class="badge bg-danger">₦{{ item.price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+      </div>
+    </div>
 
-    <div class="card">
-      <h3>Most Expensive Foodstuff</h3>
-      <p>Beans – ₦65,000 per bag</p>
-      <p>Garri – ₦28,000 per bag</p>
-    </div>
+    <!-- New Feature Cards -->
+    <div class="row g-4">
+        <!-- Basket of Essentials -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Basket of Essentials</h5>
+                    <p class="card-text">
+                        Weekly estimate of staple foods (rice, beans, garri, yam, oil).  
+                        See how much it costs to feed a family of 4 per week.
+                    </p>
+                    <ul class="ms-3 text-muted">
+                        <li>Rice (50kg) – ₦X</li>
+                        <li>Beans (50kg) – ₦Y</li>
+                        <li>Garri (50kg) – ₦Z</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    <div class="card">
-      <h3>Top 3 States with Lowest Prices</h3>
-      <p>Kano, Kaduna, Niger</p>
-    </div>
-  </div>
+        <!-- Price Trends -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Price Trends</h5>
+                    <p class="card-text">
+                        Monitor price changes over time. Track whether food prices are rising or falling.
+                    </p>
+                    <ul class="ms-3 text-muted">
+                        <li>Rice ⬆️ +5% this week</li>
+                        <li>Beans ⬇️ -2% this week</li>
+                        <li>Yam ➡️ stable</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    <div class="card-container mt-8">
-    <div class="card">
-      <h3>Average Basket Price</h3>
-      <p>Current average: ₦15,300 (across 10 staples)</p>
-    </div>
+        <!-- Regional Comparison -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Regional Comparison</h5>
+                    <p class="card-text">
+                        Compare average food basket costs across regions.  
+                        Find out where food is cheapest or most expensive.
+                    </p>
+                    <ul class="ms-3 text-muted">
+                        <li>North: ₦A</li>
+                        <li>South: ₦B</li>
+                        <li>West: ₦C</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="card">
-      <h3>Price Trends</h3>
-      <p>Weekly changes show rice dropping by 3% while beans increased by 5%.</p>
-    </div>
-
-    <div class="card">
-      <h3>Regional Insights</h3>
-      <p>South-South is consistently the most expensive region.</p>
-    </div>
-  </div>
+  </div>
 </div>
 
+<!-- Accordion (Average + Real-time) -->
 <div class="container mt-4">
-  <div class="accordion" id="priceAccordion">
-        <div class="accordion-item">
-      <h2 class="accordion-header" id="headingCheapest">
-        <button class="accordion-button text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCheapest" aria-expanded="true" aria-controls="collapseCheapest">
-          <b>Average Food Prices</b>
-        </button>
-      </h2>
-        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
-            <div class="accordion-body">
-              <li class="list-group-item d-flex justify-content-between align-items-center">  
-                  <div id="summary">Loading summary...</div>
-              </li>
-            </div>
-        </div>
-    </div>
+  <div class="accordion" id="priceAccordion">
+    <!-- Average Food Prices -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingCheapest">
+        <button class="accordion-button text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCheapest" aria-expanded="true" aria-controls="collapseCheapest">
+          <b>Average Food Prices</b>
+        </button>
+      </h2>
+        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+            <div class="accordion-body">
+              <li class="list-group-item d-flex justify-content-between align-items-center">  
+                  <div id="summary">Loading summary...</div>
+              </li>
+            </div>
+        </div>
+    </div>
 
-        <div class="accordion-item">
-      <h2 class="accordion-header" id="headingExpensive">
-        <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
-          <b>Real-time Foodstuff Prices List</b>
-        </button>
-      </h2>
-      <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
-        <div class="accordion-body">
-          <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
-            {% for price in prices %}
-                <article class='list'>
-                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
-                </article>
-            {% empty %}
-                <p>No food prices listed yet</p>
-            {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Real-time Foodstuff Prices List -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingExpensive">
+        <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
+          <b>Real-time Foodstuff Prices List</b>
+        </button>
+      </h2>
+      <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">
+          <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
+            {% for price in prices %}
+                <article class='list'>
+                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+                </article>
+            {% empty %}
+                <p>No food prices listed yet</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    window.onload = function () {
-        fetch('/food-count/')
-            .then(response => response.json())
-            .then(data => {
-                const summary = {};
+    window.onload = function () {
+        fetch('/food-count/')
+            .then(response => response.json())
+            .then(data => {
+                const summary = {};
 
-                data.forEach(item => {
-                    if (!summary[item.foodstuff]) {
-                        summary[item.foodstuff] = { total: 0, count: 0 };
-                    }
-                    summary[item.foodstuff].total += item.price;
-                    summary[item.foodstuff].count += 1;
-                });
+                data.forEach(item => {
+                    if (!summary[item.foodstuff]) {
+                        summary[item.foodstuff] = { total: 0, count: 0 };
+                    }
+                    summary[item.foodstuff].total += item.price;
+                    summary[item.foodstuff].count += 1;
+                });
 
-                let summaryHtml = "<h5>Average Prices:</h5><ul>";
-                for (const foodName in summary) {
-                    const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
-                    summaryHtml += `<strong>${foodName}:</strong> ₦${avgPrice}  `;
-                }
-                summaryHtml += "</ul>";
+                let summaryHtml = "<h5>Average Prices:</h5><ul>";
+                for (const foodName in summary) {
+                    const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
+                    summaryHtml += `<strong>${foodName}:</strong> ₦${avgPrice}  `;
+                }
+                summaryHtml += "</ul>";
 
-                document.getElementById('summary').innerHTML = summaryHtml;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('summary').innerText = "Could not load summary.";
-            });
-    }
+                document.getElementById('summary').innerHTML = summaryHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('summary').innerText = "Could not load summary.";
+            });
+    }
 </script>
 {% endblock %}
