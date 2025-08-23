@@ -3,6 +3,9 @@
 
 {% block content %}
 <style>
+  body {
+    padding-top: 70px; /* fixes content hidden by navbar */
+  }
   .card {
     width: 280px;
     padding: 16px;
@@ -55,24 +58,19 @@
         <h1 class="text-3xl font-bold text-green-700">
             THE PRICE STORE
         </h1>
-        <p class="text-lg text-gray-600">
-            Your Marketplace for Foodstuff Prices
-        </p>
     </div>
-
     <!-- Welcome Message -->
-    <div class="bg-white shadow-md rounded-2xl p-6 mb-10 text-center">
-        <p class="text-gray-700 text-lg">
-            Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
-        </p>
-        <p class="mt-4 text-gray-600 leading-relaxed">
-            Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you.
-            The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
-        </p>
-        <p class="mt-2 text-gray-600 leading-relaxed">
-            At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability by updating prices daily on the Price Store.  
-            You can also participate as a consumer/customer by providing prices of foodstuffs based on purchases made in your locality. 🚀
-        </p>
+    <div class="bg-white shadow-md rounded-2xl p-6 mb-10 text-left">
+      <p class="text-gray-700 text-lg">
+          Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
+      </p>
+      <p class="mt-4 text-gray-600 leading-relaxed">
+          Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. 
+          The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
+          At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability 
+          by updating prices daily on the Price Store. You can also participate as a consumer/customer by providing prices 
+          of foodstuffs based on purchases made in your locality. 🚀
+      </p>
     </div>
 
 
