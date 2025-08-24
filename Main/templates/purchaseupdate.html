@@ -5,93 +5,156 @@
 
 {% block content %}
 <div class="form-container">
-  <p class="mb-4">Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government.</p>
-  <form method="POST">
-    {% csrf_token %}
-    <label for="foodstuff">Foodstuff</label>
-    <input type="text" id="foodstuff" name="foodstuff" placeholder="Name of foodstuff you bought or sold " required>
+    <h2 class="form-title">Update Purchase Price</h2>
+    <p class="mb-4">Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government. All fields are required.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="foodstuff">Foodstuff</label>
+            <input type="text" id="foodstuff" name="foodstuff" placeholder="Name of foodstuff" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" placeholder="Price of the foodstuff" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" placeholder="Type, quantity or quality" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="market">Market or Store</label>
+            <input type="text" id="market" name="market" placeholder="Name of market or store" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="state">State</label>
+            <select id="state" name="state" required></select>
+        </div>
+        
+        <div class="form-group">
+            <label for="lga">Local Government</label>
+            <select id="lga" name="lga" required></select>
+        </div>
 
-    <label for="price">Price</label>
-    <input type="text" id="price" name="price" placeholder="Price of the foodstuff" required>
-
-    <label for="description">Description</label>
-    <input type="text" id="description" name="description" placeholder="Type, quantity or quality of the foodstuff" required>
-    
-    <label for="market">Market or Store</label>
-    <input type="text" id="market" name="market" placeholder="Name of market or store" required>
-    
-    <label for="state">State</label>
-    <select id="state" name="state" required></select>
-    <option value="">Select a State</option>
-
-    <label for="lga">Local Government</label>
-    <select id="lga" name="lga" required></select>
-    <option value="">Select an LGA</option>
-
-    <button type="submit">Submit</button>
-  </form>
+        <button type="submit">Submit</button>
+    </form>
 </div>
 {% endblock %}
 
 {% block styles %}
-  <style>
-  body { padding-top: 70px; }
-  .form-container {
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  label { font-weight: 600; margin-top: 12px; display: block; }
-  select, input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  button {
-    margin-top: 20px;
-    background: #0066cc;
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  button:hover { background: #004d99; }
+<style>
+    body { 
+      padding-top: 70px;
+      font-family: Arial, sans-serif; /* Add a modern font */
+      background-color: #f4f7f6; /* A light background color */
+    }
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px; /* Increased padding */
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Improved shadow */
+    }
+    .form-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px; /* Added spacing between form groups */
+    }
+    label { 
+      font-weight: 600; 
+      display: block; 
+      margin-bottom: 8px; 
+      color: #555;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: #007bff; /* Highlight on focus */
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background: #0066cc;
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #004d99;
+    }
 </style>
 {% endblock %}
+
 {% block scripts %}
 <script>
-  let stateSelect = document.getElementById("state");
-  let lgaSelect = document.getElementById("lga");
+    let stateSelect = document.getElementById("state");
+    let lgaSelect = document.getElementById("lga");
 
-  // Fetch states & LGAs
-  fetch("{% static 'data/lga.json' %}")
-    .then(res => res.json())
-    .then(data => {
-      // Load states
-      Object.keys(data).forEach(state => {
+    // Add initial placeholder options
+    function addPlaceholder(selectElement, text) {
         let opt = document.createElement("option");
-        opt.value = state;
-        opt.textContent = state;
-        stateSelect.appendChild(opt);
-      });
+        opt.value = "";
+        opt.textContent = text;
+        opt.disabled = true;
+        opt.selected = true;
+        selectElement.appendChild(opt);
+    }
 
-      // Load LGAs on state change
-      stateSelect.addEventListener("change", function() {
-        let lgas = data[this.value] || [];
-        lgaSelect.innerHTML = "";
-        lgas.forEach(lga => {
-          let opt = document.createElement("option");
-          opt.value = lga;
-          opt.textContent = lga;
-          lgaSelect.appendChild(opt);
+    addPlaceholder(stateSelect, "Select a State");
+    addPlaceholder(lgaSelect, "Select an LGA");
+
+    // Fetch states & LGAs
+    fetch("{% static 'data/lga.json' %}")
+        .then(res => res.json())
+        .then(data => {
+            // Load states
+            Object.keys(data).sort().forEach(state => {
+                let opt = document.createElement("option");
+                opt.value = state;
+                opt.textContent = state;
+                stateSelect.appendChild(opt);
+            });
+
+            // Load LGAs on state change
+            stateSelect.addEventListener("change", function() {
+                let lgas = data[this.value] || [];
+                lgaSelect.innerHTML = "";
+                addPlaceholder(lgaSelect, "Select an LGA");
+                lgas.sort().forEach(lga => {
+                    let opt = document.createElement("option");
+                    opt.value = lga;
+                    opt.textContent = lga;
+                    lgaSelect.appendChild(opt);
+                });
+            });
         });
-      });
-    });
 </script>
 {% endblock %}
