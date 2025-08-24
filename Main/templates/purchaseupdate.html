@@ -4,131 +4,81 @@
 {% block title %}Purchase Price Update{% endblock %}
 
 {% block content %}
-<div class="form-card-container">
-  <div class="form-container">
-    <h2 class="form-title">Update Purchase Price</h2>
-    <p class="mb-4">Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government. All fields are required.</p>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-field-group">
-            <label for="foodstuff">Foodstuff</label>
-            <input type="text" id="foodstuff" name="foodstuff" placeholder="Name of foodstuff" required>
-        </div>
-        
-        <div class="form-field-group">
-            <label for="price">Price</label>
-            <input type="number" id="price" name="price" placeholder="Price of the foodstuff" required>
-        </div>
-        
-        <div class="form-field-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description" placeholder="Type, quantity or quality" required>
-        </div>
-        
-        <div class="form-field-group">
-            <label for="market">Market or Store</label>
-            <input type="text" id="market" name="market" placeholder="Name of market or store" required>
-        </div>
-        
-        <div class="form-field-group">
-            <label for="state">State</label>
-            <select id="state" name="state" required></select>
-        </div>
-        
-        <div class="form-field-group">
-            <label for="lga">Local Government</label>
-            <select id="lga" name="lga" required></select>
-        </div>
+  <div class="container d-flex justify-content-center align-items-center vh-70">
+    <!-- Card Container -->
+    <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
+      <div class="card-body">
+        <h4 class="card-title text-center mb-4">Purchase Price Update</h4>
 
-        <button type="submit">Submit</button>
-    </form>
+        <!-- Form Start -->
+        <form method="post">
+          {% csrf_token %}
+
+          <!-- Instructions / Description -->
+          <div class="mb-4">
+            <p>Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government. Kindly note that these information are all required.</p>
+          </div>
+
+          <!-- Form Fields -->
+          {{ form.as_p }}
+
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Update Price</button>
+          </div>
+        </form>
+        <!-- Form End -->
+      </div>
+    </div>
   </div>
-</div>
+
 {% endblock %}
 
 {% block styles %}
-<style>
-    body { 
-      padding-top: 70px;
-      font-family: Arial, sans-serif;
-      background-color: #f4f7f6;
+  <style>
+    /* Ensures the page takes full height, centers content vertically and horizontally */
+    html, body {
+      height: 70%;
+      margin: 0;
     }
-    .form-card-container {
+
+    .container {
+      height: auto;
+      margin-top: 5%;  /* Adds space at the top */
+      margin-bottom: 5%;  /* Adds space at the bottom */
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .form-container {
-      max-width: 600px;
-      width: 100%;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    }
-    .form-title {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    
-    .form-field-group {
-      display: flex; 
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
     }
 
-    label { 
-      font-weight: 600; 
-      margin-right: 15px; 
-      color: #555;
-      flex-basis: 35%; 
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    
-    select, input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-      flex-grow: 1; 
+
+    .card-body {
+      padding: 2rem;
     }
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+
+    /* Optional: make form fields more compact */
+    .form-control {
+      padding: 0.75rem;
+      font-size: 1rem;
     }
-    input[type="number"] {
-        -moz-appearance: textfield;
+
+    /* Customize the submit button to span across the card */
+    .d-grid .btn {
+      padding: 0.75rem;
+      font-size: 1.1rem;
     }
-    select:focus, input:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+
+    /* Additional styling for form elements */
+    .form-label {
+      font-weight: bold;
     }
-    button {
-      width: 100%;
-      margin-top: 20px;
-      background: #0066cc;
-      color: #fff;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #004d99;
-    }
-</style>
+
+  </style>
 {% endblock %}
-
 {% block scripts %}
 <script>
     let stateSelect = document.getElementById("state");
