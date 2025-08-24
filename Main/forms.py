@@ -24,12 +24,37 @@ class PurchaseForm(forms.ModelForm):
         model = Price
         fields = ['foodstuff', 'price', 'description', 'market_store_name', 'state', 'lga']
         widgets = {
-            'foodstuff': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
-            'price': forms.NumberInput(attrs={'class': 'form-control', 'required': 'required'}),
-            'description': forms.TextInput(attrs={'class': 'form-control',}),
-            'market_store_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
-            'state': forms.TextInput(attrs={'class': 'form-control', 'required':'required'}),
-            'lga': forms.TextInput(attrs={'class': 'form-control', 'required':'required'}),
+            'foodstuff': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Foodstuff e.g garri, beans, yam, spaghetti' 
+            }),
+            'price': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Price of the foodstuff you bought or sold',
+                'min': '100'
+            }),
+            'description': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Helpful description like brand name, quantity, or quality' 
+            }),
+            'market_store_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Name of market or store' 
+            }),
+            'state': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'State where you made this purchase/sale' 
+            }),
+            'lga': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Local Government where you made this purchase/sale' 
+            }),
         }
 
 
