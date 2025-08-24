@@ -4,43 +4,45 @@
 {% block title %}Purchase Price Update{% endblock %}
 
 {% block content %}
-<div class="form-container">
+<div class="form-card-container">
+  <div class="form-container">
     <h2 class="form-title">Update Purchase Price</h2>
     <p class="mb-4">Please enter foodstuff name, buy price, date of purchase, market name and address, state, and local government. All fields are required.</p>
     <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="foodstuff">Foodstuff</label>
             <input type="text" id="foodstuff" name="foodstuff" placeholder="Name of foodstuff" required>
         </div>
         
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="price">Price</label>
             <input type="number" id="price" name="price" placeholder="Price of the foodstuff" required>
         </div>
         
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="description">Description</label>
             <input type="text" id="description" name="description" placeholder="Type, quantity or quality" required>
         </div>
         
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="market">Market or Store</label>
             <input type="text" id="market" name="market" placeholder="Name of market or store" required>
         </div>
         
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="state">State</label>
             <select id="state" name="state" required></select>
         </div>
         
-        <div class="form-group">
+        <div class="form-field-group">
             <label for="lga">Local Government</label>
             <select id="lga" name="lga" required></select>
         </div>
 
         <button type="submit">Submit</button>
     </form>
+  </div>
 </div>
 {% endblock %}
 
@@ -48,38 +50,52 @@
 <style>
     body { 
       padding-top: 70px;
-      font-family: Arial, sans-serif; /* Add a modern font */
-      background-color: #f4f7f6; /* A light background color */
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+    }
+    .form-card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
     .form-container {
       max-width: 600px;
-      margin: auto;
+      width: 100%;
       background: #fff;
-      padding: 30px; /* Increased padding */
+      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Improved shadow */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
     .form-title {
       text-align: center;
       color: #333;
       margin-bottom: 20px;
     }
-    .form-group {
-      margin-bottom: 20px; /* Added spacing between form groups */
+    
+    .form-field-group {
+      display: flex; 
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
+
     label { 
       font-weight: 600; 
-      display: block; 
-      margin-bottom: 8px; 
+      margin-right: 15px; 
       color: #555;
+      flex-basis: 35%; 
     }
+    
     select, input {
       width: 100%;
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 16px;
-      box-sizing: border-box; /* Ensures padding doesn't affect width */
+      box-sizing: border-box;
+      flex-grow: 1; 
     }
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -87,11 +103,11 @@
         margin: 0;
     }
     input[type="number"] {
-        -moz-appearance: textfield; /* Firefox */
+        -moz-appearance: textfield;
     }
     select:focus, input:focus {
       outline: none;
-      border-color: #007bff; /* Highlight on focus */
+      border-color: #007bff;
       box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
     }
     button {
@@ -118,7 +134,6 @@
     let stateSelect = document.getElementById("state");
     let lgaSelect = document.getElementById("lga");
 
-    // Add initial placeholder options
     function addPlaceholder(selectElement, text) {
         let opt = document.createElement("option");
         opt.value = "";
@@ -131,11 +146,9 @@
     addPlaceholder(stateSelect, "Select a State");
     addPlaceholder(lgaSelect, "Select an LGA");
 
-    // Fetch states & LGAs
     fetch("{% static 'data/lga.json' %}")
         .then(res => res.json())
         .then(data => {
-            // Load states
             Object.keys(data).sort().forEach(state => {
                 let opt = document.createElement("option");
                 opt.value = state;
@@ -143,7 +156,6 @@
                 stateSelect.appendChild(opt);
             });
 
-            // Load LGAs on state change
             stateSelect.addEventListener("change", function() {
                 let lgas = data[this.value] || [];
                 lgaSelect.innerHTML = "";
