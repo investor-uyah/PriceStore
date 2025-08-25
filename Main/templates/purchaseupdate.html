@@ -7,19 +7,19 @@
   <div class="container d-flex justify-content-center align-items-center vh-70">
         <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
       <div class="card-body">
-        <h4 class="card-title text-center mb-4">Purchase Price Update</h4>
+        <h4 class="card-title text-center mb-1">Price Update Form</h4>
 
                 <form method="post">
           {% csrf_token %}
 
-                    <div class="mb-4">
+                    <div class="mb-1">
             <p>Please enter recent and accurate details about your foodstuff sale or purchase. Kindly note that all fields are required.</p>
           </div>
 
                     {{ form.as_p }}
 
                     <div class="d-grid">
-            <button type="submit" class="btn btn-primary mt-4">Update Price</button>
+            <button type="submit" class="btn btn-primary mt-1">Update Price</button>
           </div>
         </form>
               </div>
