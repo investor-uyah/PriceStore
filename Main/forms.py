@@ -30,7 +30,7 @@ class CustomUserCreationForm(UserCreationForm):
     )
 
     class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ('email',
+        fields = UserCreationForm.Meta.fields + ('email'),
 
 class PurchaseForm(forms.ModelForm):
     class Meta:
