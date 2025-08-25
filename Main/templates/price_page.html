@@ -46,6 +46,38 @@
     box-shadow: 0 8px 18px rgba(0,0,0,0.15);
   }
 
+  .price-card {
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .price-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+
+  .price-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-body {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .price-location {
+    font-size: 0.85rem;
+    color: #495057;
+  } 
+
 </style>
 
 <div class="container mx-auto px-4 py-16">
@@ -136,41 +168,62 @@
 <!-- Accordion (Average + Real-time) -->
 <div class="container mt-4">
   <div class="accordion" id="priceAccordion">
+
+    <!-- Average Food Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingCheapest">
-        <button class="accordion-button text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCheapest" aria-expanded="true" aria-controls="collapseCheapest">
+        <button class="accordion-button text-success" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapseCheapest" 
+                aria-expanded="true" aria-controls="collapseCheapest">
           <b>Average Food Prices 📈</b>
         </button>
       </h2>
-      <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+      <div id="collapseCheapest" class="accordion-collapse collapse show" 
+           aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
           <div id="summary">Loading summary...</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Real-time Foodstuff Prices List -->
-<div class="accordion-item">
-  <h2 class="accordion-header" id="headingExpensive">
-    <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
-      <b>Real-time Foodstuff Prices List 📃</b>
-    </button>
-  </h2>
-  <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
-    <div class="accordion-body">
-      <p style="align: left;">This list is updated in real-time. For your convenience, the newest listings appear below this line.</p>
-        {% for price in prices %}
-            <article class='list'>
-               {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+    <!-- Real-time Foodstuff Prices -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingExpensive">
+        <button class="accordion-button collapsed text-danger" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
+                aria-expanded="false" aria-controls="collapseExpensive">
+          <b>Real-time Foodstuff Prices List 📃</b>
+        </button>
+      </h2>
+      <div id="collapseExpensive" class="accordion-collapse collapse" 
+           aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">
+          <p class="text-start mb-3">
+            This list is updated in real-time. For your convenience, the newest listings appear below this line.
+          </p>
+          
+          {% for price in prices %}
+            <article class="price-card">
+              <div class="price-header">
+                <span class="author">{{ price.author }}</span>
+                <span class="time">{{ price.created_at|date:"M d, Y H:i" }}</span>
+              </div>
+              <div class="price-body">
+                <b>{{ price.foodstuff }}</b> — {{ price.price }} naira
+              </div>
+              <div class="price-location">
+                📍 {{ price.lga }}, {{ price.state }}
+              </div>
             </article>
-        {% empty %}
+          {% empty %}
             <p>No food prices listed yet</p>
-        {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
+
   </div>
-</div>
+</div>}
 {% endblock %}
 
 {% block scripts %}
