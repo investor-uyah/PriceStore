@@ -1,122 +1,120 @@
-s{% extends "master.html" %}
+{% extends "master.html" %}
 {% load static %}
 
 {% block title %}Purchase Price Update{% endblock %}
 
 {% block content %}
-  <div class="container d-flex justify-content-center align-items-center vh-70">
-    <!-- Card Container -->
-    <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
-      <div class="card-body">
-        <h4 class="card-title text-center mb-4">Purchase Price Update</h4>
+  <div class="container d-flex justify-content-center align-items-center vh-70">
+        <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
+      <div class="card-body">
+        <h4 class="card-title text-center mb-4">Purchase Price Update</h4>
 
-        <!-- Form Start -->
-        <form method="post">
-          {% csrf_token %}
+                <form method="post">
+          {% csrf_token %}
 
-          <!-- Instructions / Description -->
-          <div class="mb-4">
-            <p>Please enter recent and accurate details about your foodstuff sale or purchase. Kindly note that all fields are required.</p>
-          </div>
+                    <div class="mb-4">
+            <p>Please enter recent and accurate details about your foodstuff sale or purchase. Kindly note that all fields are required.</p>
+          </div>
 
-          <!-- Form Fields -->
-          {{ form.as_p }}
+                    {{ form.as_p }}
 
-          <!-- Submit Button -->
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Update Price</button>
-          </div>
-        </form>
-        <!-- Form End -->
-      </div>
-    </div>
-  </div>
+                    <div class="d-grid">
+            <button type="submit" class="btn btn-primary mt-4">Update Price</button>
+          </div>
+        </form>
+              </div>
+    </div>
+  </div>
 
 {% endblock %}
 
 {% block styles %}
-  <style>
-    /* Ensures the page takes full height, centers content vertically and horizontally */
-    html, body {
-      height: 70%;
-      margin: 0;
-    }
+  <style>
+    /* Ensures the page takes full height, centers content vertically and horizontally */
+    html, body {
+      height: 70%;
+      margin: 0;
+      padding-top: 85px; /* Increased padding to prevent overlap with the navbar */
+    }
 
-    .container {
-      height: auto;
-      margin-top: 5%;  /* Adds space at the top */
-      margin-bottom: 5%;  /* Adds space at the bottom */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    .container {
+      height: auto;
+      margin-top: 5%;  /* Adds space at the top */
+      margin-bottom: 5%;  /* Adds space at the bottom */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-    .card {
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-    .card-body {
-      padding: 2rem;
-    }
+    .card-body {
+      padding: 2rem;
+    }
 
-    /* Optional: make form fields more compact */
-    .form-control {
-      padding: 0.75rem;
-      font-size: 1rem;
-    }
+    /* Optional: make form fields more compact */
+    .form-control {
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
 
-    /* Customize the submit button to span across the card */
+    /* Customize the submit button to span across the card */
+    .d-grid .btn {
+      padding: 0.75rem;
+      font-size: 1.1rem;
+    }
+    /* You can also use a margin on the button itself */
     .d-grid .btn {
-      padding: 0.75rem;
-      font-size: 1.1rem;
+      margin-top: 1.5rem; /* Adds more space above the button */
     }
 
-    /* Additional styling for form elements */
-    .form-label {
-      font-weight: bold;
-    }
-
-  </style>
+    /* Additional styling for form elements */
+    .form-label {
+      font-weight: bold;
+    }
+  </style>
 {% endblock %}
 {% block scripts %}
 <script>
-    let stateSelect = document.getElementById("state");
-    let lgaSelect = document.getElementById("lga");
+    let stateSelect = document.getElementById("state");
+    let lgaSelect = document.getElementById("lga");
 
-    function addPlaceholder(selectElement, text) {
-        let opt = document.createElement("option");
-        opt.value = "";
-        opt.textContent = text;
-        opt.disabled = true;
-        opt.selected = true;
-        selectElement.appendChild(opt);
-    }
+    function addPlaceholder(selectElement, text) {
+        let opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = text;
+        opt.disabled = true;
+        opt.selected = true;
+        selectElement.appendChild(opt);
+    }
 
-    addPlaceholder(stateSelect, "Select a State");
-    addPlaceholder(lgaSelect, "Select an LGA");
+    addPlaceholder(stateSelect, "Select a State");
+    addPlaceholder(lgaSelect, "Select an LGA");
 
-    fetch("{% static 'data/lga.json' %}")
-        .then(res => res.json())
-        .then(data => {
-            Object.keys(data).sort().forEach(state => {
-                let opt = document.createElement("option");
-                opt.value = state;
-                opt.textContent = state;
-                stateSelect.appendChild(opt);
-            });
+    fetch("{% static 'data/lga.json' %}")
+        .then(res => res.json())
+        .then(data => {
+            Object.keys(data).sort().forEach(state => {
+                let opt = document.createElement("option");
+                opt.value = state;
+                opt.textContent = state;
+                stateSelect.appendChild(opt);
+            });
 
-            stateSelect.addEventListener("change", function() {
-                let lgas = data[this.value] || [];
-                lgaSelect.innerHTML = "";
-                addPlaceholder(lgaSelect, "Select an LGA");
-                lgas.sort().forEach(lga => {
-                    let opt = document.createElement("option");
-                    opt.value = lga;
-                    opt.textContent = lga;
-                    lgaSelect.appendChild(opt);
-                });
-            });
-        });
+            stateSelect.addEventListener("change", function() {
+                let lgas = data[this.value] || [];
+                lgaSelect.innerHTML = "";
+                addPlaceholder(lgaSelect, "Select an LGA");
+                lgas.sort().forEach(lga => {
+                    let opt = document.createElement("option");
+                    opt.value = lga;
+                    opt.textContent = lga;
+                    lgaSelect.appendChild(opt);
+                });
+            });
+        });
 </script>
 {% endblock %}
