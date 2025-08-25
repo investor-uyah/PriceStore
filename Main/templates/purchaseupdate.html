@@ -17,7 +17,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit" class="btn custom-btn w-100 py-2 mt-3">
+        <button type="submit" class="d-block mx-auto btn btn-sm rounded-pill btn-teal">
           Update
         </button>
       </form>
@@ -34,17 +34,16 @@
     border-radius: 0.5rem;
     padding: 0.7rem 1rem;
   }
-  .btn-primary {
-    background-color: #0097A7; /* teal from logo */
-    border: none;
-    border-radius: 50px;       /* pill button */
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.6rem 1.5rem;    /* smaller button length */
-  }
-  .btn-primary:hover {
-    background-color: #007b80; /* darker teal hover */
-  }
+  .btn-teal {
+  background-color: #0097A7;
+  border-color: #0097A7;
+  color: #fff; /* Ensures text is visible */
+}
+
+.btn-teal:hover {
+  background-color: #007987; /* A slightly darker shade for hover effect */
+  border-color: #007987;
+}
   .card {
     border-radius: 1rem;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* subtle modern shadow */
