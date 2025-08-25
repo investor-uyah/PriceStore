@@ -1,3 +1,5 @@
+
+from django.contrib.auth.forms import UserCreationForm
 from django import forms 
 from datetime import datetime
 from .models import Price
@@ -18,6 +20,17 @@ class ContactForm(forms.Form):
     food_name=forms.CharField(label="Name of foodstuff you purchased"), 
     price=forms.IntegerField(label="Price"),
     day=forms.DateField(label="day of purchase", initial=datetime.now),
+
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(
+        label="Email",
+        max_length=254,
+        required=True,
+    )
+
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ('email',
 
 class PurchaseForm(forms.ModelForm):
     class Meta:
