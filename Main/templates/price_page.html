@@ -151,25 +151,23 @@
   </div>
 </div>
 
-    <!-- Real-time Foodstuff Prices List -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingExpensive">
-        <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
-          <b>Real-time Foodstuff Prices List 📃</b>
-        </button>
-      </h2>
-      <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
-        <div class="accordion-body">
-          <p style="align: left;">This list is updated in real-time. For your convenience, the newest listings appear below this line.</p>
-            {% for price in prices %}
-                <article class='list'>
-                   {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
-                </article>
-            {% empty %}
-                <p>No food prices listed yet</p>
-            {% endfor %}
-        </div>
-      </div>
+<!-- Real-time Foodstuff Prices List -->
+<div class="accordion-item">
+  <h2 class="accordion-header" id="headingExpensive">
+    <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
+      <b>Real-time Foodstuff Prices List 📃</b>
+    </button>
+  </h2>
+  <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+    <div class="accordion-body">
+      <p style="align: left;">This list is updated in real-time. For your convenience, the newest listings appear below this line.</p>
+        {% for price in prices %}
+            <article class='list'>
+               {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
+            </article>
+        {% empty %}
+            <p>No food prices listed yet</p>
+        {% endfor %}
     </div>
   </div>
 </div>
