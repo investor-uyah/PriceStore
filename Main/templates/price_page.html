@@ -245,15 +245,11 @@
                 summary[item.foodstuff].count += 1;
             });
 
-            // Build Bootstrap list-group output
-            let summaryHtml = "<h5>Average Prices</h5><ul class='list-group'>";
+            // Build output
+            let summaryHtml = "";
             for (const foodName in summary) {
                 const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
-                summaryHtml += `
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${foodName}
-                    <span class="badge bg-primary rounded-pill">₦${avgPrice}</span>
-                  </li>`;
+                summaryHtml += `<p><strong>${foodName}:</strong> ₦${avgPrice}</p>`;
             }
             summaryHtml += "</ul>";
 
