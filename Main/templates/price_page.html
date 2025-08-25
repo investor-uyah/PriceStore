@@ -228,37 +228,38 @@
 
 {% block scripts %}
 <script>
-    window.onload = function () {
-        fetch('/food-count/')
-            .then(response => response.json())
-            .then(data => {
-                const summary = {};
+    // Fetch food data from the Django backend
+    fetch('/food-count/')
+        .then(response => response.json())  // Parse JSON
+        .then(data => {
+            console.log(data);
+            const foodItems = data;
 
-                data.forEach(item => {
-                    if (!summary[item.foodstuff]) {
-                        summary[item.foodstuff] = { total: 0, count: 0 };
-                    }
-                    summary[item.foodstuff].total += Number(item.price);
-                    summary[item.foodstuff].count += 1;
-                });
-
-                let summaryHtml = "<h5>Average Prices:</h5><ul>";
-                for (const foodName in summary) {
-                    const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
-                    summaryHtml += 
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        ${foodName}
-                        <span class="badge bg-primary rounded-pill">₦${avgPrice}</span>
-                      </li>`;
+            // Calculate average price for each food item
+            const summary = {};
+            foodItems.forEach(item => {
+                if (!summary[item.foodstuff]) {
+                    summary[item.foodstuff] = { total: 0, count: 0 };
                 }
-                summaryHtml += "</ul>";
-
-                document.getElementById('summary').innerHTML = summaryHtml;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('summary').innerText = "Could not load summary.";
+                summary[item.foodstuff].total += item.price;
+                summary[item.foodstuff].count += 1;
             });
-    }
+
+            // Build Bootstrap list-group output
+            let summaryHtml = "<h5>Average Prices</h5><ul class='list-group'>";
+            for (const foodName in summary) {
+                const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
+                summaryHtml += `
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${foodName}
+                    <span class="badge bg-primary rounded-pill">₦${avgPrice}</span>
+                  </li>`;
+            }
+            summaryHtml += "</ul>";
+
+            // Inject into the DOM
+            document.getElementById('summary').innerHTML = summaryHtml;
+        })
+        .catch(error => console.error('Error fetching data:', error));
 </script>
 {% endblock %}
