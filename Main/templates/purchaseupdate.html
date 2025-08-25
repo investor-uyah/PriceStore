@@ -5,27 +5,26 @@
 
 {% block content %}
   <div class="container d-flex justify-content-center align-items-center vh-70">
-        <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
+    <div class="card shadow-lg" style="width: 70%; max-width: 600px;">
       <div class="card-body">
         <h4 class="card-title text-center mb-1">Price Update Form</h4>
 
-                <form method="post">
+          <form method="post">
           {% csrf_token %}
 
-                    <div class="mb-1">
-            <p>Please enter recent and accurate details about your foodstuff sale or purchase. Kindly note that all fields are required.</p>
-          </div>
+            <div class="mb-1">
+              <p>Please enter recent and accurate details about your foodstuff sale or purchase. Kindly note that all fields are required.</p>
+            </div>
 
-                    {{ form.as_p }}
+              {{ form.as_p }}
 
-                    <div class="d-grid">
-            <button type="submit" class="btn btn-primary mt-1">Update Price</button>
-          </div>
-        </form>
-              </div>
+             <div class="d-grid">
+                <button type="submit" class="btn btn-primary mt-1">Update Price</button>
+             </div>
+          </form>
+      </div>
     </div>
   </div>
-
 {% endblock %}
 
 {% block styles %}
@@ -49,6 +48,7 @@
     .card {
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
     }
 
     .card-body {
