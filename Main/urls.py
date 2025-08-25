@@ -15,6 +15,8 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('search/', views.search_view, name='search_results'),
     path('accounts/login/', views.login, name='login'), # Custom view for the login path
+    path('accounts/signup/', auth_views.LoginView.as_view(template_name='signup.html'), name='signup'),
+]
 
 
     # path(login/ login/ [name:='login']),
