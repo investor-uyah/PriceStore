@@ -17,7 +17,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit" class="d-block mx-auto btn btn-sm rounded-pill btn-teal">
+        <button type="submit" class="btn btn-primary d-block mx-auto rounded-pill">
           Update
         </button>
       </form>
@@ -34,16 +34,6 @@
     border-radius: 0.5rem;
     padding: 0.7rem 1rem;
   }
-  .btn-teal {
-  background-color: #0097A7;
-  border-color: #0097A7;
-  color: #fff; /* Ensures text is visible */
-}
-
-.btn-teal:hover {
-  background-color: #007987; /* A slightly darker shade for hover effect */
-  border-color: #007987;
-}
   .card {
     border-radius: 1rem;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* subtle modern shadow */
