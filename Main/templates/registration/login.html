@@ -8,112 +8,101 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #04AA6D 0%, #038f5a 100%);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: #008080; /* Teal from your brand logo */
     }
 
     .brand-header {
       text-align: center;
-      padding: 20px 0 5px;
+      margin-bottom: 15px;
     }
 
     .brand-header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000; /* Black text */
       margin: 0;
-      font-size: 22px;
-      font-weight: bold;
-      color: #04AA6D; /* brand green */
     }
 
-    .modal {
-      display: block; /* always visible for dedicated login page */
+    .login-card {
       width: 100%;
-      max-width: 400px;
-      margin: auto;
-    }
-
-    .modal-content {
+      max-width: 340px;
       background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      padding: 25px 20px;
+      box-sizing: border-box;
       animation: fadeIn 0.3s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .imgcontainer {
       text-align: center;
-      padding: 30px 20px 10px;
+      margin-bottom: 15px;
     }
 
     .imgcontainer img {
-      width: 100px;
+      width: 70px;
       border-radius: 50%;
       background: #f1f1f1;
-      padding: 10px;
+      padding: 8px;
     }
 
-    .container {
-      padding: 20px 30px;
-    }
-
-    .container label {
+    .login-card label {
+      font-size: 13px;
+      font-weight: 500;
+      margin: 8px 0 4px;
       display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
       color: #333;
     }
 
     input[type=text], input[type=password] {
       width: 100%;
-      padding: 12px;
-      margin: 8px 0 16px;
+      padding: 10px;
+      margin-bottom: 12px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      box-sizing: border-box;
       font-size: 14px;
     }
 
     button {
       width: 100%;
-      padding: 12px;
-      background-color: #04AA6D;
+      padding: 10px;
+      background-color: #008080; /* Teal */
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 10px;
       transition: background 0.3s;
+      margin-top: 5px;
     }
 
     button:hover {
-      background-color: #038f5a;
-    }
-
-    .cancelbtn {
-      background-color: #f44336;
+      background-color: #006666;
     }
 
     .extra-options {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 15px;
-      font-size: 14px;
+      font-size: 12px;
+      margin-top: 10px;
     }
 
     .extra-options a {
-      color: #04AA6D;
+      color: #008080;
       text-decoration: none;
     }
 
@@ -122,88 +111,77 @@
     }
 
     .signup-section {
-      margin-top: 25px;
+      margin-top: 15px;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .signup-section a {
-      background-color: #04AA6D;
+      display: inline-block;
+      background-color: #008080;
       color: white;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 6px;
       text-decoration: none;
+      font-size: 13px;
       transition: background 0.3s;
     }
 
     .signup-section a:hover {
-      background-color: #038f5a;
+      background-color: #006666;
     }
 
     .alert {
-      margin: 15px;
-      padding: 10px;
+      margin-top: 10px;
+      padding: 8px;
       border-radius: 6px;
-      color: #fff;
-      background-color: #e74c3c;
-      font-size: 14px;
+      font-size: 13px;
       text-align: center;
-    }
-
-    @media (max-width: 480px) {
-      .modal-content {
-        margin: 20px;
-      }
-      .container {
-        padding: 15px 20px;
-      }
+      background-color: #e74c3c;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="brand header">
-    <h2> The Price Marketplace </h2>
-  </div>
+  <div>
+    <div class="brand-header">
+      <h2>The Price Marketplace</h2>
+    </div>
 
-  <div id="id01" class="modal">
-    <form class="modal-content animate" method="post" action="{% url 'login' %}">
-      {% csrf_token %}
-      <div class="imgcontainer">
-        <img src="{% static 'img/user.png' %}" alt="Avatar" class="avatar">
-      </div>
+    <div class="login-card">
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="imgcontainer">
+          <img src="{% static 'img/user.png' %}" alt="Avatar" class="avatar">
+        </div>
 
-      <div class="container">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Enter Username" required>
 
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Enter Password" required>
 
         <button type="submit">Login</button>
 
         <div class="extra-options">
-          <label>
-            <input type="checkbox" name="remember"> Remember me
-          </label>
-          <a href="{% url 'password_reset' %}">Forgot password?</a>
+          <label><input type="checkbox" name="remember"> Remember me</label>
+          <a href="{% url 'password_reset' %}">Forgot?</a>
         </div>
-      </div>
-    </form>
 
-    {% if messages %}
-      <div class="alert">
-        {% for message in messages %}
-          {{ message }}
-        {% endfor %}
-      </div>
-    {% endif %}
+        {% if messages %}
+          <div class="alert">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+          </div>
+        {% endif %}
 
-    <div class="signup-section">
-      <p>Don't have an account?</p>
-      <p></p>
-      <a href="{% url 'signup' %}">Sign Up</a>
+        <div class="signup-section">
+          <p>Don’t have an account?</p>
+          <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+      </form>
     </div>
   </div>
-
 </body>
 </html>
