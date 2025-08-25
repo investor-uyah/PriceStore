@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center py-5">
-  <div class="card shadow-sm border-0" style="width:100%; max-width:500px;">
+  <div class="card shadow-lg border-0" style="width:100%; max-width:500px;">
     <div class="card-body p-4">
       <h4 class="text-center mb-3 fw-bold">Purchase Price Update</h4>
       <p class="text-muted small text-center mb-4">
@@ -17,8 +17,8 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit" class="btn btn-primary w-100 py-2 mt-3">
-          Update Price
+        <button type="submit" class="btn custom-btn w-100 py-2 mt-3">
+          Update
         </button>
       </form>
     </div>
@@ -35,18 +35,20 @@
     border-radius: 0.5rem;
     padding: 0.7rem 1rem;
   }
-  .btn-primary {
-    border-radius: 0.5rem;
-    font-weight: 500;
+  .btn.custom-btn {
+    background-color: #0097A7; /* teal from your logo */
+    color: #fff;
+    border-radius: 50px; /* pill shape */
+    font-weight: 600;
     font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  .btn.custom-btn:hover {
+    background-color: #007b80; /* darker teal on hover */
   }
   .card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    padding: 3rem 2rem;
-    max-width: 600px;
-    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* soft shadow */
   }
 </style>
 {% endblock %}
