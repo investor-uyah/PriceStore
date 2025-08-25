@@ -28,4 +28,4 @@ urlpatterns = [
     # path(login/ reset/<uidb64>/<token>/ [name='password_reset_confirm']),
     # path(login/ reset/done/ [name='password_reset_complete']),
     # (r'^contact/$', 'mysite.books.views.contact'),
-]
+
