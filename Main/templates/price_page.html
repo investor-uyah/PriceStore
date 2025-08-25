@@ -228,7 +228,7 @@
 
 {% block scripts %}
 <script>
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Fetch food data from the Django backend
     fetch('/food-count/')
         .then(response => response.json())  // Parse JSON response
