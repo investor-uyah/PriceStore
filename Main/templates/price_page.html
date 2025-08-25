@@ -57,9 +57,11 @@
     <div class="card">
         <h3>Some Nigerian States with Foodstuff Prices Listed 🌍</h3>
         {% for location in locations_list %}
-            <div class="row">{{ location.state }}</div>
+            <div class="row text-center">{{ location.state }}</div>
         {% empty %}
-            <p>No states listed yet</p>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                <p>COMING SOON</p>
+            </div>
         {% endfor %}
     </div>
 
@@ -76,7 +78,9 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No data available.</p>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                <p>COMING SOON</p>
+            </div>
         {% endif %}
     </div>
 
@@ -93,18 +97,18 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No data available.</p>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                <p>COMING SOON</p>
+            </div>
         {% endif %}
     </div>
 
     <!-- New Feature Cards -->
     <div class="card">
        <h3>Basket of Essentials</h3>
-         <ul class="ms-3 text-muted">
-            Rice (50kg) – ₦X
-            Beans (50kg) – ₦Y
-            Garri (50kg) – ₦Z
-         </ul>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                <p>COMING SOON</p>
+            </div>
      </div>
 
      <!-- Price Trends -->
@@ -122,11 +126,9 @@
      <!-- Regional Comparison -->
      <div class="card">
         <h3>Regional Comparison</h3>
-            <ul class="ms-3 text-muted">
-                North: ₦A
-                South: ₦B
-                West: ₦C
-            </ul>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                <p>COMING SOON</p>
+            </div>
      </div>
   </div>
 </div>
@@ -134,32 +136,31 @@
 <!-- Accordion (Average + Real-time) -->
 <div class="container mt-4">
   <div class="accordion" id="priceAccordion">
-    <!-- Average Food Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingCheapest">
         <button class="accordion-button text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCheapest" aria-expanded="true" aria-controls="collapseCheapest">
-          <b>Average Food Prices</b>
+          <b>Average Food Prices 📈</b>
         </button>
       </h2>
-        <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
-            <div class="accordion-body">
-              <li class="list-group-item d-flex justify-content-between align-items-center">  
-                  <div id="summary">Loading summary...</div>
-              </li>
-            </div>
+      <div id="collapseCheapest" class="accordion-collapse collapse show" aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">
+          <div id="summary">Loading summary...</div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
     <!-- Real-time Foodstuff Prices List -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingExpensive">
         <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExpensive" aria-expanded="false" aria-controls="collapseExpensive">
-          <b>Real-time Foodstuff Prices List</b>
+          <b>Real-time Foodstuff Prices List 📃</b>
         </button>
       </h2>
       <div id="collapseExpensive" class="accordion-collapse collapse" aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
-          <p>This list is updated in real-time. 😏 For your convenience, the newest listings appear at the top.</p>
+          <p style="align: left;">This list is updated in real-time. For your convenience, the newest listings appear below this line.</p>
             {% for price in prices %}
                 <article class='list'>
                    {{ price.author }} at {{ price.lga }}, {{ price.state }} posted: <b>{{ price.foodstuff }} - {{ price.price }}</b> naira • {{ price.created_at|date:"M d, Y H:i" }}  
