@@ -27,6 +27,7 @@
 {% endblock %}
 
 {% block styles %}
+{% block styles %}
 <style>
   body {
     background: #f8f9fa; /* subtle grey background */
@@ -35,20 +36,20 @@
     border-radius: 0.5rem;
     padding: 0.7rem 1rem;
   }
-  .btn.custom-btn {
-    background-color: #0097A7; /* teal from your logo */
-    color: #fff;
-    border-radius: 50px; /* pill shape */
-    font-weight: 600;
+  .btn-primary {
+    background-color: #0097A7; /* teal from logo */
+    border: none;
+    border-radius: 50px;       /* pill button */
+    font-weight: 500;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    padding: 0.6rem 1.5rem;    /* smaller button length */
   }
-  .btn.custom-btn:hover {
-    background-color: #007b80; /* darker teal on hover */
+  .btn-primary:hover {
+    background-color: #007b80; /* darker teal hover */
   }
   .card {
     border-radius: 1rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* soft shadow */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* subtle modern shadow */
   }
 </style>
 {% endblock %}
