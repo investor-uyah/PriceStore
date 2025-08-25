@@ -228,16 +228,16 @@
 
 {% block scripts %}
 <script>
+window.onload = function () {
     // Fetch food data from the Django backend
     fetch('/food-count/')
-        .then(response => response.json())  // Parse JSON
+        .then(response => response.json())  // Parse JSON response
         .then(data => {
             console.log(data);
-            const foodItems = data;
 
             // Calculate average price for each food item
             const summary = {};
-            foodItems.forEach(item => {
+            data.forEach(item => {
                 if (!summary[item.foodstuff]) {
                     summary[item.foodstuff] = { total: 0, count: 0 };
                 }
@@ -245,17 +245,22 @@
                 summary[item.foodstuff].count += 1;
             });
 
-            // Build output
-            let summaryHtml = "";
+            // Build summary HTML as a Bootstrap list-group
+            let summaryHtml = "<ul class='list-group'>";
             for (const foodName in summary) {
                 const avgPrice = (summary[foodName].total / summary[foodName].count).toFixed(2);
-                summaryHtml += `<p><strong>${foodName}:</strong> ₦${avgPrice}</p>`;
+                summaryHtml += `
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${foodName}
+                    <span class="badge bg-primary rounded-pill">₦${avgPrice}</span>
+                  </li>`;
             }
             summaryHtml += "</ul>";
 
-            // Inject into the DOM
+            // Insert into page
             document.getElementById('summary').innerHTML = summaryHtml;
         })
         .catch(error => console.error('Error fetching data:', error));
+};
 </script>
 {% endblock %}
