@@ -62,21 +62,27 @@ body {
     background-color: var(--brand-teal);
     min-height: 100vh;
     display: flex;
+    flex-direction: column; /* Add flex-direction column */
     justify-content: center;
     align-items: center;
+    overflow-y: auto; /* Allow scrolling on smaller screens */
 }
     
 .login-container {
-    max-width: 400px; /* was 600px, tighter now */
+    max-width: 400px;
     width: 100%;
-    padding: 1rem; /* slightly smaller */
+    padding: 1rem;
+    flex-grow: 1; /* Allow the container to grow and fill vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
     
 .login-card {
     background-color: #fff;
     border-radius: 0.75rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 1.25rem; /* less than before */
+    padding: 1.25rem;
 }
 
 .brand-logo {
@@ -122,7 +128,7 @@ label {
 
 input {
     width: 100%;
-    padding: 0.5rem 0.75rem; /* reduced height */
+    padding: 0.5rem 0.75rem;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 0.95rem;
@@ -138,7 +144,7 @@ input:focus {
 
 .button-primary {
     width: 100%;
-    padding: 0.6rem; /* more compact */
+    padding: 0.6rem;
     background-color: var(--brand-teal);
     color: white;
     border: none;
