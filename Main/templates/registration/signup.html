@@ -61,20 +61,25 @@
     font-family: 'Inter', Arial, sans-serif;
     background-color: var(--brand-teal);
     min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     }
     
     .login-container {
+        max-width: 400px; /* was 600px, tighter now */
         width: 100%;
-        height: 100vh; /* fill screen vertically */
-        padding: 0;    /* remove padding space */
+        padding: 1rem; /* slightly smaller */
     }
     
     .login-card {
-        width: 100%;
-        height: 100%; /* card fills container */
-        border-radius: 0; /* remove rounded corners if you want full-bleed */
-        box-shadow: none; /* optional: removes the floating card look */
+        background-color: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        padding: 1.25rem; /* less than before */
     }
+
 
     .brand-logo {
         text-align: center;
