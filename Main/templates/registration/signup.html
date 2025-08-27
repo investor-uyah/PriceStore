@@ -1,7 +1,5 @@
 {% load static %}
 
-{% block title %}Sign Up | The Price Marketplace{% endblock %}
-
 {% block content %}
 <div class="login-container">
     <div class="brand-logo">
@@ -47,7 +45,7 @@
 
 {% block styles %}
 <style>
-    :root {
+:root {
         --brand-teal: #008080;
         --brand-dark-teal: #006666;
         --text-color: #333;
@@ -61,23 +59,26 @@
         font-family: 'Inter', Arial, sans-serif;
         background-color: var(--brand-teal);
         margin: 0;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
         color: var(--text-color);
         line-height: 1.6;
     }
 
     .login-container {
         width: 100%;
-        max-width: 600px; /* stretched horizontally */
+        max-width: 600px;
         padding: 1.5rem;
         box-sizing: border-box;
-        animation: fadeIn 0.5s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .login-card {
+        width: 100%;
         background: var(--card-bg);
         border-radius: 12px;
         box-shadow: var(--shadow-strong);
