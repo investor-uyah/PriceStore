@@ -173,6 +173,13 @@ def price_summary(request):
         })
 
 @login_required
+def states_list(request):
+    prices_by_state = Price.objects.values("state").annotate(Total=Count("id"))
+    return render(request, 'price_page.html', {
+        'prices_by_state": prices_by_state,
+        })
+
+@login_required
 def get_price_trends(request):
     today = datetime.date.today()
     this_week_start = today - datetime.timedelta(days=7)
