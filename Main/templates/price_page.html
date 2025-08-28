@@ -192,7 +192,7 @@
         <button class="accordion-button collapsed text-danger" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
                 aria-expanded="false" aria-controls="collapseExpensive">
-          <b>Real-time Foodstuff Prices List 📃</b>
+          <b>Foodstuff Prices Across Nigeria 📃</b>
         </button>
       </h2>
       <div id="collapseExpensive" class="accordion-collapse collapse" 
@@ -217,6 +217,32 @@
             </article>
           {% empty %}
             <p>No food prices listed yet</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-time States-based Prices -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingExpensive">
+        <button class="accordion-button collapsed text-danger" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
+                aria-expanded="false" aria-controls="collapseExpensive">
+          <b>Foodstuff Prices List Based on States 📃</b>
+        </button>
+      </h2>
+      <div id="collapseExpensive" class="accordion-collapse collapse" 
+           aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+        <div class="accordion-body">          
+          {% for item in prices_by_state %}
+            <article class="price-card">
+              <div class="price-location">
+                 {{ item.state }} - {{ item.Total }} listings made 
+                 <a href="{% url 'state_prices' item.state %}">View</a>
+              </div>
+            </article>
+          {% empty %}
+            <p>No states or listing have been recorded yet</p>
           {% endfor %}
         </div>
       </div>
