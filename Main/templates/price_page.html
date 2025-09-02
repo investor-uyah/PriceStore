@@ -242,17 +242,22 @@
       </h2>
       <div id="collapseStates" class="accordion-collapse collapse" 
            aria-labelledby="headingStates" data-bs-parent="#priceAccordion">
-        <div class="accordion-body">          
-          {% for item in prices_by_state %}
-            <article class="price-card">
-              <div class="price-location">
-                 {{ item.state }} - {{ item.Total }} listings made 
-                 <a href="{% url 'states_listing' item.state %}" class="btn btn-primary d-block mx-auto rounded-pill">View</a>
-              </div>
-            </article>
-          {% empty %}
-            <p>No states or listing have been recorded yet</p>
-          {% endfor %}
+        <div class="accordion-body">
+            <ul class="list-group">
+                {% for item in prices_by_state %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            {{ item.state }}
+                            <small class="text-muted">({{ item.Total }} listings)</small>
+                        </span>
+                        <a href="{% url 'states_listing' item.state %}" class="btn btn-sm btn-outline-primary rounded-pill">
+                            View
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>No states or listing have been recorded yet</li>
+                {% endfor %}
+            </ul>
         </div>
       </div>
     </div>
