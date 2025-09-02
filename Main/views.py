@@ -154,6 +154,26 @@ def prices_combined(request):
         else:
             status = "No data available."
         trends[item] = status
+        
+    # NEW: Logic for 'Average Food Prices'
+    food_items = Price.objects.all().values('foodstuff', 'price')
+    
+    # Calculate average price for each foodstuff
+    from collections import defaultdict
+    summary = defaultdict(lambda: {'total': 0, 'count': 0})
+    for item in food_items:
+        summary[item['foodstuff']]['total'] += item['price']
+        summary[item['foodstuff']]['count'] += 1
+
+    # Format the summary for the template
+    average_prices = {
+        food: {
+            'average': summary[food]['total'] / summary[food]['count'],
+            'total_listings': summary[food]['count']
+        }
+        for food in summary
+    }
+
 
     return render(request, 'price_page.html', {
         'prices': prices,
@@ -163,6 +183,7 @@ def prices_combined(request):
         'cheapest': cheapest,
         'expensive': expensive,
         'trends': trends,
+        'average_prices': average_prices,
     })
 
 @login_required
