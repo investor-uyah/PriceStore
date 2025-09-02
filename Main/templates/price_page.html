@@ -238,7 +238,7 @@
             <article class="price-card">
               <div class="price-location">
                  {{ item.state }} - {{ item.Total }} listings made 
-                 <a href="{% url 'state_prices' item.state %}">View</a>
+                 <a href="{% url 'states_listing' item.state %}">View</a>
               </div>
             </article>
           {% empty %}
