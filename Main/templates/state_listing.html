@@ -83,7 +83,7 @@ The Price Marketplace Contact Page
 <h2>Prices in {{ state }}</h2> 
 <div class="accordion-body"> 
   <ul>
-    {% for item in prices %}
+    {% for item in prices_combined %}
       <li class="price-card">
         <div class="price-body">{{ item.foodstuff }} — {{ item.price }}</div>
       </li>
