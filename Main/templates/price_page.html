@@ -189,7 +189,7 @@
     <!-- Real-time Foodstuff Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingExpensive">
-        <button class="accordion-button collapsed text-danger" type="button" 
+        <button class="accordion-button collapsed text-dark" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
                 aria-expanded="false" aria-controls="collapseExpensive">
           <b>Foodstuff Prices Across Nigeria 📃</b>
@@ -224,15 +224,15 @@
 
     <!-- Real-time States-based Prices -->
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingExpensive">
-        <button class="accordion-button collapsed text-danger" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
-                aria-expanded="false" aria-controls="collapseExpensive">
+      <h2 class="accordion-header" id="headingStates">
+        <button class="accordion-button collapsed text-dark" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapseStates" 
+                aria-expanded="false" aria-controls="collapseStates">
           <b>Foodstuff Prices List Based on States 📃</b>
         </button>
       </h2>
-      <div id="collapseExpensive" class="accordion-collapse collapse" 
-           aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
+      <div id="collapseStates" class="accordion-collapse collapse" 
+           aria-labelledby="headingStates" data-bs-parent="#priceAccordion">
         <div class="accordion-body">          
           {% for item in prices_by_state %}
             <article class="price-card">
