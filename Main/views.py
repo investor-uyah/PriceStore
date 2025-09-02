@@ -175,6 +175,7 @@ def price_summary(request):
 @login_required
 def prices_by_state(request):
     prices_by_state = Price.objects.values("state").annotate(Total=Count("id"))
+    print(f"Prices by state query: {prices_by_state}")
     return render(request, 'price_page.html', {
         'prices_by_state': prices_by_state,
         })
