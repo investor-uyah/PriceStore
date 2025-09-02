@@ -10,6 +10,34 @@ TOPIC_CHOICES = (
     ('suggestion', 'Suggestion'),
 )
 
+# A list of Nigerian states and their acronyms (or full names)
+STATES_CHOICES = [
+    ('ABIA', 'Abia'), ('ADAMAWA', 'Adamawa'), ('AKWA-IBOM', 'Akwa Ibom'),
+    ('ANAMBRA', 'Anambra'), ('BAUCHI', 'Bauchi'), ('BAYELSA', 'Bayelsa'),
+    ('BENUE', 'Benue'), ('BORNO', 'Borno'), ('CROSS-RIVER', 'Cross River'),
+    ('DELTA', 'Delta'), ('EBONYI', 'Ebonyi'), ('EDO', 'Edo'),
+    ('EKITI', 'Ekiti'), ('ENUGU', 'Enugu'), ('GOMBE', 'Gombe'),
+    ('IMO', 'Imo'), ('JIGAWA', 'Jigawa'), ('KADUNA', 'Kaduna'),
+    ('KANO', 'Kano'), ('KATSINA', 'Katsina'), ('KEBBI', 'Kebbi'),
+    ('KOGI', 'Kogi'), ('KWARA', 'Kwara'), ('LAGOS', 'Lagos'),
+    ('NASARAWA', 'Nasarawa'), ('NIGER', 'Niger'), ('OGUN', 'Ogun'),
+    ('ONDO', 'Ondo'), ('OSUN', 'Osun'), ('OYO', 'Oyo'),
+    ('PLATEAU', 'Plateau'), ('RIVERS', 'Rivers'), ('SOKOTO', 'Sokoto'),
+    ('TARABA', 'Taraba'), ('YOBE', 'Yobe'), ('ZAMFARA', 'Zamfara'),
+    ('FCT', 'Federal Capital Territory')
+]
+
+# A list of common foodstuffs to prevent invalid entries
+FOODSTUFFS_CHOICES = [
+    ('RICE', 'Rice'), ('BEANS', 'Beans'), ('YAM', 'Yam'),
+    ('GARRI', 'Garri'), ('PLANTAIN', 'Plantain'), ('CASSAVA', 'Cassava'),
+    ('WHEAT', 'Wheat'), ('MAIZE', 'Maize'), ('VEGETABLES', 'Vegetables'),
+    ('TOMATOES', 'Tomatoes'), ('PEPPER', 'Pepper'), ('ONIONS', 'Onions'),
+    ('FISH', 'Fish'), ('MEAT', 'Meat'), ('CHICKEN', 'Chicken'),
+    ('EGGS', 'Eggs'), ('SALT', 'Salt'), ('SUGAR', 'Sugar'),
+    ('OIL', 'Oil'), ('MILK', 'Milk'),
+]
+
 class ContactForm(forms.Form):
     name = forms.CharField(initial='Enter your name')
     topic = forms.ChoiceField(choices=TOPIC_CHOICES)
@@ -41,15 +69,30 @@ class CustomUserCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('email', 'phone_number',)
 
 class PurchaseForm(forms.ModelForm):
+    # Redefine 'foodstuff' as a ChoiceField
+    foodstuff = forms.ChoiceField(
+        choices=FOODSTUFFS_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'required': 'required'
+        })
+    )
+
+    # Redefine 'state' as a ChoiceField
+    state = forms.ChoiceField(
+        choices=STATES_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'required': 'required'
+        })
+    )
+
     class Meta:
         model = Price
         fields = ['foodstuff', 'price', 'description', 'market_store_name', 'state', 'lga']
         widgets = {
-            'foodstuff': forms.TextInput(attrs={
-                'class': 'form-control',
-                'required': 'required',
-                'placeholder': 'Foodstuff e.g garri, beans, yam, spaghetti'
-            }),
+            # You can now remove 'foodstuff' and 'state' from this widget dictionary
+            # as they are defined above with their new widget type
             'price': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'required': 'required',
@@ -65,11 +108,6 @@ class PurchaseForm(forms.ModelForm):
                 'class': 'form-control',
                 'required': 'required',
                 'placeholder': 'Name of market or store'
-            }),
-            'state': forms.TextInput(attrs={
-                'class': 'form-control',
-                'required': 'required',
-                'placeholder': 'State where you made this purchase/sale'
             }),
             'lga': forms.TextInput(attrs={
                 'class': 'form-control',
