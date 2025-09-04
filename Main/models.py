@@ -1,11 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.core.validators import MinValueValidator
-from django.db.models import F
+from django.conf import settings
 from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
 import datetime
 
-class Memebers(models.Model):
+class Members(models.Model):
     shopname = models.CharField(max_length=100, null=True, blank=True, verbose_name='shopname')
     ownersname = models.CharField(max_length=100, null=True, blank=True, verbose_name='ownersname')
     phone = models.CharField(max_length=14, null=True, blank=True, verbose_name='phone')
@@ -19,7 +19,7 @@ class Price(models.Model):
     description = models.CharField(max_length=100, blank=False, verbose_name='description')
     market_store_name = models.CharField(max_length=100, blank=False, verbose_name='market or store name')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='created_at')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='author')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='author')
     
     
     state = models.CharField(max_length=50, choices=STATES_CHOICES, verbose_name='state', blank=False)
@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
             'The groups this user belongs to. A user will get all permissions '
             'granted to each of their groups.'
         ),
-        related_name="custom_user_set", # Add this line
+        related_name="custom_user_set",
         related_query_name="custom_user",
     )
     user_permissions = models.ManyToManyField(
@@ -45,8 +45,7 @@ class CustomUser(AbstractUser):
         verbose_name='user permissions',
         blank=True,
         help_text='Specific permissions for this user.',
-        related_name="custom_user_permissions_set", # Add this line
+        related_name="custom_user_permissions_set",
         related_query_name="custom_user_permission",
     )
-    # Your other fields like phone_number
     phone_number = models.CharField(max_length=15, blank=False, null=False)

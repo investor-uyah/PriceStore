@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from .models import Memebers, Price
+from .models import Members, Price
 from django.db.models import Count, Avg
 from . import forms
 import datetime
@@ -15,7 +15,7 @@ import random
 # Create your views here.
 # These views are fine and don't need changes.
 def details(request, id):
-    memberid = Memebers.objects.get(id=id) 
+    memberid = Members.objects.get(id=id) 
     template = loader.get_template('details.html')
     context = {
         'memberid': memberid
