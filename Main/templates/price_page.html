@@ -55,6 +55,12 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
+  .btn-light-blue {
+    background-color: #ADD8E6; /* Light blue background */
+    color: #fff; /* White text color for contrast */
+    border-color: #ADD8E6; /* Match the border color */
+}
+
   .price-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
@@ -250,7 +256,7 @@
                             {{ item.state }}
                             <small class="text-muted">({{ item.Total }} listings)</small>
                         </span>
-                        <a href="{% url 'states_listing' item.state %}" class="btn btn-sm btn-outline-primary rounded-pill w-25">
+                        <a href="{% url 'states_listing' item.state %}" class="btn btn-sm btn-light-blue rounded-pill w-10">
                             View
                         </a>
                     </li>
