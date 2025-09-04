@@ -4,6 +4,9 @@ from datetime import datetime
 from .models import Price
 from django.core.validators import RegexValidator
 from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
+from django.contrib.auth import get_user_model
+
+CustomUser = get_user_model()
 
 TOPIC_CHOICES = (
     ('general', 'General enquiry'),
@@ -34,11 +37,12 @@ class CustomUserCreationForm(UserCreationForm):
         label="Phone Number",
         max_length=15,
         validators=[phone_number_validator],
-        required=False,
+        required=True,
         help_text="e.g., +2348012345678"
     )
 
     class Meta(UserCreationForm.Meta):
+        model = CustomUser
         fields = UserCreationForm.Meta.fields + ('email', 'phone_number',)
 
 class PurchaseForm(forms.ModelForm):

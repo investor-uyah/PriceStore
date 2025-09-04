@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
             'The groups this user belongs to. A user will get all permissions '
             'granted to each of their groups.'
         ),
-        related_name="custom_user_set",
+        related_name="main_app_user_groups",
         related_query_name="custom_user",
     )
     user_permissions = models.ManyToManyField(
@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
         verbose_name='user permissions',
         blank=True,
         help_text='Specific permissions for this user.',
-        related_name="custom_user_permissions_set",
+        related_name="main_app_user_permissions",
         related_query_name="custom_user_permission",
     )
     phone_number = models.CharField(max_length=15, blank=False, null=False)
