@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['price-store.vercel.app', '127.0.0.1']
 
+AUTH_USER_MODEL = 'Main.CustomUser'
+
 CSRF_TRUSTED_ORIGINS = ['https://price-store.vercel.app']
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

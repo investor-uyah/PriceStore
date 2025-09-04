@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from django.core.validators import MinValueValidator
 from django.db.models import F
 from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
@@ -27,3 +27,26 @@ class Price(models.Model):
 
     def __str__(self):
         return self.foodstuff
+
+class CustomUser(AbstractUser):
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name='groups',
+        blank=True,
+        help_text=(
+            'The groups this user belongs to. A user will get all permissions '
+            'granted to each of their groups.'
+        ),
+        related_name="custom_user_set", # Add this line
+        related_query_name="custom_user",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name='user permissions',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        related_name="custom_user_permissions_set", # Add this line
+        related_query_name="custom_user_permission",
+    )
+    # Your other fields like phone_number
+    phone_number = models.CharField(max_length=15, blank=False, null=False)
