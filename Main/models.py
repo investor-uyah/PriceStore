@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db.models import F
-from .forms import STATES_CHOICES, FOODSTUFFS_CHOICES
+from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
 import datetime
 
 class Memebers(models.Model):
