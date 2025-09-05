@@ -82,13 +82,18 @@ The Price Marketplace Contact Page
 </style>
 <h2>Prices in {{ state }}</h2> 
 <div class="accordion-body"> 
-  <ul>
-    {% for item in prices_combined %}
-      <li class="price-card">
-        <div class="price-body">{{ item.foodstuff }} — {{ item.price }}</div>
-      </li>
+  <ul class="list-unstyled">
+    {% for item in prices %}
+        <li class="price-card">
+            <div class="price-body d-flex justify-content-between">
+                <span>
+                    {{ item.foodstuff }} — {{ item.price }}
+                </span>
+                <span>{{ item.market_store_name }} | {{ item.lga }}</span>
+            </div>
+        </li>
     {% empty %}
-      <p>No prices recorded for {{ state }} yet.</p>
+        <p>No prices recorded for {{ state }} yet.</p>
     {% endfor %}
   </ul>
 </div>
