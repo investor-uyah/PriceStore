@@ -56,9 +56,13 @@
   }
 
   .btn-light-blue {
-    background-color: #ADD8E6; /* Light blue background */
-    color: #fff; /* White text color for contrast */
+    background-color: lightblue;
     border-color: #ADD8E6; /* Match the border color */
+}
+
+.btn-xs {
+    padding: 0.25rem 0.5rem; /* smaller padding */
+    font-size: 0.75rem;      /* smaller text */
 }
 
   .price-card:hover {
@@ -93,14 +97,16 @@
 
     <!-- Some Nigerian States -->
     <div class="card">
-        <h3>Some Nigerian States with Foodstuff Prices Listed 🌍</h3>
-        {% for location in locations_list %}
-            <div class="row text-center">{{ location.state }}</div>
-        {% empty %}
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-        {% endfor %}
+      <h3>Some Nigerian States with Foodstuff Prices Listed 🌍</h3>
+        <p>
+          {% for location in locations_list %}
+              <div class="d-flex justify-content-center align-items-center">{{ location.state }}</div>
+          {% empty %}
+              <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                  <p>COMING SOON</p>
+              </div>
+          {% endfor %}
+        </p>
     </div>
 
     <!-- Top 3 Cheapest -->
@@ -184,14 +190,14 @@
           <b>Average Food Prices 📈</b>
         </button>
       </h2>
-      <div id="collapseCheapest" class="accordion-collapse collapse show" 
+      <div id="collapseCheapest" class="accordion-collapse collapse collapse" 
            aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
             <ul class="list-group">
                 {% for food, data in average_prices.items %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ food }}
-                        <span class="badge bg-primary rounded-pill">₦{{ data.average|floatformat:"2" }}</span>
+                        <span class="badge bg-success rounded-pill p-3">₦{{ data.average }}</span>
                     </li>
                 {% empty %}
                     <li>No data available.</li>
@@ -207,7 +213,7 @@
         <button class="accordion-button collapsed text-dark" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
                 aria-expanded="false" aria-controls="collapseExpensive">
-          <b>See Foodstuff Prices Across the Country 🏷</b>
+          <b>See Foodstuff Prices Across Nigeria 🏷</b>
         </button>
       </h2>
       <div id="collapseExpensive" class="accordion-collapse collapse" 
@@ -224,7 +230,7 @@
                 <span class="time">{{ price.created_at|date:"M d, Y H:i" }}</span>
               </div>
               <div class="price-body">
-                <b>{{ price.foodstuff }}</b> — {{ price.price }} naira
+                <b>{{ price.foodstuff }}</b> — {{ price.price }} naira <br>Description: {{ price.description }}
               </div>
               <div class="price-location">
                 📍 {{ price.lga }}, {{ price.state }}
@@ -243,7 +249,7 @@
         <button class="accordion-button collapsed text-dark" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#collapseStates" 
                 aria-expanded="false" aria-controls="collapseStates">
-          <b>See Foodstuff Prices Based on States 🏷</b>
+          <b>See Foodstuff Prices Across Various States 🏷</b>
         </button>
       </h2>
       <div id="collapseStates" class="accordion-collapse collapse" 
@@ -252,13 +258,15 @@
             <ul class="list-group">
                 {% for item in prices_by_state %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>
-                            {{ item.state }}
-                            <small class="text-muted">({{ item.Total }} listings)</small>
-                        </span>
-                        <a href="{% url 'states_listing' item.state %}" class="btn btn-sm btn-light-blue rounded-pill w-10">
+                      <span>  
+                        {{ item.state }}
+                        <small class="text-muted">({{ item.Total }} listings)</small>
+                      </span>
+                      <span>
+                        <a href="{% url 'states_listing' item.state %}" class="badge bg-secondary rounded-pill p-3" style="text-decoration: none;">
                             View
                         </a>
+                      </span>
                     </li>
                 {% empty %}
                     <li>No states or listing have been recorded yet</li>

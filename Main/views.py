@@ -111,7 +111,7 @@ def prices_combined(request):
     locations = Price.objects.values('state').distinct()
     locations_list = list(locations)
     random.shuffle(locations_list)
-    locations_list = (locations_list)[:3]
+    locations_list = (locations_list)[:5]
 
     # Logic for "States-based Prices"
     prices_by_state = Price.objects.values("state").annotate(Total=Count("id"))
@@ -146,11 +146,11 @@ def prices_combined(request):
         if current_price is not None and previous_price is not None and previous_price > 0:
             change = ((current_price - previous_price) / previous_price) * 100
             if change > 2:
-                status = f"⬆️ +{round(change, 1)}%"
+                status = f"🔺 +{round(change, 1)}%"
             elif change < -2:
-                status = f"⬇️ {round(change, 1)}%"
+                status = f"🔻 {round(change, 1)}%"
             else:
-                status = "➡️ stable"
+                status = "✅ stable"
         else:
             status = "No data available."
         trends[item] = status
@@ -168,7 +168,7 @@ def prices_combined(request):
     # Format the summary for the template
     average_prices = {
         food: {
-            'average': summary[food]['total'] / summary[food]['count'],
+            'average': summary[food]['total'] // summary[food]['count'],
             'total_listings': summary[food]['count']
         }
         for food in summary
