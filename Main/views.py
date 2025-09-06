@@ -117,8 +117,8 @@ def prices_combined(request):
     prices_by_state = Price.objects.values("state").annotate(Total=Count("id"))
 
     # Logic for "Price Summary" (cheapest/expensive)
-    cheapest = Price.objects.all().values('foodstuff').annotate(min_price=Min('price')).order_by('price')[:3]
-    expensive = Price.objects.all().values('foodstuff').annotate(max_price=Max('price')).order_by('price')[:3]
+    cheapest = Price.objects.values('foodstuff').annotate(min_price=Min('price')).order_by('min_price')[:3]
+    expensive = Price.objects.values('foodstuff').annotate(max_price=Max('price')).order_by('-max_price')[:3]
 
     # Logic for "Price Trends"
     today = datetime.date.today()
