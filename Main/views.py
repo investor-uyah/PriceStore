@@ -4,7 +4,7 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Members, Price
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Min, Max
 from . import forms
 import datetime
 from django.contrib import auth, messages
@@ -117,8 +117,8 @@ def prices_combined(request):
     prices_by_state = Price.objects.values("state").annotate(Total=Count("id"))
 
     # Logic for "Price Summary" (cheapest/expensive)
-    cheapest = Price.objects.all().values('foodstuff', 'price').order_by('price')[:3]
-    expensive = Price.objects.all().values('foodstuff', 'price').order_by('-price')[:3]
+    cheapest = Price.objects.all().values('foodstuff').annotate(min_price=Min('price')).order_by('price')[:3]
+    expensive = Price.objects.all().values('foodstuff').annotate(max_price=Max('price')).order_by('price')[:3]
 
     # Logic for "Price Trends"
     today = datetime.date.today()
