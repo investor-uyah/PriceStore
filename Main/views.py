@@ -10,7 +10,7 @@ import datetime
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
-from django_ratelimit.decorators import ratelimit
+from ratelimit.decorators import ratelimit
 import random
 
 # Create your views here.
