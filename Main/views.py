@@ -12,6 +12,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django_ratelimit.decorators import ratelimit
 import random
+import json
+from openai import OpenAI
+import logging
+import os 
+from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
+
 
 # Create your views here.
 # These views are fine and don't need changes.
@@ -196,3 +203,227 @@ def states_listing(request, state):
         'state': state,
         'prices': prices
     })
+
+# These views relate to the AI chatbot section
+
+# Set up a logger for debugging
+logger = logging.getLogger(__name__)
+
+# Geopy geolocator instance
+# Note: Set a unique user_agent to comply with Nominatim's usage policy.
+geolocator = Nominatim(user_agent="Main")
+
+def _handle_db_query(user_input):
+    """Handles requests to query the database."""
+    # Create an OpenAI client instance for each request
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+    sql_prompt = """
+Translate the following natural language query into a JSON object with keys:
+- "model": The Django model name.
+- "filters": A dictionary of key-value pairs for filtering.
+- "order_by": The field to order by.
+- "limit": An integer for the number of results.
+
+Query: "Show me the top 5 most expensive foodstuffs in Abuja."
+Expected JSON: '{"model": "Price", "filters": {"lga": "Abuja"}, "order_by": "-price", "limit": 5}'
+
+Query: "What's the price of a bag of rice in Lugbe?"
+Expected JSON: '{"model": "Price", "filters": {"foodstuff": "bag of rice", "lga": "Lugbe"}, "order_by": "", "limit": 1}'
+
+Query: "List all prices in Wuse 2."
+Expected JSON: '{"model": "Price", "filters": {"lga": "Wuse 2"}, "order_by": "", "limit": 0}'
+
+Query: "{user_input}"
+Expected JSON:
+"""
+    try:
+        # Use the new chat completions endpoint
+        completion_sql = client.chat.completions.create(
+            model="gpt-3.5-turbo", # Use a modern chat-optimized model
+            messages=[
+                {"role": "user", "content": sql_prompt.format(user_input=user_input)}
+            ]
+        )
+        
+        # Access the content from the new response format
+        raw_response = completion_sql.choices[0].message.content
+        
+        query_plan = json.loads(raw_response.strip() + '}')
+
+        if query_plan.get('model') != 'Price':
+            return JsonResponse({'reply': "I can only query the Price model."})
+        
+        queryset = Price.objects.all()
+        filters = query_plan.get('filters', {})
+        if filters:
+            queryset = queryset.filter(**filters)
+        
+        order_by = query_plan.get('order_by', '')
+        if order_by:
+            queryset = queryset.order_by(order_by)
+        
+        limit = query_plan.get('limit', 0)
+        if limit > 0:
+            queryset = queryset[:limit]
+        
+        results = list(queryset.values())
+        
+        if not results:
+             return JsonResponse({'reply': "I couldn't find any data matching your request."})
+
+        # Translate results to natural language
+        nl_prompt = f"The following data was retrieved from a database: {results}. Please rephrase this into a concise, natural language response for a user."
+        
+        completion_nl = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": nl_prompt}
+            ]
+        )
+        
+        final_reply = completion_nl.choices[0].message.content
+        
+        return JsonResponse({'reply': final_reply})
+
+    except (json.JSONDecodeError, KeyError):
+        return JsonResponse({'reply': "I'm sorry, I couldn't understand that query. Can you try rephrasing it?"})
+    except Exception as e:
+        logger.error(f"Database query error: {e}")
+        return JsonResponse({'reply': f"An error occurred while fetching data: {str(e)}"})
+
+
+def _handle_distance_query(user_input):
+    """Handles requests to calculate distance between locations."""
+    # Create an OpenAI client instance for each request
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+    location_prompt = f"""
+Extract two locations from the following query in a JSON object with keys 'location1' and 'location2'.
+
+Query: "How far is Gwarinpa, Abuja from Nyanya Market?"
+Expected JSON: '{{ "location1": "Gwarinpa, Abuja", "location2": "Nyanya Market" }}'
+
+Query: "{user_input}"
+Expected JSON:
+"""
+    try:
+        # Use the new chat completions endpoint
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": location_prompt.format(user_input=user_input)}
+            ]
+        )
+        
+        raw_response = completion.choices[0].message.content
+        
+        locations = json.loads(raw_response.strip() + '}')
+        loc1_name = locations.get('location1')
+        loc2_name = locations.get('location2')
+
+        if not loc1_name or not loc2_name:
+            return JsonResponse({'reply': "I couldn't identify both locations. Please try again."})
+        
+        loc1_coords = geolocator.geocode(loc1_name).point
+        loc2_coords = geolocator.geocode(loc2_name).point
+        
+        distance = geodesic(loc1_coords, loc2_coords).km
+        
+        final_prompt = f"The distance between {loc1_name} and {loc2_name} is {distance:.2f} kilometers. Rephrase this as a simple, natural language sentence."
+        
+        final_completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": final_prompt}
+            ]
+        )
+        
+        final_reply = final_completion.choices[0].message.content
+        
+        return JsonResponse({'reply': final_reply})
+        
+    except (json.JSONDecodeError, AttributeError):
+        return JsonResponse({'reply': "I couldn't find coordinates for one of the locations. Please check the spelling."})
+    except Exception as e:
+        logger.error(f"Distance query error: {e}")
+        return JsonResponse({'reply': f"An error occurred while calculating the distance: {str(e)}"})
+
+
+def _handle_general_chat(user_input):
+    try:
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant for foodstuff prices and local markets in Abuja, Nigeria. Keep your responses concise and friendly."},
+                {"role": "user", "content": user_input}
+            ],
+            max_tokens=150
+        )
+        return JsonResponse({'reply': completion.choices[0].message.content.strip()})
+    except Exception as e:
+        logger.error(f"General chat error: {e}")
+        return JsonResponse({'reply': f"An error occurred: {str(e)}"})
+
+def chatbot(request):
+    """Main view to handle all chatbot requests by classifying intent."""
+    if request.method == 'GET':
+        return render(request, 'chat_interface.html')
+
+    elif request.method == 'POST':
+        try:
+            # Create an OpenAI client instance for the main view
+            client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+            data = json.loads(request.body)
+            user_input = data.get('input', '')
+
+            if not user_input:
+                return JsonResponse({'reply': 'Please enter a message.'})
+
+            # --- Intent Classification: The brain of the operation ---
+            intent_prompt = f"""
+Classify the following user request into one of these categories:
+- 'query_db' (if the user asks about prices, markets, or foodstuffs)
+- 'calculate_distance' (if the user asks for the distance between two locations)
+- 'general_chat' (for all other questions, like greetings or general inquiries)
+
+User Request: "How far is Gwarinpa from Nyanya market?"
+Category: calculate_distance
+
+User Request: "What is the price of tomatoes in Wuse?"
+Category: query_db
+
+User Request: "hello, how are you?"
+Category: general_chat
+
+User Request: "{user_input}"
+Category:"""
+
+            # Use the new chat completions endpoint for classification
+            intent_completion = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "user", "content": intent_prompt.format(user_input=user_input)}
+                ],
+                max_tokens=20,
+                stop=['\n']
+            )
+            
+            intent = intent_completion.choices[0].message.content.strip()
+
+            # --- Route the request based on intent ---
+            if intent == 'query_db':
+                return _handle_db_query(user_input)
+            elif intent == 'calculate_distance':
+                return _handle_distance_query(user_input)
+            else:
+                return _handle_general_chat(user_input)
+
+        except Exception as e:
+            # Removed the duplicate client creation and moved it to the top
+            logger.error(f"Main view error: {e}")
+            return JsonResponse({'error': f"An unexpected error occurred: {str(e)}"}, status=500)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=405)

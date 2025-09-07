@@ -9,7 +9,7 @@
   .card {
     width: 280px;
     padding: 16px;
-    margin: 20px;
+    margin: 10px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -74,7 +74,7 @@
       <p><a href="prices/">View Prices</a></p>
     </div>
 
-    <div class="card" style="float: right;">
+    <div class="card" style="float: left;">
       <img src="{% static 'img/add.jpg' %}" alt="add-prices">
       <p>Add prices of foodstuffs you purchased in your locality</p>
       <p><a href="purchaseupdate/">Add Prices</a></p>
@@ -84,6 +84,12 @@
       <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
       <p>What do you think of our product? Offer feedback</p>
       <p><a href="contact/">Leave Feedback</a></p>
+    </div>
+
+    <div class="card" style="float: left;">
+      <img src="{% static 'img/AI.jpg' %}" alt="offer-feedback">
+      <p>Get our AI analysis of foodstuff and markets</p>
+      <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
     </div>
 </div>
 {% endblock %}

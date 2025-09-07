@@ -102,6 +102,9 @@ DATABASES = {
     'default': dj_database_url.parse(database_url_value)
 }
 
+# Access OpenAI API Key
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+
 # Cache setup
 
 CACHES = {
