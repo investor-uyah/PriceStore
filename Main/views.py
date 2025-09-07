@@ -10,6 +10,7 @@ import datetime
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
+from django_ratelimit.decorators import ratelimit
 import random
 
 # Create your views here.
@@ -61,6 +62,7 @@ def search_view(request):
 def about(request):
     return render(request, "about.html")
 
+@ratelimit(key='ip', rate='3/m', block='True')
 def login(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -78,6 +80,7 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/accounts/login/")
 
+@ratelimit(key='ip', rate='5/m', block='True')
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
