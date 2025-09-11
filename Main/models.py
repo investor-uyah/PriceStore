@@ -6,12 +6,19 @@ from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
 import datetime
 
 class Members(models.Model):
-    shopname = models.CharField(max_length=100, null=True, blank=True, verbose_name='shopname')
-    ownersname = models.CharField(max_length=100, null=True, blank=True, verbose_name='ownersname')
-    phone = models.CharField(max_length=14, null=True, blank=True, verbose_name='phone')
-    # Use a datetime.date object for default value
-    joined_date = models.DateField(auto_now_add=True, verbose_name='joined_date')
-    bio = models.CharField(max_length=100, null=True, blank=True, verbose_name='bio')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='memberships', verbose_name='Associated User')
+    shopname = models.CharField(max_length=100, null=False, blank=False, verbose_name='Shop Name')
+    ownersname = models.CharField(max_length=100, null=False, blank=False, verbose_name='Owner\'s Name')
+    phone = models.CharField(max_length=14, null=False, blank=False, verbose_name='Phone Number')
+    company_email = models.EmailField(max_length=254, null=True, blank=True, verbose_name='Company Email')
+    state = models.CharField(max_length=50, choices=STATES_CHOICES, verbose_name='state', blank=False)
+    lga = models.CharField(max_length=100, blank=False, verbose_name='local government area')
+    address = models.CharField(max_length=100, blank=False, verbose_name='address')
+    joined_date = models.DateTimeField(auto_now_add=True, verbose_name='Joined Date')
+    bio = models.CharField(max_length=100, null=False, blank=False, verbose_name='Bio')
+    
+    def __str__(self):
+        return f"{self.shopname} ({self.ownersname})"
 
 class Price(models.Model):
     foodstuff = models.CharField(max_length=100, choices=FOODSTUFFS_CHOICES, verbose_name='foodstuff', blank=False)

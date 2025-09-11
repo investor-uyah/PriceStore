@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.main, name="main"),
     path('purchaseupdate/', views.purchase, name="purchase"),
+    path('partner-with-us/', views.register_partner, name='partner'),
+    path('stores-list/', views.stores_list, name="stores"),
     path('prices/', views.prices_combined, name="prices"),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('chat/send/', views.chatbot, name='chatbot'),

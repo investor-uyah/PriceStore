@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+        <h2>THE PRICE STORE: YOUR MARKETPLACE FOR EVERYDAY PRODUCT PRICES</h2>
+{% endblock %}
+
+{% block content %}
+        <P></P>
+
+        <p><button href="{% url 'main' %}">Back</button></p>
+
+        <h4>Currently Available Stores</h4>
+        <ul>
+            {% for x in mymembers %}
+            <li>{{x.shopname}} by {{x.ownersname}} | Phone: {{x.phone}} | Joined_date: {{x.joined_date}} <a href="/members/details/{{x.id}}">Details</a></li>
+            {% endfor %}
+        </ul>
+
+        
+        <p></p>
+        <P>Find full details of low-cost foodstuff marts and stores registered on our platform.</P>
+{% endblock %}

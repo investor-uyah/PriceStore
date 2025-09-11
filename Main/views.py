@@ -4,12 +4,12 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Members, Price
-from django.db.models import Count, Avg, Min, Max
+from django.db.models import Count, Avg, Min, Max, Q
 from . import forms
 import datetime
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, MemberForm
 from django_ratelimit.decorators import ratelimit
 import random
 import json
@@ -18,6 +18,9 @@ import logging
 import os 
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 # Create your views here.
@@ -33,6 +36,25 @@ def details(request, id):
 @login_required
 def main(request):
     return render(request, 'main.html')
+
+@login_required
+def register_partner(request):
+    if request.method == 'POST':
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            member = form.save(commit=False) # Don't save yet
+            member.user = request.user # Attach the logged-in user
+            member.save() # Now save the object
+            return redirect('prices') # Redirect to a success page
+    else:
+        form = MemberForm()
+    
+    context = {'form': form}
+    return render(request, 'partner.html', context)
+
+@login_required
+def stores_list(request):
+    return render(request, 'stores-list.html')
 
 @login_required
 def contact(request):
@@ -59,11 +81,20 @@ def contact(request):
 @login_required
 def search_view(request):
     if request.method == 'POST':
-        searched = request.POST.get('searched')
-        entry = Price.objects.filter(foodstuff__icontains=searched)
-        return render(request, 'search_page.html', {'searched': searched, 'entry': entry})
-    else: 
-        return render(request, 'main.html')
+        searched = request.POST.get('searched', '').strip()
+        
+        entry = Price.objects.filter(
+            Q(foodstuff__icontains=searched) |
+            Q(market_store_name__icontains=searched) |
+            Q(state__icontains=searched) |
+            Q(price__icontains=searched)
+        )
+        
+        return render(request, 'search_page.html', {
+            'searched': searched,
+            'entry': entry
+        })
+    return render(request, 'main.html')
 
 @login_required
 def about(request):

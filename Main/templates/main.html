@@ -54,7 +54,7 @@
 
 <div class="container mx-auto px-4 py-16">
     <!-- Welcome Message -->
-    <div class="bg-white shadow-md rounded-2xl p-6 mb-10 text-left">
+    <div class="shadow-md rounded-2xl p-6 mb-10 text-left">
       <p class="text-gray-700 text-lg">
           Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
       </p>
@@ -87,9 +87,15 @@
     </div>
 
     <div class="card" style="float: left;">
-      <img src="{% static 'img/AI.jpg' %}" alt="offer-feedback">
+      <img src="{% static 'img/AI.jpg' %}" alt="get-ai-analysis">
       <p>Get our AI analysis of foodstuff and markets</p>
       <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
+    </div>
+
+    <div class="card" style="float: left;">
+      <img src="{% static 'img/partner.jpg' %}" alt="partner-with-us">
+      <p>Reach out to register your foodstuff mart or store and gain visiblity</p>
+      <p><a href="partner-with-us/">Partner With Us</a></p>
     </div>
 </div>
 {% endblock %}

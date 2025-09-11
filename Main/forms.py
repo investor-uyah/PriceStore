@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from datetime import datetime
-from .models import Price
+from .models import Price, Members
 from django.core.validators import RegexValidator
 from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
 from django.contrib.auth import get_user_model
@@ -44,6 +44,80 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = UserCreationForm.Meta.fields + ('email', 'phone_number',)
+
+class MemberForm(forms.ModelForm):
+
+    phone_number_validator = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$',
+        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+    )
+    
+    company_email = forms.EmailField(
+        label="Company Email",
+        max_length=254,
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Your company email address'
+        })
+    )
+    
+    phone = forms.CharField(
+        label="Phone Number",
+        max_length=15,
+        validators=[phone_number_validator],
+        required=True,
+        help_text="e.g., +2348012345678",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'required': 'required',
+            'placeholder': 'Enter your phone number'
+        })
+    )
+
+    state = forms.ChoiceField(
+        choices=STATES_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'required': 'required'
+        })
+    )
+    
+    class Meta:
+        model = Members
+        # All fields are listed here, including those defined above
+        fields = ['shopname', 'ownersname', 'phone', 'company_email', 'state', 'lga', 'address', 'bio']
+
+        # Remove 'phone', 'company_email', and 'state' from the widgets dictionary
+        # as their widgets are defined explicitly above.
+        widgets = {
+            'shopname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Name of your foodstuff shop, store or mart'
+            }),
+            'ownersname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Name of the shop or store owner'
+            }),
+            'lga': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Local Government where your store exists'
+            }),
+            'address': forms.TextInput(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'Address including shop number and street or market name'
+            }),
+            'bio': forms.Textarea(attrs={
+                'class': 'form-control',
+                'required': 'required',
+                'placeholder': 'More details about your store or shop or mart'
+            }),
+        }
+
 
 class PurchaseForm(forms.ModelForm):
     # Redefine 'foodstuff' as a ChoiceField

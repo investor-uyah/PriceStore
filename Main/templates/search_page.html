@@ -1,20 +1,35 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block content %}
-
-<h2>"Search Results for {{ searched }}"</h2>
-
-{% if searched %}
-    <ul>
-        You searched for {{searched}}
-        <p>
-            {% for e in entry %}
-                {{ e }}<br/>
-            {% endfor %}
-        </p>
-    </ul>
-{% else %}
-    <p>"{{searched}} did not turn out any results.</p>
-{% endif %}
-
+<div class="container mt-5 pt-4">
+    <h2 class="text-center mb-4">Search Results</h2>
+    
+    {% if searched %}
+        <p class="text-muted">Showing results for: <strong>{{ searched }}</strong></p>
+        
+        {% if entry %}
+            <div class="row">
+                {% for item in entry %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.foodstuff }}</h5>
+                            <p class="card-text">
+                                <strong>Price:</strong> ₦{{ item.price }} <br>
+                                <strong>Market:</strong> {{ item.market }} <br>
+                                <strong>State:</strong> {{ item.state }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning mt-3">No results found for your search.</div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info">You didn’t search for anything yet.</div>
+    {% endif %}
+</div>
 {% endblock %}
