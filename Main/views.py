@@ -229,7 +229,7 @@ def prices_combined(request):
 
 @login_required
 def states_listing(request, state):
-    prices = Price.objects.filter(state=state)
+    prices = Price.objects.filter(state=state) #states like Akwa Ibom and Cross River now appear as expected
     return render(request, 'state_listing.html', {
         'state': state,
         'prices': prices
