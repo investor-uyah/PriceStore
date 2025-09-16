@@ -3,54 +3,168 @@
 
 {% block content %}
 <style>
-  body {
-    padding-top: 70px; /* fixes content hidden by navbar */
-  }
-  .card {
-    width: 280px;
-    padding: 16px;
-    margin: 10px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    body {
+        padding-top: 70px; /* fixes content hidden by navbar */
+    }
 
-  .card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 12px;
-  }
+    /* New container for the cards using flexbox */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Centers the cards */
+        gap: 20px; /* Spacing between cards */
+        margin-bottom: 50px; /* Space between cards and the next section */
+    }
 
-  .card p {
-    margin: 8px 0;
-    color: #333;
-    font-size: 14px;
-  }
+    .card {
+        width: 280px;
+        padding: 16px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-  .card a {
-    display: inline-block;
-    padding: 8px 16px;
-    background: #0066cc; /* brand accent */
-    color: #fff;
-    border-radius: 6px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: background 0.2s ease;
-  }
+    .card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
 
-  .card a:hover {
-    background: #004d99;
-  }
+    .card p {
+        margin: 8px 0;
+        color: #333;
+        font-size: 14px;
+    }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-  }
+    .card a {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #0066cc; /* brand accent */
+        color: #fff;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .card a:hover {
+        background: #004d99;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .faq-container {
+        margin: 50px auto; /* Centering the FAQ section */
+        display: flex;
+        max-width: 900px;
+        gap: 30px;
+    }
+
+    /* Left Box */
+    .faq-left {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        flex-grow: 0; /* Prevents the item from growing */
+        flex-shrink: 0; /* Prevents the item from shrinking */
+        flex-basis: 30%; /* Sets a fixed width basis */
+        height: 320px; /* NEW: Set a fixed height */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .faq-left button {
+        margin-top: 20px;
+        background: #2d6cdf;
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    
+    .faq-left button:hover {
+        background: #1a4fb6;
+    }
+
+    /* Right Box */
+    .faq-right {
+        flex: 2;
+    }
+
+    .faq-item {
+        background: white;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        cursor: pointer;
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Style the plus/minus icon dynamically */
+    .faq-question span:last-child {
+        transition: transform 0.3s ease;
+        font-size: 1.5em;
+    }
+
+    .faq-item.active .faq-question span:last-child {
+        transform: rotate(45deg); /* Rotates the + into an X */
+    }
+
+    .faq-answer {
+        display: none;
+        margin-top: 10px;
+        color: #555; /* Changed to a more readable color */
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .faq-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .faq-left {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".faq-item").forEach(item => {
+            item.addEventListener("click", () => {
+                item.classList.toggle("active");
+            });
+        });
+    });
+</script>
 
 <div class="container mx-auto px-4 py-16">
     <!-- Welcome Message -->
@@ -67,35 +181,89 @@
       </p>
     </div>
 
+    <!-- New container for cards to use flexbox -->
+    <div class="card-container">
+        <!-- Moved Partner With Us card to the front -->
+        <div class="card">
+          <img src="{% static 'img/partner.jpg' %}" alt="partner-with-us">
+          <p>Reach out to register your foodstuff mart or store and gain visiblity</p>
+          <p><a href="partner-with-us/">Partner With Us</a></p>
+        </div>
+        
+        <div class="card">
+          <img src="{% static 'img/tag.jpg' %}" alt="see-prices">
+          <p>See our list of foodstuff prices</p>
+          <p><a href="prices/">View Prices</a></p>
+        </div>
 
-    <div class="card" style="float: left;">
-      <img src="{% static 'img/tag.jpg' %}" alt="see-prices">
-      <p>See our list of foodstuff prices</p>
-      <p><a href="prices/">View Prices</a></p>
+        <div class="card">
+          <img src="{% static 'img/add.jpg' %}" alt="add-prices">
+          <p>Add prices of foodstuffs you purchased in your locality</p>
+          <p><a href="purchaseupdate/">Add Prices</a></p>
+        </div>
+
+        <div class="card">
+          <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
+          <p>What do you think of our product? Offer feedback</p>
+          <p><a href="contact/">Leave Feedback</a></p>
+        </div>
+
+        <div class="card">
+          <img src="{% static 'img/AI.jpg' %}" alt="get-ai-analysis">
+          <p>Get our AI analysis of foodstuff and markets</p>
+          <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
+        </div>
     </div>
 
-    <div class="card" style="float: left;">
-      <img src="{% static 'img/add.jpg' %}" alt="add-prices">
-      <p>Add prices of foodstuffs you purchased in your locality</p>
-      <p><a href="purchaseupdate/">Add Prices</a></p>
-    </div>
+    <!-- FAQ Section -->
+    <div class="faq-container">
+      <!-- Left -->
+      <div class="faq-left">
+          <h2>Got a Different Question?</h2>
+          <p>We are dedicated to providing tailored responses and support for your needs.</p>
+          <button onclick="window.location.href='https://wa.link/77p577';" target="_blank">Speak to our co-founder</button>
+      </div>
 
-    <div class="card" style="float: left;">
-      <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
-      <p>What do you think of our product? Offer feedback</p>
-      <p><a href="contact/">Leave Feedback</a></p>
-    </div>
+      <!-- Right -->
+      <div class="faq-right">
+          <h1>Frequently Asked Questions</h1>
+          <p>Here, we answer your most popularly asked questions about The PriceMarketplace</p>
 
-    <div class="card" style="float: left;">
-      <img src="{% static 'img/AI.jpg' %}" alt="get-ai-analysis">
-      <p>Get our AI analysis of foodstuff and markets</p>
-      <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
-    </div>
+          <div class="faq-item">
+              <div class="faq-question">
+              <span>What is The PriceMarketplace?</span>
+              <span><strong>+</strong></span>
+              </div>
+              <div class="faq-answer">
+              The PriceMarketplace is Nigeria's only crowd-sourced, AI-powered foodstuff price collection and aggregation dashboard.
+              </div>
+          </div>
 
-    <div class="card" style="float: left;">
-      <img src="{% static 'img/partner.jpg' %}" alt="partner-with-us">
-      <p>Reach out to register your foodstuff mart or store and gain visiblity</p>
-      <p><a href="partner-with-us/">Partner With Us</a></p>
+          <div class="faq-item">
+              <div class="faq-question">
+              <span>How does The Pricemarketplace work?</span>
+              <span><strong>+</strong></span>
+              </div>
+              <div class="faq-answer">
+              Our platform simply allows foodstuff buyers and sellers to login and update the prices of staple foods in their locality, providing valuable information to other market goers and also allowing much needed government regulation and oversight.
+              </div>
+          </div>
+
+          <div class="faq-item">
+              <div class="faq-question">
+              <span>How do I Contribute?</span>
+              <span><strong>+</strong></span>
+              </div>
+              <div class="faq-answer">
+              If you're majorly a buyer/consumer, you can contribute by hitting the "Add Prices" button above and 
+              help update foodstuff prices in your locality so others can see them. If you're a foodstuff vendor or shop/store owner, 
+              you can also do the same to update the prices of the foodstuff items you have in stock. Additionally, 
+              vendors or sellers can also hit the "partner-with-us" button to get their physical stores or shops registered and displayed on the platform.    
+              </div>
+          </div>
+
+          <!-- Add more FAQ items as needed -->
+      </div>
     </div>
 </div>
 {% endblock %}
