@@ -1,0 +1,111 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+/* Container spacing */
+
+.container {
+    margin-top: 200px;
+}
+
+.privacy-section {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Section title */
+.privacy-section h4 {
+  flex: 0 0 200px; /* fixed width column for headings */
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}
+
+/* Section body */
+.privacy-section p,
+.privacy-section ul {
+  flex: 1;
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Make links clear */
+.privacy-section a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+.privacy-section a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 768px) {
+  .privacy-section {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .privacy-section h4 {
+    flex: none;
+  }
+}
+</style>
+
+<div class="container">
+    <h2 class="mb-4">Our Privacy Policy</h2>
+    <p class="text-muted">Effective date: September 2025</p>
+
+    <div class="privacy-section">
+        <h4>Introduction</h4>
+        <p>
+            Welcome to <strong>The Price Marketplace</strong>. Your privacy is very important to us. 
+            This Privacy Policy explains how we collect, use, and protect your information.
+        </p>
+    </div>
+
+    <div class="privacy-section">
+        <h4>Google AdSense</h4>
+        <p>
+            This website uses Google AdSense, a service for including advertisements from Google Inc. 
+            Google AdSense uses “cookies” (text files stored on your computer) to allow analysis of 
+            website use. Google AdSense also uses web beacons (invisible graphics). Through these 
+            beacons, information such as visitor traffic can be evaluated.<br><br>
+            Google may use the data collected to personalize ads you see. Users may opt out of 
+            personalized advertising by visiting 
+            <a href="https://www.google.com/settings/ads" class="privacy-policy" target="_blank">Google Ads Settings</a>.
+        </p>
+    </div>
+
+    <div class="privacy-section">
+        <h4>Cookies</h4>
+        <p>
+            Like many websites, we use cookies to improve your experience. You can choose to disable 
+            cookies in your browser settings, but some parts of the site may not function properly.
+        </p>
+    </div>
+
+    <div class="privacy-section">
+        <h4>Third-Party Policies</h4>
+        <p>
+            Google and third-party vendors may use cookies to serve ads based on your prior visits to 
+            this site or other sites. You can opt out of third-party vendor cookies at 
+            <a href="https://www.aboutads.info/choices/" class="privacy-policy" target="_blank">AboutAds</a>.
+        </p>
+    </div>
+
+    <div class="privacy-section">
+        <h4>Contact Us</h4>
+        <p>
+            If you have questions about this Privacy Policy, you can reach us through the contacts page. 
+        </p>
+    </div>
+</div>
+{% endblock %}
