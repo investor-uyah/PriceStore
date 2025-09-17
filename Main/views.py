@@ -68,7 +68,7 @@ def stores_list(request):
 
 @login_required
 def privacy_policy(request):
-    return render(request, "privacy.html")
+    return render(request, 'privacy.html')
 
 @login_required
 def contact(request):
