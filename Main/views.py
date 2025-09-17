@@ -37,6 +37,15 @@ def details(request, id):
 def main(request):
     return render(request, 'main.html')
 
+# @login_required
+#def mymember(request):
+#    members = Member.objects.all()
+#    return render(
+ #       request,
+ #       'stores-list.html',
+ #       members
+   # ) -->
+
 @login_required
 def register_partner(request):
     if request.method == 'POST':
@@ -54,7 +63,12 @@ def register_partner(request):
 
 @login_required
 def stores_list(request):
-    return render(request, 'stores-list.html')
+    members = Members.objects.all()
+    return render(request, 'stores-list.html', {'members':members})
+
+@login_required
+def privacy_policy(request):
+    return render(request, "privacy.html")
 
 @login_required
 def contact(request):

@@ -7,6 +7,7 @@ urlpatterns = [
     path('partner-with-us/', views.register_partner, name='partner'),
     path('stores-list/', views.stores_list, name="stores"),
     path('prices/', views.prices_combined, name="prices"),
+    path('privacy-policy/', views.privacy_policy, name="privacy"),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('chat/send/', views.chatbot, name='chatbot'),
     path('prices/states/<str:state>/', views.states_listing, name='states_listing'),

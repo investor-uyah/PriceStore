@@ -1,23 +1,91 @@
 {% extends "master.html" %}
 
-
-{% block title %}
-        <h2>THE PRICE STORE: YOUR MARKETPLACE FOR EVERYDAY PRODUCT PRICES</h2>
-{% endblock %}
+{% block title %}Stores List | {{ your_site_name }}{% endblock %}
 
 {% block content %}
-        <P></P>
+<style>
+/* Page heading */
+.page-heading {
+  text-align: center;
+  margin-top:200px;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
 
-        <p><button href="{% url 'main' %}">Back</button></p>
+/* Store list layout */
+.stores-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
 
-        <h4>Currently Available Stores</h4>
-        <ul>
-            {% for x in mymembers %}
-            <li>{{x.shopname}} by {{x.ownersname}} | Phone: {{x.phone}} | Joined_date: {{x.joined_date}} <a href="/members/details/{{x.id}}">Details</a></li>
-            {% endfor %}
-        </ul>
+/* Each store card */
+.store-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-        
-        <p></p>
-        <P>Find full details of low-cost foodstuff marts and stores registered on our platform.</P>
+.store-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+/* Store name */
+.store-card h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #0d6efd;
+}
+
+/* Store details */
+.store-card p {
+  margin: 0.25rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Link styling */
+.store-card a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.store-card a:hover {
+  text-decoration: underline;
+}
+</style>
+
+<div class="container my-5">
+    <h2 class="page-heading">THE PRICE STORE: YOUR MARKETPLACE FOR EVERYDAY PRODUCT PRICES</h2>
+    <h4 class="mb-4 text-muted">Currently Available Stores</h4>
+
+    <div class="stores-container">
+        {% for x in members %}
+        <div class="store-card">
+          <span>
+            <h5>{{ x.shopname }}</h5>
+            <p><strong>Owner:</strong> {{ x.ownersname }}</p>
+            <p><strong>Phone:</strong> {{ x.phone }}</p>
+            <p><strong>Joined:</strong> {{ x.joined_date }}</p>
+            <p><strong>Address:</strong> {{ x.address}}</p>
+          </span>
+            <p><strong>Bio:</strong> {{ x.bio}}</p>
+        </div>
+        {% empty %}
+        <p>No stores available yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-5 text-center">
+        <p>Find full details of low-cost foodstuff marts and stores registered on our platform.</p>
+    </div>
+</div>
 {% endblock %}
