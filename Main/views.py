@@ -1,9 +1,9 @@
 # prices/views.py
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.template import loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
-from .models import Members, Price
+from .models import Members, Price, BlogPost
 from django.db.models import Count, Avg, Min, Max, Q
 from . import forms
 import datetime
@@ -19,6 +19,7 @@ import os
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -45,6 +46,16 @@ def main(request):
  #       'stores-list.html',
  #       members
    # ) -->
+
+@login_required
+def blog_list(request):
+    posts = BlogPost.objects.all()
+    return render(request, "blog_list.html", {"posts": posts})
+
+@login_required
+def blog_detail(request, slug):
+    post = get_object_or_404(BlogPost, slug=slug)
+    return render(request, "blog_detail.html", {"post": post})
 
 @login_required
 def register_partner(request):

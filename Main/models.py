@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator
 from django.conf import settings
 from .choices import STATES_CHOICES, FOODSTUFFS_CHOICES
 import datetime
+from ckeditor.fields import RichTextField
 
 class Members(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='memberships', verbose_name='Associated User')
@@ -34,6 +35,21 @@ class Price(models.Model):
 
     def __str__(self):
         return self.foodstuff
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    content = RichTextField()  # CKEditor instead of TextField
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title
+
 
 class CustomUser(AbstractUser):
     groups = models.ManyToManyField(

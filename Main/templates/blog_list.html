@@ -1,0 +1,109 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+Blog - The Price Marketplace
+{% endblock %}
+
+{% block content %}
+<style>
+/* Custom styles for the blog post list */
+body {
+    /* Use a top margin to offset the fixed navbar. */
+    margin-top: 150px; 
+}
+.blog-list-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 0 1rem;
+}
+.blog-card {
+    /* Use flexbox for horizontal alignment and vertical centering */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-color);
+    border-radius: 16px; /* Increased for a rounder look */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.blog-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+.blog-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the text content */
+    margin-right: 1rem; /* Space between text and image */
+}
+.blog-details h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    color: var(--text-color);
+}
+.blog-details a {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.blog-details a:hover {
+    text-decoration: underline;
+}
+.blog-image {
+    flex-shrink: 0; /* Prevents the image container from shrinking */
+    width: 60px;
+    height: 60px;
+}
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Ensures a perfect circle */
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+/* General link styles to prevent overrides */
+a {
+    background: none !important;
+    border: none !important;
+    text-decoration: none;
+    color: var(--text-color); 
+}
+a:hover, a:focus {
+    text-decoration: underline;
+    outline: none !important;
+    box-shadow: none !important;
+}
+</style>
+<body>
+  <div class="blog-list-container">
+      <h2>Latest Blog Posts</h2>
+      {% if posts %}
+          {% for post in posts %}
+          <div class="blog-card">
+              <div class="blog-details">
+                  <h3>{{ post.title }}</h3>
+                  <a href="{% url 'blog_detail' post.slug %}" style="text-align:left;">Read more →</a>
+              </div>
+              <div class="blog-image">
+                  <span>
+                      {% if post.image %}
+                          <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                      {% else %}
+                          <img src="{% static 'img/the-price-marketplace.png' %}" alt="Default blog image">
+                      {% endif %}
+                  </span>
+              </div>
+          </div>
+          {% endfor %}
+      {% else %}
+          <p>No blog posts yet.</p>
+      {% endif %}
+  </div>
+</body>
+{% endblock %}

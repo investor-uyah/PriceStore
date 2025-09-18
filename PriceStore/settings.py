@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'ckeditor',
+    'ckeditor_uploader',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ratelimit',
@@ -161,6 +163,12 @@ STATICFILES_DIRS = [
 
 # Where collected static files will go (used in production)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Media Settings
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -1,0 +1,96 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+{{ post.title }} - The Price Marketplace Blog
+{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    margin-top: 120px; /* account for navbar */
+    background-color: #f8f9fa;
+  }
+
+  .blog-container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  }
+
+  .blog-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #222;
+    text-align: center;
+  }
+
+  .blog-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .blog-image {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .blog-image img {
+    max-width: 500%;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin: 0 auto;
+    display: block;
+  }
+
+  .blog-content {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.7;
+    text-align: justify;
+  }
+
+  a {
+    background: none !important;
+    border: none !important;
+    text-decoration: none;
+    color: #0d6efd; /* Bootstrap blue, or choose your color */
+    }
+
+  a:hover,
+  a:focus {
+  text-decoration: underline; /* keep a simple hover effect */
+  outline: none !important;
+  box-shadow: none !important;
+  }
+</style>
+
+<div class="blog-container">
+  <h1 class="blog-title">{{ post.title }}</h1>
+  <div class="blog-meta">
+    Published on {{ post.created_at|date:"F j, Y" }}
+  </div>
+
+  {% if post.image %}
+  <div class="blog-image">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+  </div>
+  {% else %}
+    <img src="{% static 'img/the-price-marketplace.png' %}" alt="{{ post.title }}">
+  {% endif %}
+
+  <div class="blog-content">
+    {{ post.content|safe }}
+  </div>
+
+  <a href="{% url 'blog_list' %}">← Back to Blog</a>
+</div>
+{% endblock %}
