@@ -21,11 +21,11 @@ STATES_CHOICES = [
 # A list of common foodstuffs to prevent invalid entries
 FOODSTUFFS_CHOICES = [
     ('', 'Choose a foodstuff...'), ('Beans (brown)', 'Beans (brown)'), ('Beans (white)', 'Beans (white)'),
-    ('Cassava', 'Cassava'), ('Chicken', 'Chicken'), ('Eggs', 'Eggs'), ('Fish (crayfish)', 'Fish (crayfish)'),
+    ('Cassava', 'Cassava'), ('Chicken', 'Chicken'), ('Eggs', 'Eggs'), ('Egusi', 'Egusi'), ('Fish (crayfish)', 'Fish (crayfish)'),
     ('Fish (fresh fish)', 'Fish (fresh fish)'), ('Fish (stockfish)', 'Fish (stockfish)'), ('Garri (red)', 'Garri (red)'), 
     ('Garri (white)', 'Garri (white)'), ('Maize', 'Maize'), ('Meat (beef)', 'Meat (beef)'), 
-    ('Meat (goat)', 'Meat (goat)'), ('Milk', 'Milk'), ('Oil (palm oil)', 'Oil (palm oil)'), 
-    ('Oil (vegetable oil)', 'Oil (vegetable oil)'), ('Onions', 'Onions'),
+    ('Meat (goat)', 'Meat (goat)'), ('Milk', 'Milk'), ('Noodles', 'Noodles'), ('Oil (palm oil)', 'Oil (palm oil)'), 
+    ('Oil (vegetable oil)', 'Oil (vegetable oil)'), ('Onions', 'Onions'), ('Pasta', 'Pasta'),
     ('Pepper', 'Pepper'), ('Plantain', 'Plantain'), ('Potato (irish)', 'Potato (irish)'),
     ('Potato (sweet)', 'Potato (sweet)'), ('Poundo', 'Poundo'), ('Rice (foreign)', 'Rice (foreign)'),
     ('Rice (local)', 'Rice (local)'), ('Salt', 'Salt'), ('Sugar', 'Sugar'),
