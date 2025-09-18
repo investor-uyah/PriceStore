@@ -10,6 +10,7 @@ urlpatterns = [
     path('privacy-policy/', views.privacy_policy, name="privacy"),
     path('blog/', views.blog_list, name='blog_list'),
     path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
+    path('csv_download/', views.csv_download, name='csv'),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('chat/send/', views.chatbot, name='chatbot'),
     path('prices/states/<str:state>/', views.states_listing, name='states_listing'),

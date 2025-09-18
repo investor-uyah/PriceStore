@@ -19,6 +19,7 @@ import os
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
+import csv
 
 
 User = get_user_model()
@@ -71,6 +72,19 @@ def register_partner(request):
     
     context = {'form': form}
     return render(request, 'partner.html', context)
+
+@login_required
+def csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="thepricemarketplace_food_prices.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Foodstuff', 'Price', 'Description', 'Market/Store', 'State', 'Date'])
+
+    for item in Price.objects.all():
+        writer.writerow([item.foodstuff, item.price, item.description, item.market_store_name, item.state, item.created_at])
+
+    return response
 
 @login_required
 def stores_list(request):
