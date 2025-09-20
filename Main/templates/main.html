@@ -7,13 +7,110 @@
         margin-top: 150px; /* fixes content hidden by navbar */
     }
 
-    /* New container for the cards using flexbox */
+    /* --- SECTION WRAPPERS --- */
+    section {
+        padding: 60px 20px;
+    }
+
+    section.light {
+        background: #f9fafb;
+    }
+
+    section.dark {
+        background: #ffffff;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .section-title p {
+        font-size: 1rem;
+        color: #666;
+    }
+
+    /* HERO */
+    .hero {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 3rem 1rem;
+        background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .hero-text {
+        flex: 1 1 350px;
+        padding: 1rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-text .btn-primary {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    }
+
+    .hero-image {
+        flex: 1 1 300px;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 260px;
+        border-radius: 50%;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+        .hero-image {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    /* WELCOME BOX */
+    .welcome-box {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 14px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    /* CARDS */
     .card-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center; /* Centers the cards */
-        gap: 20px; /* Spacing between cards */
-        margin-bottom: 50px; /* Space between cards and the next section */
+        justify-content: center;
+        gap: 20px;
     }
 
     .card {
@@ -43,7 +140,7 @@
     .card a {
         display: inline-block;
         padding: 8px 16px;
-        background: #0066cc; /* brand accent */
+        background: #0066cc;
         color: #fff;
         border-radius: 6px;
         font-size: 14px;
@@ -60,23 +157,20 @@
         box-shadow: 0 8px 18px rgba(0,0,0,0.15);
     }
 
+    /* FAQ */
     .faq-container {
-        margin: 50px auto; /* Centering the FAQ section */
+        margin: 0 auto;
         display: flex;
-        max-width: 900px;
+        max-width: 1000px;
         gap: 30px;
     }
 
-    /* Left Box */
     .faq-left {
         background: white;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        flex-grow: 0; /* Prevents the item from growing */
-        flex-shrink: 0; /* Prevents the item from shrinking */
-        flex-basis: 30%; /* Sets a fixed width basis */
-        height: 320px; /* NEW: Set a fixed height */
+        flex-basis: 30%;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -93,12 +187,10 @@
         border-radius: 8px;
         cursor: pointer;
     }
-    
     .faq-left button:hover {
         background: #1a4fb6;
     }
 
-    /* Right Box */
     .faq-right {
         flex: 2;
     }
@@ -120,20 +212,19 @@
         color: #333;
     }
 
-    /* Style the plus/minus icon dynamically */
     .faq-question span:last-child {
         transition: transform 0.3s ease;
         font-size: 1.5em;
     }
 
     .faq-item.active .faq-question span:last-child {
-        transform: rotate(45deg); /* Rotates the + into an X */
+        transform: rotate(45deg);
     }
 
     .faq-answer {
         display: none;
         margin-top: 10px;
-        color: #555; /* Changed to a more readable color */
+        color: #555;
         padding-top: 10px;
         border-top: 1px solid #eee;
     }
@@ -142,20 +233,47 @@
         display: block;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
         .faq-container {
             flex-direction: column;
             align-items: center;
         }
-
         .faq-left {
             width: 100%;
-            height: auto;
             margin-bottom: 20px;
         }
     }
+    #why-choose-us {
+    background: #f8f9fa;
+    }
+
+    .why-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .why-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .why-card h4 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .why-card p {
+        font-size: 0.95rem;
+        color: #444;
+        margin: 0;
+    }
 </style>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".faq-item").forEach(item => {
@@ -166,111 +284,182 @@
     });
 </script>
 
-<div class="container mx-auto px-4 py-16">
-    <!-- Welcome Message -->
-    <div class="shadow-md rounded-2xl p-6 mb-10 text-left">
-      <p class="text-gray-700 text-lg">
-          Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
-      </p>
-      <p class="mt-4 text-gray-600 leading-relaxed">
-          Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. 
-          The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
-          At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability 
-          by updating prices daily on the Price Store. You can also participate as a consumer/customer by providing prices 
-          of foodstuffs based on purchases made in your locality. 🚀
-      </p>
+<!-- HERO -->
+<section class="dark">
+    <div class="hero">
+        <div class="hero-text">
+            <h1>🥘 Foodstuff Prices Without the Guesswork</h1>
+            <p>We’re building a marketplace where yam, rice, and tomatoes don’t play hide-and-seek with your pocket.</p>
+            <a href="{% url 'prices' %}" class="btn btn-primary">Check Today’s Prices</a>
+        </div>
+        <div class="hero-image">
+            <img src="{% static 'img/the-price-marketplace.png' %}" alt="Food Basket">
+        </div>
+    </div>
+</section>
+
+<!-- WELCOME -->
+<section class="light">
+    <div class="welcome-box">
+        <p class="text-gray-700 text-lg">
+            Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
+        </p>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+            Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. 
+            The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
+            At a time when foodstuff prices are largely unregulated, you can stand out and help achieve market stability 
+            by updating prices daily on the Price Store. You can also participate as a consumer/customer by providing prices 
+            of foodstuffs based on purchases made in your locality. 🚀
+        </p>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section id="why-choose-us" class="py-5" style="background-color:#f8f9fa;">
+  <div class="container">
+    <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <p>Here's all the reasons to love and support our work.</p>
     </div>
 
-    <!-- New container for cards to use flexbox -->
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Transparent Prices </h4>
+          <p>We believe everyone deserves clear, accessible foodstuff prices. No guesswork, no middleman inflation — just the truth.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Accessible Anywhere </h4>
+          <p>Farmers, traders, and buyers can easily check prices from their phones — no matter where they are in Nigeria.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Community Powered </h4>
+          <p>Data is updated by people like you — making the marketplace smarter and fairer for everyone.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Deep Insights </h4>
+          <p>Beyond the numbers, we give you trends and patterns so you know when to buy, sell, or stock up.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Built for Everyone </h4>
+          <p>We build this thinking about everyday Nigerians, government agencies, NGOs, and whoever cares about cheaper prices for our locals.</p>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="why-card h-100">
+          <h4>Cheeky But Serious </h4>
+          <p>We keep things light, but our mission is bold: to make foodstuff pricing fair, fun, and accessible.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES / CARDS -->
+<section class="dark">
+    <div class="section-title">
+        <h2>What You Can Do</h2>
+        <p>Explore the main things you can achieve on our platform.</p>
+    </div>
     <div class="card-container">
-        <!-- Moved Partner With Us card to the front -->
         <div class="card">
-          <img src="{% static 'img/partner.jpg' %}" alt="partner-with-us">
-          <p>Reach out to register your foodstuff mart or store and gain visiblity</p>
-          <p><a href="partner-with-us/">Partner With Us</a></p>
+            <img src="{% static 'img/partner.jpg' %}" alt="partner-with-us">
+            <p>Reach out to register your foodstuff mart or store and gain visiblity</p>
+            <p><a href="partner-with-us/">Partner With Us</a></p>
         </div>
-        
         <div class="card">
-          <img src="{% static 'img/tag.jpg' %}" alt="see-prices">
-          <p> Gain valuable insights from our list of foodstuffs, prices, and markets</p>
-          <p><a href="prices/">View Prices & Markets Info</a></p>
+            <img src="{% static 'img/tag.jpg' %}" alt="see-prices">
+            <p>Gain valuable insights from our list of foodstuffs, prices, and markets</p>
+            <p><a href="prices/">View Prices & Markets Info</a></p>
         </div>
-
         <div class="card">
-          <img src="{% static 'img/add.jpg' %}" alt="add-prices">
-          <p>Add prices of foodstuffs you purchase in your locality</p>
-          <p><a href="purchaseupdate/">Add Prices</a></p>
+            <img src="{% static 'img/add.jpg' %}" alt="add-prices">
+            <p>Add prices of foodstuffs you purchase in your locality</p>
+            <p><a href="purchaseupdate/">Add Prices</a></p>
         </div>
-
         <div class="card">
-          <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
-          <p>What do you think of our product? Offer helpful feedback</p>
-          <p><a href="contact/">Leave Feedback</a></p>
+            <img src="{% static 'img/offer-feeback-new.jpg' %}" alt="offer-feedback">
+            <p>What do you think of our product? Offer helpful feedback</p>
+            <p><a href="contact/">Leave Feedback</a></p>
         </div>
-
         <div class="card">
-          <img src="{% static 'img/AI.jpg' %}" alt="get-ai-analysis">
-          <p>Get our AI analysis of foodstuff and markets</p>
-          <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
+            <img src="{% static 'img/AI.jpg' %}" alt="get-ai-analysis">
+            <p>Get our AI analysis of foodstuff and markets</p>
+            <p><a href="chatbot/">AI Analysis 🔒 (locked)</a></p>
         </div>
-
         <div class="card">
-          <img src="{% static 'img/csv.jpg' %}" alt="download csv file">
-          <p>Need a copy of foodstuff price records from our database?</p>
-          <p><a href="csv_download/">Download CSV 🔗</a></p>
+            <img src="{% static 'img/csv.jpg' %}" alt="download csv file">
+            <p>Need a copy of foodstuff price records from our database?</p>
+            <p><a href="csv_download/">Download CSV 🔗</a></p>
         </div>
-
     </div>
+</section>
 
-    <!-- FAQ Section -->
+<!-- FAQ -->
+<section class="light">
+    <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Here, we answer your most popularly asked questions about The PriceMarketplace</p>
+    </div>
     <div class="faq-container">
-      <!-- Left -->
-      <div class="faq-left">
-          <h2>Got a Different Question?</h2>
-          <p>We are dedicated to providing tailored responses and support for your needs.</p>
-          <button onclick="window.location.href='https://wa.link/77p577';" target="_blank">Speak to our co-founder</button>
-      </div>
-
-      <!-- Right -->
-      <div class="faq-right">
-          <h1>Frequently Asked Questions</h1>
-          <p>Here, we answer your most popularly asked questions about The PriceMarketplace</p>
-
-          <div class="faq-item">
-              <div class="faq-question">
-              <span>What is The PriceMarketplace?</span>
-              <span><strong>+</strong></span>
-              </div>
-              <div class="faq-answer">
-              The PriceMarketplace is Nigeria's only crowd-sourced, AI-powered foodstuff price collection and aggregation dashboard.
-              </div>
-          </div>
-
-          <div class="faq-item">
-              <div class="faq-question">
-              <span>How does The Pricemarketplace work?</span>
-              <span><strong>+</strong></span>
-              </div>
-              <div class="faq-answer">
-              Our platform simply allows foodstuff buyers and sellers to login and update the prices of staple foods in their locality, providing valuable information to other market goers and also allowing much needed government regulation and oversight.
-              </div>
-          </div>
-
-          <div class="faq-item">
-              <div class="faq-question">
-              <span>How do I Contribute?</span>
-              <span><strong>+</strong></span>
-              </div>
-              <div class="faq-answer">
-              If you're majorly a buyer/consumer, you can contribute by hitting the "Add Prices" button above and 
-              help update foodstuff prices in your locality so others can see them. If you're a foodstuff vendor or shop/store owner, 
-              you can also do the same to update the prices of the foodstuff items you have in stock. Additionally, 
-              vendors or sellers can also hit the "partner-with-us" button to get their physical stores or shops registered and displayed on the platform.    
-              </div>
-          </div>
-
-          <!-- Add more FAQ items as needed -->
-      </div>
+        <!-- Left -->
+        <div class="faq-left">
+            <h2>Got a Different Question?</h2>
+            <p>We are dedicated to providing tailored responses and support for your needs.</p>
+            <button onclick="window.location.href='https://wa.link/77p577';" target="_blank">Speak to our co-founder</button>
+        </div>
+        <!-- Right -->
+        <div class="faq-right">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is The PriceMarketplace?</span>
+                    <span><strong>+</strong></span>
+                </div>
+                <div class="faq-answer">
+                    The PriceMarketplace is Nigeria's only crowd-sourced, AI-powered foodstuff price collection and aggregation dashboard.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does The Pricemarketplace work?</span>
+                    <span><strong>+</strong></span>
+                </div>
+                <div class="faq-answer">
+                    Our platform simply allows foodstuff buyers and sellers to login and update the prices of staple foods in their locality, providing valuable information to other market goers and also allowing much needed government regulation and oversight.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I Contribute?</span>
+                    <span><strong>+</strong></span>
+                </div>
+                <div class="faq-answer">
+                    If you're majorly a buyer/consumer, you can contribute by hitting the "Add Prices" button above and help update foodstuff prices in your locality so others can see them. If you're a foodstuff vendor or shop/store owner, you can also do the same to update the prices of the foodstuff items you have in stock. Additionally, vendors or sellers can also hit the "partner-with-us" button to get their physical stores or shops registered and displayed on the platform.    
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 {% endblock %}

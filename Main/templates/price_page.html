@@ -5,19 +5,30 @@
 
 {% block content %}
 <style>
-    body {
-    padding-top: 100px; /* fixes content hidden by navbar */
+  body {
+    padding-top: 150px; /* fixes content hidden by navbar */
   }
 
+  /* Section headers */
+  .section-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+
+  /* Card grid */
   .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 24px; /* more breathing room */
+    margin-bottom: 3rem; /* space below cards */
   }
 
   .card {
-    flex: 1 1 280px; /* responsive width */
+    flex: 1 1 280px;
     max-width: 320px;
     padding: 20px;
     background: #fff;
@@ -31,7 +42,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #222;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   .card p {
@@ -46,6 +57,20 @@
     box-shadow: 0 8px 18px rgba(0,0,0,0.15);
   }
 
+  /* Accordion spacing */
+  .container.mt-4 {
+    margin-top: 3rem !important;
+  }
+
+  .accordion-item {
+    margin-bottom: 1rem;
+  }
+
+  .accordion-body {
+    padding: 1.25rem;
+  }
+
+  /* Real-time price card */
   .price-card {
     background: #fff;
     border-radius: 0.75rem;
@@ -53,17 +78,8 @@
     margin-bottom: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    line-height: 1.5;
   }
-
-  .btn-light-blue {
-    background-color: lightblue;
-    border-color: #ADD8E6; /* Match the border color */
-}
-
-.btn-xs {
-    padding: 0.25rem 0.5rem; /* smaller padding */
-    font-size: 0.75rem;      /* smaller text */
-}
 
   .price-card:hover {
     transform: translateY(-2px);
@@ -86,131 +102,132 @@
   .price-location {
     font-size: 0.85rem;
     color: #495057;
-  } 
-
+  }
 </style>
 
 <div class="container mx-auto px-4 py-16">
-  <!-- Cards Row -->
+
+  <!-- Section: Highlights -->
+  <h2 class="section-header">🔍 Quick Highlights</h2>
   <div class="card-container">
 
-
-    <!-- Some Nigerian States -->
+    <!-- Nigerian States -->
     <div class="card">
-      <h3>Some Nigerian States with Foodstuff Prices Listed 🌍</h3>
-        <p>
-          {% for location in locations_list %}
-              <div class="d-flex justify-content-center align-items-center">{{ location.state }}</div>
-          {% empty %}
-              <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                  <p>COMING SOON</p>
-              </div>
-          {% endfor %}
-        </p>
+      <h3>Some Nigerian States with Foodstuff Prices Listed</h3>
+      <p>
+        {% for location in locations_list %}
+          <div class="d-flex justify-content-center align-items-center">{{ location.state }}</div>
+        {% empty %}
+          <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+            <p>COMING SOON</p>
+          </div>
+        {% endfor %}
+      </p>
     </div>
 
     <!-- Top 3 Cheapest -->
     <div class="card">
-        <h3 class="text-success">Top 3 Cheapest Foodstuffs</h3>
-        {% if cheapest %}
-            <ul class="list-group mt-3">
-                {% for item in cheapest %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ item.foodstuff }}
-                        <span class="badge bg-success">₦{{ item.min_price }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-        {% endif %}
+      <h3 class="text-success">Top 3 Cheapest Foodstuffs</h3>
+      {% if cheapest %}
+        <ul class="list-group mt-3">
+          {% for item in cheapest %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ item.foodstuff }}
+              <span class="badge bg-success">₦{{ item.min_price }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+          <p>COMING SOON</p>
+        </div>
+      {% endif %}
     </div>
 
-    <!-- Top 3 Most Expensive -->
+    <!-- Top 3 Expensive -->
     <div class="card">
-        <h3 class="text-danger">Top 3 Most Expensive Foodstuffs</h3>
-        {% if expensive %}
-            <ul class="list-group mt-3">
-                {% for item in expensive %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ item.foodstuff }}
-                        <span class="badge bg-danger">₦{{ item.max_price }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-        {% endif %}
+      <h3 class="text-danger">Top 3 Most Expensive Foodstuffs</h3>
+      {% if expensive %}
+        <ul class="list-group mt-3">
+          {% for item in expensive %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ item.foodstuff }}
+              <span class="badge bg-danger">₦{{ item.max_price }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+          <p>COMING SOON</p>
+        </div>
+      {% endif %}
     </div>
 
-    <!-- New Feature Cards -->
+    <!-- Basket -->
     <div class="card">
-       <h3>Basket of Essentials</h3>
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-     </div>
+      <h3>Basket of Essentials</h3>
+      <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+        <p>COMING SOON</p>
+      </div>
+    </div>
 
-     <!-- Price Trends -->
-     <div class="card">
-        <h3>Price Trends</h3>
-            <ul class="ms-3 text-muted">
-               {% for item, status in trends.items %}
-                  <li>{{ item }} {{ status }}</li>
-               {% empty %}
-                  <li>No trend data available.</li>
-               {% endfor %}
-            </ul>
-     </div>
+    <!-- Price Trends -->
+    <div class="card">
+      <h3>Price Trends</h3>
+      <ul class="ms-3 text-muted">
+        {% for item, status in trends.items %}
+          <li>{{ item }} {{ status }}</li>
+        {% empty %}
+          <li>No trend data available.</li>
+        {% endfor %}
+      </ul>
+    </div>
 
-     <!-- Regional Comparison -->
-     <div class="card">
-        <h3>Regional Comparison</h3>
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-     </div>
+    <!-- Regional Comparison -->
+    <div class="card">
+      <h3>Regional Comparison</h3>
+      <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+        <p>COMING SOON</p>
+      </div>
+    </div>
 
-     <!-- Price Predictions -->
-     <div class="card">
-        <h3>Price Predictions</h3>
-            <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-                <p>COMING SOON</p>
-            </div>
-     </div>
+    <!-- Price Predictions -->
+    <div class="card">
+      <h3>Price Predictions</h3>
+      <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+        <p>COMING SOON</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Accordion (Average + Real-time) -->
+<!-- Section: Insights -->
 <div class="container mt-4">
+  <h2 class="section-header">💡 Deep Insights</h2>
   <div class="accordion" id="priceAccordion">
 
     <!-- Average Food Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingCheapest">
-        <button class="accordion-button collapsed text-success" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapseCheapest" 
+        <button class="accordion-button collapsed text-success" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseCheapest"
                 aria-expanded="false" aria-controls="collapseCheapest">
-          <b>Average Food Prices 📈</b>
+          <b>Average Food Prices</b>
         </button>
       </h2>
-      <div id="collapseCheapest" class="accordion-collapse collapse" 
+      <div id="collapseCheapest" class="accordion-collapse collapse"
            aria-labelledby="headingCheapest" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
-            <ul class="list-group">
-                {% for food, data in average_prices.items %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ food }}
-                        <span class="badge bg-success rounded-pill p-3">₦{{ data.average }}</span>
-                    </li>
-                {% empty %}
-                    <li>No data available.</li>
-                {% endfor %}
-            </ul>
+          <ul class="list-group">
+            {% for food, data in average_prices.items %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ food }}
+                <span class="badge bg-success rounded-pill p-3">₦{{ data.average }}</span>
+              </li>
+            {% empty %}
+              <li>No data available.</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
     </div>
@@ -218,19 +235,18 @@
     <!-- Real-time Foodstuff Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingExpensive">
-        <button class="accordion-button collapsed text-dark" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapseExpensive" 
+        <button class="accordion-button collapsed text-dark" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseExpensive"
                 aria-expanded="false" aria-controls="collapseExpensive">
-          <b>See Foodstuff Prices Across Nigeria 🏷</b>
+          <b>See Foodstuff Prices Across Nigeria</b>
         </button>
       </h2>
-      <div id="collapseExpensive" class="accordion-collapse collapse" 
+      <div id="collapseExpensive" class="accordion-collapse collapse"
            aria-labelledby="headingExpensive" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
           <p class="text-start mb-3">
-            This list is updated in real-time. For your convenience, the newest listings appear below this line.
+            This list is updated in real-time. The newest listings appear below:
           </p>
-          
           {% for price in prices %}
             <article class="price-card">
               <div class="price-header">
@@ -254,36 +270,35 @@
     <!-- Real-time States-based Prices -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingStates">
-        <button class="accordion-button collapsed text-dark" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapseStates" 
+        <button class="accordion-button collapsed text-dark" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseStates"
                 aria-expanded="false" aria-controls="collapseStates">
-          <b>See Foodstuff Prices Across Various States 🏷</b>
+          <b>See Foodstuff Prices Across States</b>
         </button>
       </h2>
-      <div id="collapseStates" class="accordion-collapse collapse" 
+      <div id="collapseStates" class="accordion-collapse collapse"
            aria-labelledby="headingStates" data-bs-parent="#priceAccordion">
         <div class="accordion-body">
-            <ul class="list-group">
-                {% for item in prices_by_state %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span>  
-                        {{ item.state }}
-                        <small class="text-muted">({{ item.Total }} listings)</small>
-                      </span>
-                      <span>
-                        <a href="{% url 'states_listing' item.state %}" class="badge bg-secondary rounded-pill p-3" style="text-decoration: none;">
-                            View
-                        </a>
-                      </span>
-                    </li>
-                {% empty %}
-                    <li>No states or listing have been recorded yet</li>
-                {% endfor %}
-            </ul>
+          <ul class="list-group">
+            {% for item in prices_by_state %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                  {{ item.state }}
+                  <small class="text-muted">({{ item.Total }} listings)</small>
+                </span>
+                <span>
+                  <a href="{% url 'states_listing' item.state %}" class="badge bg-secondary rounded-pill p-3" style="text-decoration: none;">
+                    View
+                  </a>
+                </span>
+              </li>
+            {% empty %}
+              <li>No states or listings recorded yet</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 {% endblock %}
