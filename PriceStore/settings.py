@@ -156,11 +156,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Extra locations of static files (important for apps like Main)
-STATICFILES_DIRS = [
-    BASE_DIR / "Main" / "static",
-]
-
 # Where collected static files will go (used in production)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
