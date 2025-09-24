@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-htyp3wqt^!$_7xzjszyze)=!ik*k#*ey((+@x=2o^9ur39^t9)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['price-store.vercel.app', '127.0.0.1', 'price-store.xyz']
 
