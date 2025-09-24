@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -7,6 +8,10 @@ urlpatterns = [
     path('partner-with-us/', views.register_partner, name='partner'),
     path('stores-list/', views.stores_list, name="stores"),
     path('prices/', views.prices_combined, name="prices"),
+    path("robots.txt", TemplateView.as_view(
+        template_name="robots.txt",
+        content_type="text/plain"
+    )),
     path('privacy-policy/', views.privacy_policy, name="privacy"),
     path('blog/', views.blog_list, name='blog_list'),
     path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
