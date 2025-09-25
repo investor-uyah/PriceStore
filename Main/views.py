@@ -35,7 +35,6 @@ def details(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-@login_required
 def main(request):
     return render(request, 'main.html')
 
@@ -48,12 +47,10 @@ def main(request):
  #       members
    # ) -->
 
-@login_required
 def blog_list(request):
     posts = BlogPost.objects.all()
     return render(request, "blog_list.html", {"posts": posts})
 
-@login_required
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
     return render(request, "blog_detail.html", {"post": post})
@@ -86,16 +83,13 @@ def csv_download(request):
 
     return response
 
-@login_required
 def stores_list(request):
     members = Members.objects.all()
     return render(request, 'stores-list.html', {'members':members})
 
-@login_required
 def privacy_policy(request):
     return render(request, 'privacy.html')
 
-@login_required
 def contact(request):
     if request.method == 'POST':
         form = forms.ContactForm(request.POST)
@@ -117,7 +111,7 @@ def contact(request):
         form = forms.ContactForm()
     return render(request, 'contact.html', {'form': form})
 
-@login_required
+
 def search_view(request):
     if request.method == 'POST':
         searched = request.POST.get('searched', '').strip()
@@ -135,7 +129,6 @@ def search_view(request):
         })
     return render(request, 'main.html')
 
-@login_required
 def about(request):
     return render(request, "about.html")
 
@@ -184,7 +177,6 @@ def purchase(request):
     return render(request, 'purchaseupdate.html', {'form': form})
 
 # This is the single, combined view for price_page.html
-@login_required
 def prices_combined(request):
     # Logic for "Prices Across Nigeria"
     prices = Price.objects.all().order_by('-id')
@@ -266,7 +258,6 @@ def prices_combined(request):
         'average_prices': average_prices,
     })
 
-@login_required
 def states_listing(request, state):
     prices = Price.objects.filter(state=state) #states like Akwa Ibom and Cross River now appear as expected
     return render(request, 'state_listing.html', {
