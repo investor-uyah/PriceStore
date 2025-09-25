@@ -6,19 +6,19 @@
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.9",
-        "buildCommand": "python3 manage.py collectstatic --noinput"
+        "runtime": "python3.9"
       }
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/staticfiles/$1"
+      "dest": "staticfiles/$1"
     },
     {
       "src": "/(.*)",
       "dest": "PriceStore/wsgi.py"
     }
-  ]
+  ],
+  "buildCommand": "python3 manage.py collectstatic --noinput"
 }
