@@ -2,6 +2,13 @@
   "version": 2,
   "builds": [
     {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles"
+      }
+    },
+    {
       "src": "PriceStore/wsgi.py",
       "use": "@vercel/python",
       "config": {
@@ -19,7 +26,5 @@
       "src": "/(.*)",
       "dest": "PriceStore/wsgi.py"
     }
-  ],
-  "buildCommand": "python3 manage.py collectstatic --noinput",
-  "outputDirectory": "staticfiles"
+  ]
 }
