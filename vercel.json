@@ -1,15 +1,5 @@
 {
-  "builds": [
-    {
-      "src": "PriceStore/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.9",
-        "buildCommand": "python3 manage.py collectstatic --noinput"
-      }
-    }
-  ],
+  "version": 2,
   "routes": [
     {
       "src": "/static/(.*)",
