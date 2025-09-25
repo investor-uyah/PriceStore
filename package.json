@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@vercel/analytics": "^1.5.0"
+  },
+  "scripts": {
+    "build": "./build_files.sh"
   }
 }
-
