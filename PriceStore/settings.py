@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 import environ
 import dj_database_url
-import subprocess
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -173,13 +172,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Auto-collect static files
-if os.environ.get('VERCEL_ENV'):
-    try:
-        subprocess.run(['python', 'manage.py', 'collectstatic', '--noinput'], 
-                      check=True, capture_output=True, text=True)
-        print("Static files collected successfully")
-    except subprocess.CalledProcessError as e:
-        print(f"Static file collection failed: {e}")
-        print(f"Error output: {e.stderr}")
