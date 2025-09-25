@@ -6,8 +6,7 @@
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "runtime": "python3.11",
-        "buildCommand": "python3 manage.py collectstatic --noinput"
+        "runtime": "python3.11"
       }
     }
   ],
@@ -21,5 +20,6 @@
       "dest": "PriceStore/wsgi.py"
     }
   ],
+  "buildCommand": "python3 manage.py collectstatic --noinput",
   "outputDirectory": "staticfiles"
 }
