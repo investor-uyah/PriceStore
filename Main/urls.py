@@ -12,6 +12,10 @@ urlpatterns = [
         template_name="robots.txt",
         content_type="text/plain"
     )),
+    path("sitemap.xml", TemplateView.as_view(
+        template_name="sitemap.xml",
+        content_type="application/xml"
+    ), name="sitemap"),
     path('privacy-policy/', views.privacy_policy, name="privacy"),
     path('blog/', views.blog_list, name='blog_list'),
     path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
