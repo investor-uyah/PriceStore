@@ -4,3 +4,4 @@ Disallow: /login
 Disallow: /signup
 Disallow: /accounts
 Allow: /
+Sitemap: https://www.google.com/search?q=https://price-store.xyz/sitemap.xml
