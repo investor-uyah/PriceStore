@@ -23,6 +23,10 @@
       "dest": "/staticfiles/$1"
     },
     {
+      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|css|js))",
+      "dest": "/staticfiles/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "PriceStore/wsgi.py"
     }
