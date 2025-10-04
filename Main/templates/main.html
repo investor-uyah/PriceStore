@@ -80,9 +80,11 @@
     }
 
     .hero-image img {
-        max-width: 260px;
-        border-radius: 50%;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    width: 260px;
+    height: 260px; /* Make it equal to width */
+    border-radius: 50%;
+    object-fit: cover; /* Ensures image fills the circle without distortion */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
     }
 
     @media (max-width: 768px) {
