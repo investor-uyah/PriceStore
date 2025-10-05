@@ -91,6 +91,8 @@
     {{ post.content|safe }}
   </div>
 
-  <a href="{% url 'blog_list' %}">← Back to Blog</a>
+  <div class="blog-details">
+    <a href="{% url 'blog_list' %}">← Back to Blog</a>
+  </div>
 </div>
 {% endblock %}
