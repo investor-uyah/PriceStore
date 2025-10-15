@@ -120,7 +120,9 @@ def search_view(request):
             Q(foodstuff__icontains=searched) |
             Q(market_store_name__icontains=searched) |
             Q(state__icontains=searched) |
-            Q(price__icontains=searched)
+            Q(price__icontains=searched) |
+            Q(lga__icontains=searched) |
+            Q(description__icontains=searched)
         )
         
         return render(request, 'search_page.html', {
@@ -196,7 +198,7 @@ def prices_combined(request):
     today = datetime.date.today()
     this_week_start = today - datetime.timedelta(days=7)
     last_week_start = today - datetime.timedelta(days=14)
-    items = ["Rice", "Beans", "Yam", "Garri"]
+    items = ["Rice (local)", "Rice (foreign)", "Beans (brown)", "Beans (white)", "Yam", "Garri (white)", "Garri (yellow)", "Maize"]
     trends = {}
 
     for item in items:
@@ -224,7 +226,7 @@ def prices_combined(request):
             else:
                 status = "✅ stable"
         else:
-            status = "No data available."
+            status = "Not available."
         trends[item] = status
         
     # NEW: Logic for 'Average Food Prices'

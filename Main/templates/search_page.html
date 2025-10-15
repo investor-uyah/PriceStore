@@ -9,18 +9,20 @@
         <p class="text-muted">Showing results for: <strong>{{ searched }}</strong></p>
         
         {% if entry %}
-            <div class="row">
+            <div class="container my-4">
                 {% for item in entry %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ item.foodstuff }}</h5>
-                            <p class="card-text">
-                                <strong>Price:</strong> ₦{{ item.price }} <br>
-                                <strong>Market:</strong> {{ item.market }} <br>
-                                <strong>State:</strong> {{ item.state }}
-                            </p>
-                        </div>
+                <div class="row py-2 border-bottom align-items-center">
+                    <div class="col-md-3">
+                        <strong>{{ item.foodstuff }}</strong>
+                    </div>
+                    <div class="col-md-3">
+                        ₦{{ item.price }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ item.market_store_name }}
+                    </div>
+                    <div class="col-md-3 text-muted">
+                        {{ item.state }}
                     </div>
                 </div>
                 {% endfor %}

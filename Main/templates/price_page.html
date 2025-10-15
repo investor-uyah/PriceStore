@@ -131,6 +131,15 @@
       animation-play-state: paused;
   }
 
+  p a {
+    display: inline;
+    background: none;
+    color: #0d6efd; /* Bootstrap blue or your preferred color */
+    width: auto;
+    font-size: inherit;
+    text-decoration: underline;
+  }
+
   @keyframes scroll-left {
       from {
           transform: translateX(3%);
@@ -196,7 +205,7 @@
 
     <!-- Top 3 Expensive -->
     <div class="card">
-      <h3 class="text-danger">Top 5 Most Expensive Foodstuffs</h3>
+      <h3 class="text-danger">Top 5 Expensive Foodstuffs</h3>
       {% if expensive %}
         <ul class="list-group mt-3">
           {% for item in expensive %}
@@ -213,6 +222,18 @@
       {% endif %}
     </div>
 
+    <!-- Price Trends -->
+    <div class="card">
+      <h3>Price Trends</h3>
+      <ul class="ms-3 text-muted">
+        {% for item, status in trends.items %}
+          <li>{{ item }} {{ status }}</li>
+        {% empty %}
+          <li>Not available.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
     <!-- Basket -->
     <div class="card">
       <h3>Basket of Essentials</h3>
@@ -221,46 +242,7 @@
       </div>
     </div>
 
-    <!-- Price Trends -->
-    <div class="card">
-      <h3>Price Trends</h3>
-      <ul class="ms-3 text-muted">
-        {% for item, status in trends.items %}
-          <li>{{ item }} {{ status }}</li>
-        {% empty %}
-          <li>No trend data available.</li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <!-- Regional Comparison -->
-    <div class="card">
-      <h3>Factors Impacting Prices</h3>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <p>Harvest seasonality & local supply — price declines as harvests arrive.</p>
-        <p>High but easing food inflation — elevated food inflation through 2025 with a downward trend.</p>
-        <p>FX / policy & import dependence — imported staples such as rice are sensitive to naira movements and trade policy.</p>
-        <p>Fuel, transport & input costs — fuel and fertilizer price volatility raises costs.</p>
-        <p>Conflict & localized disruption — areas with insecurity tend to see price spikes, increasing regional uncertainity.</p>
-      </div>
-    </div>
-
-    <!-- Price Predictions -->
-    <div class="card">
-      <h3>Price Predictions</h3>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <p>Maize: ✅ ±3% (3 months) 🔽 -3% (6 months)</p>
-        <p>Local Rice: 🔼 +3% (3 months) 🔼 +2% to +8% (6 months)</p>
-        <p>Garri: 🔼 +1% to +6% (3 months) 🔼 +3% to +10% (6 months)</p>
-        <p>Beans: 🔼 +3% to +10% (3 months) 🔼 +5% to +15% (6 months)</p>
-        <p>Tomatoes: 🔼 +5% to +25% (3 months)</p>
-        <p></p>
-        <small><em>Note: These are AI-generated forecasts and do not represent actual prices.</em></small>
-        <small><em>• Last updated: October 13, 2025</em></small>
-      </div>
-    </div>
-  </div>
-</div>
+    
 
 <!-- Section: Insights -->
 <div class="container mt-4">
@@ -273,7 +255,7 @@
         <button class="accordion-button collapsed text-success" type="button"
                 data-bs-toggle="collapse" data-bs-target="#collapseCheapest"
                 aria-expanded="false" aria-controls="collapseCheapest">
-          <b>Average Food Prices</b>
+          <b>Average Food Prices 📈</b>
         </button>
       </h2>
       <div id="collapseCheapest" class="accordion-collapse collapse"
@@ -299,7 +281,7 @@
         <button class="accordion-button collapsed text-dark" type="button"
                 data-bs-toggle="collapse" data-bs-target="#collapseExpensive"
                 aria-expanded="false" aria-controls="collapseExpensive">
-          <b>See Foodstuff Prices Across Nigeria</b>
+          <b>New Price Listings 🔥</b>
         </button>
       </h2>
       <div id="collapseExpensive" class="accordion-collapse collapse"
@@ -334,7 +316,7 @@
         <button class="accordion-button collapsed text-dark" type="button"
                 data-bs-toggle="collapse" data-bs-target="#collapseStates"
                 aria-expanded="false" aria-controls="collapseStates">
-          <b>See Foodstuff Prices Across States</b>
+          <b>Prices Per State 🏙</b>
         </button>
       </h2>
       <div id="collapseStates" class="accordion-collapse collapse"
@@ -361,5 +343,52 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Market Section -->
+<div class="container mt-4">
+  <h2 class="section-header">🌾 Market Information</h2>
+    <div class="card">
+      <h3>Factors Impacting Prices</h3>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <p>Harvest seasonality & local supply — price declines as harvests arrive.</p>
+        <p>High but easing food inflation — elevated food inflation through 2025 with a downward trend.</p>
+        <p>FX / policy & import dependence — imported staples such as rice are sensitive to naira movements and trade policy.</p>
+        <p>Fuel, transport & input costs — fuel and fertilizer price volatility raises costs.</p>
+        <p>Conflict & localized disruption — areas with insecurity tend to see price spikes, increasing regional uncertainity.</p>
+      </div>
+    </div>
+
+    <!-- Price Predictions -->
+    <div class="card">
+      <h3>Price Predictions</h3>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <p>Maize: ✅ ±3% (3 months) 🔽 -3% (6 months)</p>
+        <p>Local Rice: 🔼 +3% (3 months) 🔼 +2% to +8% (6 months)</p>
+        <p>Garri: 🔼 +1% to +6% (3 months) 🔼 +3% to +10% (6 months)</p>
+        <p>Beans: 🔼 +3% to +10% (3 months) 🔼 +5% to +15% (6 months)</p>
+        <p>Tomatoes: 🔼 +5% to +25% (3 months)</p>
+        <p></p>
+        <small><em>Note: These are AI-generated forecasts and do not represent actual prices.</em></small>
+        <small><em>• Last updated: October 13, 2025</em></small>
+      </div>
+    </div>
+
+    <!-- Food Import News and Activities -->
+    <div class="card">
+      <h3>Food Import News</h3>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <p>Nigeria’s food import bill jumped 33 % year-on-year to ₦1.18 trn in Q2 2025 — pushing calls to revive farm settlements. <a href="https://guardian.ng/news/reps-move-to-revive-farm-settlements-as-food-imports-hit-10bn-yearly/?utm_source=chatgpt.com">View Source</a></p>
+        <p>FG proposes temporary zero duties on selected food imports to buffer rising inflation. <a href="https://finance.gov.ng/fg-proposes-temporary-zero-duty-on-food-imports-to-ease-inflation/?utm_source=chatgpt.com">View Source</a></p>
+        <p>World Bank urges Nigeria to end import bans to ease food prices amid rising poverty. <a href="https://www.yahoo.com/news/articles/world-bank-urges-nigeria-end-112704471.html?utm_source=chatgpt.com">View Source</a></p>
+        <p>Nigeria still spends ~$10 billion annually importing staples like wheat, rice, fish and sugar. <a href="https://nannews.ng/2025/08/19/nigeria-spends-10bn-annually-on-food-imports-fg/">View Source</a></p>
+        <p>Global food prices hit over a two-year high; cereal and wheat prices easing, meat up. <a href="https://www.reuters.com/markets/commodities/world-food-prices-more-than-two-year-high-fao-says-2025-09-05/?utm_source=chatgpt.com">View Source</a></p>
+        <p>Brazil to remove import tariffs on key food items including meat, coffee, sugar to reduce consumer cost. <a href="https://www.ft.com/content/7605b78d-610e-4dea-b253-e75a3d816cde?utm_source=chatgpt.com">View Source</a></p>
+        <p>Nigeria is importing Danish cows to reduce a $1.5 billion dairy import bill. <a href="https://www.reuters.com/world/africa/nigeria-imports-danish-cows-bid-slash-15-billion-milk-import-bill-2025-06-02/?utm_source=chatgpt.com">View Source</a></p>
+        <p></p>
+        <small><em>• Last updated: October 15, 2025</em></small>
+      </div>
+    </div>
+  
 </div>
 {% endblock %}
