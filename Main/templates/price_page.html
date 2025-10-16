@@ -345,6 +345,12 @@
   </div>
 </div>
 
+
+<!-- Market Section -->
+<div class="container mt-4">
+  <h2 class="section-header">Our Market Locations 🗺</h2>
+  <div id="marketMap" style="height: 400px; width: 100%; border-radius: 12px; margin-top: 20px;"></div>
+
 <!-- Market Section -->
 <div class="container mt-4">
   <h2 class="section-header">🌾 Market Information</h2>
@@ -391,4 +397,40 @@
     </div>
   
 </div>
+
+
+<script>
+  // Initialize map centered on Nigeria
+  const map = L.map("marketMap").setView([9.0820, 8.6753], 6); // lat, lon, zoom
+
+  // Add OpenStreetMap tiles (free)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Example market data
+  const markets = [
+  { name: "Kado Biko Market (Gwarinpa)", coords: [9.067318, 7.398260] },  // from JujuFilms listing :contentReference[oaicite:0]{index=0}
+  { name: "Dawaki Market", coords: [9.125, 7.39472] },  // approximate (from Dawaki ext coords 9°7'30"N, 7°23'43"E) :contentReference[oaicite:1]{index=1}
+  { name: "Oja Oba Market, Akure", coords: [7.2526, 5.2058] },
+  { name: "Ota Efun Market", coords: [7.137, 4.621] },  // approximate for Ota / Ogun state region
+  { name: "Ita Oba Joko Market", coords: [7.441, 4.540] },  // estimated around Osun / region
+  { name: "Igbona Market (Osogbo)", coords: [7.78075, 4.55779] },  // from MapCarta / OSM data :contentReference[oaicite:2]{index=2}
+  { name: "Community Market (Zaria)", coords: [11.150, 7.708] },  // approximate for Samaru, Zaria area
+  { name: "Sabon-Gari (Zaria)", coords: [11.101, 7.714] },  // approximate central Zaria “Sabon Gari” district
+  { name: "Samaru Market (Zaria)", coords: [11.156, 7.702] },  // approximate for Samaru region of Zaria
+];
+
+  // Add markers for each market
+  markets.forEach(market => {
+    L.marker(market.coords)
+      .addTo(map)
+      .bindPopup(`<b>${market.name}</b>`);
+  });
+</script>
+{% endblock %}
+
+{% block script %}
+
 {% endblock %}
