@@ -194,6 +194,35 @@ def prices_combined(request):
     cheapest = Price.objects.values('foodstuff').annotate(min_price=Min('price')).order_by('min_price')[:5]
     expensive = Price.objects.values('foodstuff').annotate(max_price=Max('price')).order_by('-max_price')[:5]
 
+    # Logic for "Regional Comparison"
+    lowest_records = (
+        Price.objects.values('foodstuff')
+        .annotate(min_price=Min('price'))
+    )
+
+    regional_comparison = []
+    for record in lowest_records:
+        foodstuff = record['foodstuff']
+        min_price = record['min_price']
+
+        lowest_entry = (
+            Price.objects.filter(foodstuff=foodstuff, price=min_price)
+            .order_by('created_at')
+            .first()
+        )
+
+        if lowest_entry:
+            regional_comparison.append({
+                'foodstuff': foodstuff,
+                'market': lowest_entry.market_store_name[:15],
+                'state': lowest_entry.state,
+                'price': lowest_entry.price,
+            })
+
+    random.shuffle(regional_comparison)
+    regional_comparison = regional_comparison[:5]
+
+
     # Logic for "Price Trends"
     today = datetime.date.today()
     this_week_start = today - datetime.timedelta(days=7)
@@ -258,6 +287,7 @@ def prices_combined(request):
         'expensive': expensive,
         'trends': trends,
         'average_prices': average_prices,
+        'regional_comparison': regional_comparison,
     })
 
 def states_listing(request, state):

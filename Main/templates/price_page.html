@@ -155,11 +155,11 @@
     <div class="marquee">
         <span>
         CBN Rates — USD: ₦1,457.51  |  GBP: ₦1,943.01  |  EUR: ₦1,686.20  |
-        Petrol Price: ₦992/L (Lagos)  |  Diesel Price: ₦- |  NBS Inflation Rate: 21.87 %
+        Petrol Price: ₦992/L (Lagos)  |  Diesel Price: ₦- |  NBS Inflation Rate: 21.87 %  | Cooking Gas: ₦1350 (Abuja) 
         </span>
         <span>
         CBN Rates — USD: ₦1,457.51  |  GBP: ₦1,943.01  |  EUR: ₦1,686.20  |
-        Petrol Price: ₦992/L (Lagos)  |  Diesel Price: ₦- |  NBS Inflation Rate: 21.87 %
+        Petrol Price: ₦992/L (Lagos)  |  Diesel Price: ₦- |  NBS Inflation Rate: 21.87 %  | Cooking Gas: ₦1350 (Abuja) 
         </span>    
     </div>    
 </div>
@@ -234,14 +234,22 @@
       </ul>
     </div>
 
-    <!-- Basket -->
+    <!-- Basket --> 
     <div class="card">
-      <h3>Basket of Essentials</h3>
-      <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-        <p>COMING SOON</p>
-      </div>
+      <h3>Regional Comparison</h3>      
+        <div class="d-flex justify-content-center align-items-center flex-column pb-3">
+          <ul class="list-unstyled">
+            {% for item in regional_comparison %}
+              <li class="mb-2">
+                "{{ item.market }}" in {{ item.state }} shows lowest price for <strong>{{ item.foodstuff }}</strong>
+              </li>
+            {% empty %}
+              <li>No data</li>
+            {% endfor %}
+          </ul>
+        </div>
     </div>
-
+  
     
 
 <!-- Section: Insights -->
