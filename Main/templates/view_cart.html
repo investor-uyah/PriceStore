@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+{% load static %}
+
+<style>
+    body {
+        margin-top: 150px;
+    }
+</style>
+
+{% if cart %}
+    {% for key, item in cart.items %}
+        {{ item.name }} - {{ item.qty }} × ₦{{ item.price }}
+    {% endfor %}
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+Proceed to checkout here 

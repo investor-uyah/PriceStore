@@ -134,6 +134,36 @@ def search_view(request):
 def about(request):
     return render(request, "about.html")
 
+def add_to_cart(request, id):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+
+        # define cart
+        cart = request.session.setdefault("cart", {})
+
+        # increment product qty in cart when one exists
+        if str(id) in cart:
+            cart[str(id)]["qty"] += 1
+        
+        # create new cart otherwise
+        else:
+            cart[str(id)] = {
+                "name": name,
+                "price": price,
+                "qty": 1,
+            }
+        
+        request.session.modified = True
+        return redirect("view_cart")
+
+    return redirect("main")
+
+
+def view_cart(request):
+    cart = request.session.get("cart", {})
+    return render(request, "view_cart.html", {"cart": cart})
+
 def edee_farms(request):
     return render(request, "edee_farms.html")
 

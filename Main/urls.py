@@ -8,6 +8,8 @@ urlpatterns = [
     path('partner-with-us/', views.register_partner, name='partner'),
     path('stores-list/', views.stores_list, name="stores"),
     path('shop_at_edees/', views.edee_farms, name="edee_farms"), 
+    path("add-to-cart/<int:id>/", views.add_to_cart, name="add_to_cart"),
+    path("cart/", views.view_cart, name="view_cart"),
     path('prices/', views.prices_combined, name="prices"),
     path("robots.txt", TemplateView.as_view(
         template_name="robots.txt",
