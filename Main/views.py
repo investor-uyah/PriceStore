@@ -134,6 +134,9 @@ def search_view(request):
 def about(request):
     return render(request, "about.html")
 
+def edee_farms(request):
+    return render(request, "edee_farms.html")
+
 @ratelimit(key='ip', rate='3/m', block=True)
 def login(request):
     if request.method == "POST":

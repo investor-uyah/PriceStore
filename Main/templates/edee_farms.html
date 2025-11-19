@@ -1,0 +1,399 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        padding-top: 150px; /* fixes content hidden by navbar */
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .product-card {
+        background: #fff;
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #f4f4f4;
+    }
+
+    .product-card p {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+        margin: 0;
+    }
+</style>
+
+<p>
+<strong>Edee Farm Marketplace</strong> is an online store focused on delivering high-quality produce to consumers 
+in raw or processed form. The store has been in operation for over two years, serving clients in 
+the United Kingdom and across Nigeria with well-packaged produce and fast delivery.
+</p>
+
+<h2 style="margin-top: 30px; font-size:large; font-weight:bolder;">Our Products</h2>
+
+<!-- Product Catalog Grid -->
+<div class="product-grid">
+
+    <!-- 1 -->
+    <div class="product-card">
+        <img src="" alt="CrayFish (dried)">
+        <p>Crayfish (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 2 -->
+    <div class="product-card">
+        <img src="" alt="Snail (dried)">
+        <p>Snail (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 3 -->
+    <div class="product-card">
+        <img src="" alt="Alligator Pepper">
+        <p>Alligator Pepper</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 4 -->
+    <div class="product-card">
+        <img src="" alt="Ginger (fresh)">
+        <p>Ginger (fresh)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 5 -->
+    <div class="product-card">
+        <img src="" alt="Ginger (dried)">
+        <p>Ginger (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 6 -->
+    <div class="product-card">
+        <img src="" alt="Turmeric (root)">
+        <p>Turmeric (root)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 7 -->
+    <div class="product-card">
+        <img src="" alt="Turmeric Powder">
+        <p>Turmeric Powder</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 8 -->
+    <div class="product-card">
+        <img src="" alt="Garlic">
+        <p>Garlic</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 9 -->
+    <div class="product-card">
+        <img src="" alt="Onion (dried)">
+        <p>Onion (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 10 -->
+    <div class="product-card">
+        <img src="" alt="Hibiscus (Zobo)">
+        <p>Hibiscus (Zobo)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 11 -->
+    <div class="product-card">
+        <img src="" alt="Guava Leaf (dried)">
+        <p>Guava Leaf (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 12 -->
+    <div class="product-card">
+        <img src="" alt="Moringa Leaf (dried)">
+        <p>Moringa Leaf (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 13 -->
+    <div class="product-card">
+        <img src="" alt="Neem Leaf (dried)">
+        <p>Neem Leaf (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 14 -->
+    <div class="product-card">
+        <img src="" alt="Okra (dried)">
+        <p>Okra (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- 15 -->
+    <div class="product-card">
+        <img src="" alt="Plantain Flour">
+        <p>Plantain Flour</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <!-- MORE ITEMS… Simply Copy This Block -->
+    <div class="product-card">
+        <img src="" alt="Yam Flour (Elubo)">
+        <p>Yam Flour (Elubo)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Cassava Flour (Gari Flour)">
+        <p>Cassava Flour (Gari Flour)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Cocoyam Flour">
+        <p>Cocoyam Flour</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Fonio">
+        <p>Fonio</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Millet">
+        <p>Millet</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Sorghum">
+        <p>Sorghum</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Sesame Seed (white)">
+        <p>Sesame Seed (white)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Sesame Seed (brown)">
+        <p>Sesame Seed (brown)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Cashew Nut (raw)">
+        <p>Cashew Nut (raw)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Cashew Nut (processed / roasted)">
+        <p>Cashew Nut (processed / roasted)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Shea Butter">
+        <p>Shea Butter</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Shea Kernel">
+        <p>Shea Kernel</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Palm Kernel Oil">
+        <p>Palm Kernel Oil</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Soursop leaves (dried)">
+        <p>Soursop leaves (dried)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Palm Oil">
+        <p>Palm Oil</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Black Pepper (ground)">
+        <p>Black Pepper (ground)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Black Pepper (whole)">
+        <p>Black Pepper (whole)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Macca / African Nutmeg">
+        <p>Macca / African Nutmeg</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="African Bush Mango (Ogbono)">
+        <p>African Bush Mango (Ogbono)</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Tiger Nut Milk Powder / Snacks">
+        <p>Tiger Nut Milk Powder / Snacks</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Bambara Nut">
+        <p>Bambara Nut</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Bambara Nut">
+        <p>Palm kernel Shell</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Bambara Nut">
+        <p>Palm kernel Nut Oil</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Bambara Nut">
+        <p>Oysters</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+    </div>
+
+    <div class="product-card">
+        <img src="" alt="Bambara Nut">
+        <p>Dried Basil</p>
+        <a style="margin-top: 10px;"href="" class="btn btn-success">
+            Add to Cart
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
