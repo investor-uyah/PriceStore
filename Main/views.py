@@ -155,14 +155,41 @@ def add_to_cart(request, id):
             }
         
         request.session.modified = True
-        return redirect("view_cart")
 
-    return redirect("main")
+        # ✅ Success message
+        messages.success(request, f"{name} has been added to your cart!")
+
+        # Don't redirect to view_cart, keep them on the same page
+        return redirect(request.META.get("HTTP_REFERER", "main"))
+
+
+    else:   
+        return redirect("main")
 
 
 def view_cart(request):
     cart = request.session.get("cart", {})
-    return render(request, "view_cart.html", {"cart": cart})
+
+    # debugging 
+    print("DEBUG: View Cart Function - Retrieved session data:")
+    print(cart)
+
+    # initiate the total count
+    total = 0
+    
+    # access each product in cart consideing it is a dictionary 
+    for id, data in cart.items():
+
+        # calculate total
+        sub_total = float(data['price']) * int(data['qty'])
+
+        # add together the subtotal
+        total += sub_total
+    
+    return render(request, "view_cart.html", {
+        "cart": cart,
+        "total": total,
+    })
 
 def edee_farms(request):
     return render(request, "edee_farms.html")

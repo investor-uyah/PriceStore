@@ -5,7 +5,7 @@
 
 <style>
     body {
-        padding-top: 150px;
+        padding-top: 120px;
     }
 
     .product-grid {
@@ -45,12 +45,22 @@
         border-bottom: 2px solid #eee;
         padding-bottom: 8px;
     }
+    
+    /* Cart container at the top-right corner */
+
 </style>
 
+<div style="text-align: right;">
+    <a style="font-size: 1.8rem; background-color: white; width: 5px; margin-right: 20px;"
+       href="{% url 'view_cart' %}" 
+       title="View Cart">
+        🛒
+    </a>
+</div>
 
 <p>
-<strong>Edee Farm Marketplace</strong> Edee Farm Marketplace is an online store focused on delivering high-quality produce to consumers in raw or processed form. 
-The store has been in operation for over two years, serving clients in the United Kingdom and across Nigeria with well-packaged produce and fast delivery.
+<strong>Edee Farm Marketplace</strong>, our partner, is an online store focused on delivering high-quality produce to consumers in raw or processed form. 
+The store has been in operation for over two years, serving clients home and abroad with well-packaged produce and fast delivery.
 </p>
 
 <h2 style="margin-top: 30px;">Our Products</h2>
@@ -68,7 +78,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Crayfish (dried)">
             <input type="hidden" name="price" value="1200">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -80,7 +90,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Snail (dried)">
             <input type="hidden" name="price" value="3000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -92,7 +102,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Onion (dried)">
             <input type="hidden" name="price" value="800">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -104,7 +114,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Guava Leaf (dried)">
             <input type="hidden" name="price" value="1000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -116,7 +126,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Moringa Leaf (dried)">
             <input type="hidden" name="price" value="1200">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -128,7 +138,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Neem Leaf (dried)">
             <input type="hidden" name="price" value="1000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -140,7 +150,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Okra (dried)">
             <input type="hidden" name="price" value="1500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -152,7 +162,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Soursop Leaves (dried)">
             <input type="hidden" name="price" value="1600">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -170,7 +180,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Ginger (fresh)">
             <input type="hidden" name="price" value="700">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -188,7 +198,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Plantain Flour">
             <input type="hidden" name="price" value="2500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -200,7 +210,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Yam Flour (Elubo)">
             <input type="hidden" name="price" value="2300">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -212,7 +222,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Ginger (dried)">
             <input type="hidden" name="price" value="1500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -224,7 +234,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Turmeric Powder">
             <input type="hidden" name="price" value="1300">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -236,7 +246,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Cassava Flour">
             <input type="hidden" name="price" value="900">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -248,7 +258,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Cocoyam Flour">
             <input type="hidden" name="price" value="2000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -260,7 +270,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Black Pepper (ground)">
             <input type="hidden" name="price" value="1100">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -272,7 +282,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Tiger Nut Milk Powder / Snacks">
             <input type="hidden" name="price" value="2500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -290,7 +300,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Fonio">
             <input type="hidden" name="price" value="1800">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -302,7 +312,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Millet">
             <input type="hidden" name="price" value="850">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -314,7 +324,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Sorghum">
             <input type="hidden" name="price" value="900">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -332,7 +342,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Cashew Nut (raw)">
             <input type="hidden" name="price" value="3000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -344,7 +354,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Cashew Nut (roasted)">
             <input type="hidden" name="price" value="3500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -356,7 +366,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Sesame Seed (white)">
             <input type="hidden" name="price" value="1500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -368,7 +378,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Sesame Seed (brown)">
             <input type="hidden" name="price" value="1500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -380,7 +390,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Bambara Nut">
             <input type="hidden" name="price" value="1200">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -398,7 +408,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Hibiscus (Zobo)">
             <input type="hidden" name="price" value="1000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -416,7 +426,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Alligator Pepper">
             <input type="hidden" name="price" value="1200">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -428,7 +438,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Black Pepper (whole)">
             <input type="hidden" name="price" value="1300">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -440,7 +450,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Macca / African Nutmeg">
             <input type="hidden" name="price" value="1100">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -452,7 +462,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="African Bush Mango (Ogbono)">
             <input type="hidden" name="price" value="2500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -464,7 +474,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Dried Basil">
             <input type="hidden" name="price" value="800">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -481,7 +491,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Palm Oil">
             <input type="hidden" name="price" value="1500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -492,7 +502,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Palm Kernel Oil">
             <input type="hidden" name="price" value="1800">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -503,7 +513,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Shea Butter">
             <input type="hidden" name="price" value="2500">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -514,7 +524,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Shea Kernel">
             <input type="hidden" name="price" value="2000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -525,7 +535,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Palm Kernel Shell">
             <input type="hidden" name="price" value="1700">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -536,7 +546,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Palm Kernel Nut Oil">
             <input type="hidden" name="price" value="2200">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 
@@ -554,7 +564,7 @@ The store has been in operation for over two years, serving clients in the Unite
             {% csrf_token %}
             <input type="hidden" name="name" value="Oysters">
             <input type="hidden" name="price" value="3000">
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add_to_cart</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add to Cart</button>
         </form>
     </div>
 

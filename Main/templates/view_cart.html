@@ -1,18 +1,121 @@
 {% extends "master.html" %}
 {% load static %}
 
+{% block content %}
+
 <style>
+    /* Styling to ensure the cart content is visible and centered */
     body {
         margin-top: 150px;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+    }
+    .cart-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+    .total-row {
+        font-weight: bold;
+        font-size: 1.1em;
+        background-color: #e8f5e9;
+    }
+    .checkout-link {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .checkout-link a {
+        background-color: #007bff;
+        color: white;
+        padding: 12px;
+        width: 300px;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+    }
+    .checkout-link a:hover {
+        background-color: #0056b3;
     }
 </style>
 
-{% if cart %}
-    {% for key, item in cart.items %}
-        {{ item.name }} - {{ item.qty }} × ₦{{ item.price }}
-    {% endfor %}
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+<div style="text-align: right; width: 150px">
+    <a class="btn btn-primary" style="margin-right: 20px;"
+       href="{% url 'edee_farms' %}" 
+       title="Back to products">
+        Back to Products Catalogue
+    </a>
+</div>
 
-Proceed to checkout here 
+<div class="cart-container">
+    <h1 style="text-align: center; color: #333;">Edee Farm Marketplace — Cart Summary</h1>
+
+    {% if cart %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price (Naira)</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <!-- THE CRITICAL FIX: Use .items to iterate over a dictionary -->
+                {% for product_id, item_data in cart.items %}
+                    <tr>
+                        <td>{{ item_data.name }}</td>
+                        <td style="text-align: right;">₦{{ item_data.price|floatformat:0 }}</td>
+                        <td style="text-align: center;">{{ item_data.qty }}</td>
+                        <td style="text-align: right;">
+                            <!-- Calculate Subtotal: widthratio multiplies two numbers -->
+                            {% widthratio item_data.qty 1 item_data.price as line_total %}
+                            ₦{{ line_total|floatformat:0 }}
+                        </td>
+                        <td><a class="btn btn-gray"href="">Remove</a></td>
+                    </tr>
+                {% endfor %}
+                
+                <!-- NOTE: You should calculate the grand total in the Python view for accuracy
+                     and pass it to the template, but we will use a placeholder here. -->
+                <tr class="total-row">
+                    <td colspan="3" style="text-align: right;">Grand Total:</td>
+                    <td style="text-align: right;">₦{{ total|floatformat:0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="checkout-link">
+            <a href="#">Proceed to checkout here →</a>
+        </div>
+    {% else %}
+        <p style="text-align: center; padding: 20px; color: #555;">Your cart is currently empty.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
