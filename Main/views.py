@@ -166,6 +166,23 @@ def add_to_cart(request, id):
     else:   
         return redirect("main")
 
+def remove_cart(request, id):
+    cart = request.session.get("cart", {})
+
+    # If product doesn't exist in cart, redirect
+    if str(id) not in cart:
+        return redirect("edee_farms")
+
+    # Decrease quantity
+    if cart[str(id)]["qty"] > 1:
+        cart[str(id)]["qty"] -= 1
+    else:
+        # Remove item completely if qty would hit zero
+        del cart[str(id)]
+
+    request.session.modified = True
+    return redirect("view_cart")
+
 
 def view_cart(request):
     cart = request.session.get("cart", {})

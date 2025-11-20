@@ -96,7 +96,7 @@
                             {% widthratio item_data.qty 1 item_data.price as line_total %}
                             ₦{{ line_total|floatformat:0 }}
                         </td>
-                        <td><a class="btn btn-gray"href="">Remove</a></td>
+                        <td><a class="btn btn-gray"href="{% url 'remove_cart' product_id %}">Remove</a></td>
                     </tr>
                 {% endfor %}
                 
