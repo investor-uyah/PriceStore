@@ -162,7 +162,7 @@ def add_to_cart(request, id):
         request.session.modified = True
 
 
-        ✅ Success message
+        # ✅ Success message
         messages.success(request, f"{name} has been added to your cart!")
 
         # Don't redirect to view_cart, keep them on the same page
@@ -188,7 +188,7 @@ def remove_cart(request, id):
 
     request.session.modified = True
 
-    ✅ Success message
+    # ✅ Success message
     messages.success(request, f"1 quantity of {name} has been removed from your cart!")
     
     return redirect("view_cart")
