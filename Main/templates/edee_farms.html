@@ -45,10 +45,36 @@
         border-bottom: 2px solid #eee;
         padding-bottom: 8px;
     }
-    
+
+    .button {
+        margin-top: 60px;
+        background: #2d6cdf;
+        max-width: 250px;
+        align-items: center;
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background: #1a4fb6;
+    }
+
+    .welcome-box {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 14px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
     /* Cart container at the top-right corner */
 
 </style>
+
 
 <div style="text-align: right;">
     <a style="font-size: 1.8rem; background-color: white; width: 5px; margin-right: 20px;"
@@ -58,10 +84,19 @@
     </a>
 </div>
 
-<p>
+<div class="welcome-box">
+<p class="mt-1 text-gray-600 leading-relaxed">
 <strong>Edee Farm Marketplace</strong>, our partner, is an online store focused on delivering high-quality produce to consumers in raw or processed form. 
-The store has been in operation for over two years, serving clients home and abroad with well-packaged produce and fast delivery.
+The store has been in operation for over two years, serving clients home and abroad with well-packaged produce and fast delivery. 
 </p>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn btn-primary" style="margin-top: 30px;"
+            onclick="window.open('https://wa.link/7cxor5', '_blank')">
+        Order Now on WhatsApp
+    </button>
+</div>
 
 <h2 style="margin-top: 30px;">Our Products</h2>
 
@@ -84,7 +119,7 @@ The store has been in operation for over two years, serving clients home and abr
 
     <!-- Snail -->
     <div class="product-card">
-        <img src="" alt="Snail">
+        <img src="/img/dried-snail.jpg" alt="Snail">
         <p>Snail (dried)</p>
         <form action="{% url 'add_to_cart' 2 %}" method="POST">
             {% csrf_token %}
@@ -144,7 +179,7 @@ The store has been in operation for over two years, serving clients home and abr
 
     <!-- Okra -->
     <div class="product-card">
-        <img src="" alt="Okra">
+        <img src="/img/okra.jpg" alt="Okra">
         <p>Okra (dried)</p>
         <form action="{% url 'add_to_cart' 7 %}" method="POST">
             {% csrf_token %}
@@ -456,7 +491,7 @@ The store has been in operation for over two years, serving clients home and abr
 
     <!-- Ogbono -->
     <div class="product-card">
-        <img src="" alt="Ogbono">
+        <img src="/img/ogbono-seed.jpg" alt="Ogbono">
         <p>African Bush Mango (Ogbono)</p>
         <form action="{% url 'add_to_cart' 30 %}" method="POST">
             {% csrf_token %}
@@ -557,8 +592,8 @@ The store has been in operation for over two years, serving clients home and abr
 <div class="category-title">Seafood</div>
 <div class="product-grid">
 
-    <div class="product-card">
-        <img src="" alt="Oysters">
+    <div class="product-card mb-5">
+        <img src="/img/oyster.jpg" alt="Oysters">
         <p>Oysters</p>
         <form action="{% url 'add_to_cart' 38 %}" method="POST">
             {% csrf_token %}
@@ -570,6 +605,13 @@ The store has been in operation for over two years, serving clients home and abr
 
 </div>
 
-
+<div class="welcome-box mb-2">
+<p class="mt-0.5 text-gray-600 leading-relaxed">
+<p>
+Edee Farm Marketplace represents a premier African agro-sourcing and export platform committed to bridging the gap between rural farmers and global markets. With a network of verified suppliers across Nigeria and Africa, we provide access to a diverse range of agricultural products including vegetables, spices, herbs, grains, nuts, seafood, oils, and processed traditional foods.
+We prioritize quality assurance, ethical sourcing, competitive pricing, and seamless logistics to meet the needs of international wholesalers, African grocery stores, restaurants, and individual buyers abroad.
+Our goal is to empower African farmers, ensure product authenticity, and deliver export-ready produce to customers worldwide — efficiently and transparently.
+</p>
+</div>
 
 {% endblock %}

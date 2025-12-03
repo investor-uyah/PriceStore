@@ -24,15 +24,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta name="google-adsense-account" content="ca-pub-4243484594296244">
     <meta name="google-site-verification" content="_9zQuccnuGNOy6hcgwzaL0RojmCTwTrzI142h85Lz-s" />
-    <!-- Tags for Infolinks monitization-->
-    <script type="text/javascript"> var infolinks_pid = 3441023; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+    <!-- Tags for Infolinks monitization
+    <script type="text/javascript"> var infolinks_pid = 3441023; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script> -->
 
     <!-- Tags for Monetag monitization -->
-    <meta name="monetag" content="62932b27aa65a02dcdb8c8189e236feb">
+    <!--  <meta name="monetag" content="62932b27aa65a02dcdb8c8189e236feb">
     <script src="https://upskittyan.com/act/files/tag.min.js?z=9964947" data-cfasync="false" async></script> 
     <script src="https://vaugroar.com/act/files/tag.min.js?z=9964947" data-cfasync="false" async></script>
     <script>(function(s){s.dataset.zone='9979969',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    <!-- <script>(function(s){s.dataset.zone='9964923',s.src='https://forfrogadiertor.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='9964923',s.src='https://forfrogadiertor.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script src="https://eechicha.com/act/files/tag.min.js?z=9964947" data-cfasync="false" async></script>
     <script>(function(s){s.dataset.zone='9980044',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>-->
 
@@ -42,7 +42,9 @@
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/the-price-marketplace.png' %}" />
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
     <meta property="og:type" content="website" />
-
+    <!-- Load CSS for Black Friday ad styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Vercel analytics tag -->
     <script defer src="/_vercel/insights/script.js"></script>
     <style>
@@ -294,8 +296,16 @@
 </nav>
 
 <div class="content-wrap">
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% block content %}
-    {% endblock %}
+    {% endblock content %}
 </div>
 
 <button id="BackToTop" title="BackToTop"><strong>↑</strong></button>

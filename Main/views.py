@@ -16,9 +16,14 @@ import json
 from openai import OpenAI
 import logging
 import os 
+import time
+import hashlib
+import hmac
+from decimal import Decimal
 from geopy.distance import geodesic
 from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
+from django.conf import settings 
 import csv
 
 
@@ -156,7 +161,8 @@ def add_to_cart(request, id):
         
         request.session.modified = True
 
-        # ✅ Success message
+
+        ✅ Success message
         messages.success(request, f"{name} has been added to your cart!")
 
         # Don't redirect to view_cart, keep them on the same page
@@ -181,15 +187,33 @@ def remove_cart(request, id):
         del cart[str(id)]
 
     request.session.modified = True
+
+    ✅ Success message
+    messages.success(request, f"1 quantity of {name} has been removed from your cart!")
+    
     return redirect("view_cart")
 
 
 def view_cart(request):
     cart = request.session.get("cart", {})
+    total = sum(float(item["price"].replace(",", "")) * int(item["qty"]) for item in cart.values())
+
 
     # debugging 
     print("DEBUG: View Cart Function - Retrieved session data:")
     print(cart)
+    print(total)
+    print(f"--- Processing User ID: {request.user.id} ---")
+    print(f"--- Processing User email: {request.user.email} --")
+    print(f"--- Processing User username: {request.user.username} --")
+    print(f"--- Processing User phone number: {request.user.phone_number} --")
+    headers = {
+        "Authorization": f"Bearer {settings.FLUTTERWAVE_SKEY}",
+        "Content-Type": "application/json",
+    }
+
+    print(headers)
+
 
     # initiate the total count
     total = 0
@@ -208,8 +232,238 @@ def view_cart(request):
         "total": total,
     })
 
+@login_required
+def generate_opay_signature(payload, secret_key):
+    """Generates the OPay HMAC-SHA512 signature."""
+    
+    # 1. Serialize the dictionary to a JSON string, ensuring keys are sorted alphabetically.
+    # The 'separators' argument removes extra spaces, which is crucial for signing integrity.
+    sorted_json_string = json.dumps(payload, separators=(',', ':'), sort_keys=True)
+    
+    # 2. Sign the sorted string using HMAC-SHA512 with the secret key.
+    signature = hmac.new(
+        secret_key.encode('utf-8'),
+        sorted_json_string.encode('utf-8'),
+        hashlib.sha512
+    ).hexdigest()
+    
+    return signature
+
+@login_required
+def opay_payment(request):
+    # 1. Configuration & Data Retrieval
+    cart = request.session.get("cart", {})
+    
+    if not cart:
+        return redirect("cart")
+
+    # NOTE: Use the correct URL (Sandbox or Production) for your environment
+    OPAY_URL = "https://sandboxapi.opaycheckout.com/api/v1/international/cashier/create"
+    
+    MERCHANT_ID = settings.OPAY_MERCHANT_ID
+    SECRET_KEY = settings.OPAY_SECRET_KEY
+    
+    # Calculate Total (Using Decimal for precise money calculations)
+    try:
+        total = sum(
+            Decimal(item.get("price", 0)) * Decimal(item.get("qty", 0)) 
+            for item in cart.values()
+        )
+    except Exception as e:
+        # Handle calculation error if price/qty data is corrupt
+        return JsonResponse({"error": "Cart data error", "details": str(e)}, status=400)
+
+    # Generate unique references
+    reference = f"OP-{request.user.id}-{int(time.time())}"
+    timestamp = str(int(time.time() * 1000))
+
+    # 2. Construct Payload
+    payload = {
+        "country": "NG",
+        "reference": reference, 
+        "amount": {
+            # Total must be a string representation of the Naira amount (base currency unit)
+            "total": total, 
+            "currency": "NGN"
+        },
+        # You must change these URLs to match your domain
+        "returnUrl": "https://price-store.xyz/shop_at_edees/",
+        "callbackUrl": "https://price-store.xyz/shop_at_edees/",
+        "cancelUrl": "https://price-store.xyz/shop_at_edees/",
+        "expireAt":30,
+        "userInfo":{
+                "userEmail":"{request.user.email}",
+                "userId": "{request.user.id}",
+                "userMobile": "{request.user.phone_number}",
+                "userName": "{request.user.username}"
+        },        
+        "productList":[
+            {
+                "productId":cart[str(id)],
+                "name":cart[str(id)]['name'],
+                "description":"n/a",
+                "price":cart[str(id)]['price'],
+                "quantity":cart[str(id)]['qty'],
+                "imageUrl":"n/a"
+            }
+        ],
+        "payMethod": "BankCard"
+    }
+    
+    # 3. Generate Signature and Headers
+    try:
+        signature = generate_opay_signature(payload, SECRET_KEY)
+    except Exception:
+        # This catches errors in the signature helper itself
+        return JsonResponse({"error": "Failed to generate OPay security signature"}, status=500)
+
+    headers = {
+        "Authorization": f"Bearer {signature}",
+        "MerchantId": MERCHANT_ID,
+        "Content-Type": "application/json",
+        "Timestamp": timestamp 
+    }
+
+    # 4. API Call
+    try:
+        # Log for internal checking (will appear in your console)
+        print(f"DEBUG: OPay Request Payload: {json.dumps(payload)}")
+        
+        resp = requests.post(OPAY_URL, json=payload, headers=headers, timeout=20)
+        resp.raise_for_status() # Raises an HTTPError for 4xx/5xx status codes
+
+    except requests.exceptions.RequestException as e:
+        # This catches network errors or HTTP errors (e.g., 401 Unauthorized, 400 Bad Request)
+        print(f"DEBUG: OPay API Request Failed: {e}")
+        return JsonResponse({"error": "OPay API request failed", "details": str(e)}, status=502)
+
+    # 5. Handle Response
+    data = resp.json()
+    print(f"DEBUG: OPay API Response Data: {data}")
+
+    # Check for OPay's success code (00000) and the checkout link
+    if data.get("code") == "00000" and data.get("data", {}).get("cashierUrl"):
+        cashier_url = data["data"]["cashierUrl"]
+        return redirect(cashier_url)
+    else:
+        # OPay returned an error (e.g., signature mismatch, invalid payload)
+        message = data.get("message", "Unknown API error")
+        return JsonResponse({"error": "OPay initialization failed", "message": message, "response": data}, status=400)
+
+
+@login_required
+def payment(request):
+    cart = request.session.get("cart", {})
+    url = "https://sandboxapi.opaycheckout.com/api/v1/international/cashier/create"
+
+    if not cart:
+        return redirect("cart")  # or show an error
+
+    # Calculate total (make sure price values are numeric)
+    total = sum(float(item["price"].replace(",", "")) * int(item["qty"]) for item in cart.values())
+
+    # Generate a unique tx_ref (server-side recommended)
+    tx_ref = f"order-{request.user.id}-{int(time.time())}"
+
+    {
+        "country": "EG",
+        "reference": tx_ref,
+        "amount": {
+            "total": total,
+            "currency": "NGN"
+        },
+        "returnUrl": "https://your-return-url",
+        "callbackUrl": "https://your-call-back-url",
+        "cancelUrl": "https://your-cacel-url",
+        "expireAt":30,
+        "userInfo":{
+                "userEmail":request.user.email,
+                "userId": request.user.id,
+                "userMobile": request.user.phone_number,
+                "userName":request.user.username
+        },
+        "productList":[
+            {
+                "productId":cart[str(id)],
+                "name":cart[str(id)]['name'],
+                "description":"n/a",
+                "price":cart[str(id)]['price'],
+                "quantity":cart[str(id)]['qty'],
+                "imageUrl":"n/a"
+            }
+        ],
+        "payMethod":"BankCard"
+    }
+
+    payload = {
+        "tx_ref": tx_ref,
+        "amount": total,
+        "currency": "NGN",
+        "redirect_url": "https://price-store.xyz/verify-flutterwave/",
+        "customer": {
+            "email": request.user.email,
+            "name": request.user.username,
+        }
+
+    }
+
+    headers = {
+        "Authorization": f"Bearer {settings.FLUTTERWAVE_SKEY}",
+        "Content-Type": "application/json",
+    }
+    
+
+    try:
+        resp = requests.post(url, json=payload, headers=headers, timeout=15)
+        resp.raise_for_status()
+
+    except requests.RequestException as e:
+        # Log error
+        return JsonResponse({"error": "Unable to create payment", "details": str(e)}, status=502)
+
+    data = resp.json()
+    # check for success 
+    if data.get("status") == "success" and data.get("data", {}).get("link"):
+        link = data["data"]["link"]
+        
+        return redirect(link)
+    else:
+        # Expect error response
+        return JsonResponse({"error": "Flutterwave API error", "response": data}, status=400)
+
+def verify(request):
+    # Flutterwave may return transaction_id or tx_ref in query params
+    transaction_id = request.GET.get("transaction_id")
+    tx_ref = request.GET.get("tx_ref")
+
+    # Prefer verifying by transaction_id if available, else verify by tx_ref (both are supported)
+    if transaction_id:
+        url = f"https://api.flutterwave.com/v3/transactions/{transaction_id}/verify"
+    elif tx_ref:
+        url = "https://api.flutterwave.com/v3/transactions/verify_by_reference"
+        # verify_by_reference expects a query param ?tx_ref=...
+        url = f"{url}?tx_ref={tx_ref}"
+    else:
+        return render(request, "payment_failed.html", {"reason":"Missing transaction reference"})
+
+    headers = {"Authorization": f"Bearer {settings.FLW_SECRET_KEY}"}
+    r = requests.get(url, headers=headers, timeout=10).json()
+
+    # Successful response differs between endpoints but check for 'status' and data.status
+    if r.get("status") == "success" and r.get("data", {}).get("status") in ("successful", "success"):
+        # Payment succeeded: update order, clear cart, etc.
+        # Example: mark order with tx_ref paid, save transaction_id r['data']['id']
+        request.session["cart"] = {}
+        request.session.modified = True
+        return render(request, "payment_success.html", {"data": r["data"]})
+    else:
+        return render(request, "payment_failed.html", {"response": r})
+
+
 def edee_farms(request):
     return render(request, "edee_farms.html")
+    
+
 
 @ratelimit(key='ip', rate='3/m', block=True)
 def login(request):
