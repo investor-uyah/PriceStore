@@ -10,6 +10,9 @@ urlpatterns = [
     path('shop_at_edees/', views.edee_farms, name="edee_farms"), 
     path("add-to-cart/<int:id>/", views.add_to_cart, name="add_to_cart"),
     path("remove_cart_item/<int:id>/", views.remove_cart, name="remove_cart"),
+    path("complete_checkout/", views.payment, name="payment"),
+    path("opay_payment/", views.opay_payment, name="O-payment"),
+    path("verify-flutterwave/", views.verify, name="verify-flutterwave"),
     path("cart/", views.view_cart, name="view_cart"),
     path('prices/', views.prices_combined, name="prices"),
     path("robots.txt", TemplateView.as_view(
