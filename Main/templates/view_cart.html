@@ -72,7 +72,6 @@
 
 <div class="cart-container">
     <h1 style="text-align: center; color: #333;">Edee Farm Marketplace — Cart Summary</h1>
-
     {% if cart %}
         <table>
             <thead>
@@ -110,7 +109,7 @@
         </table>
 
         <div class="checkout-link">
-            <a href="#">Proceed to checkout here →</a>
+            <a href="{% url '' %}">Proceed to checkout here →</a>
         </div>
     {% else %}
         <p style="text-align: center; padding: 20px; color: #555;">Your cart is currently empty.</p>
