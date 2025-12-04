@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     body {
-        margin-top: 150px; /* fixes content hidden by navbar */
+        margin-top: 100px; /* fixes content hidden by navbar */
     }
 
     /* --- SECTION WRAPPERS --- */
@@ -43,7 +43,7 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        padding: 3rem 1rem;
+        padding: 2rem 1rem;
         background: linear-gradient(135deg, #f8f9fa, #ffffff);
         border-radius: 14px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -83,7 +83,7 @@
     width: 300px;
     height: 300px; /* Make it equal to width */
     object-fit: cover; /* Ensures image fills the circle without distortion */
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);*/
     }
 
     .call-to-action {
@@ -213,6 +213,7 @@
 
     .faq-right {
         flex: 2;
+        width: 100%;
     }
 
     .faq-item {
@@ -229,6 +230,7 @@
         justify-content: space-between;
         align-items: center;
         font-weight: bold;
+        width: auto;
         color: #333;
     }
 
@@ -257,10 +259,12 @@
         .faq-container {
             flex-direction: column;
             align-items: center;
+            gap: 20px;
         }
         .faq-left {
             width: 100%;
             margin-bottom: 20px;
+            flex-basis:35%;
         }
     }
     #why-choose-us {
@@ -292,6 +296,7 @@
         color: #444;
         margin: 0;
     }
+    
 </style>
 
 <script>
@@ -308,14 +313,17 @@
 <section class="dark">
     <div class="hero">
         <div class="hero-text">
-            <h1>Foodstuff Prices. </br>No Guesswork.</h1>
-            <p>We’re building a marketplace where foodstuff prices are easily accessible and completely transparent.</p>
+            <h1>
+                Foodstuff Prices.<br>
+                No Guesswork.
+            </h1>
+            We’re building a marketplace where foodstuff prices are easily accessible and completely transparent.
             <div class="call-to-action">
-                <a href="{% url 'prices' %}" class="btn btn-primary">Check Today’s Prices</a>
+                <a href="{% url 'prices' %}" style="width:300px" class="btn btn-primary">Check Today’s Prices</a>
             </div>
         </div>
         <div class="hero-image"> 
-            <img src="/img/hero_image.png" alt="Food Basket"> 
+            <img src="{% static 'img/hero_image.png' %}" alt="Food Basket" style="align-items: right;"> 
         </div>
     </div>
 </section>
@@ -481,8 +489,8 @@
                      alt="Company 1"
                      style="height: 150px; width: 150px; object-fit: cover;">
             </div>
-            <p style="margin-top: 10px; font-weight: 600; color: #333;">EDEE FARMS MARKETPLACE</p>
-            <a style="text-decoration: none; color: white; margin-top: 7px;"href="shop_at_edees/">Shop Now</a>
+            <p style="margin-top: 30px; font-weight: 600; color: #333;">EDEE FARMS MARKETPLACE</p>
+            <a style="text-decoration: none; color: white; margin-top: 5px;"href="shop_at_edees/">Shop Now</a>
         </div>
 
         <!-- Duplicate this block for more partners 
