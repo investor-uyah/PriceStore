@@ -309,17 +309,28 @@
     });
 </script>
 
+<!-- VisitorLogic Config -->
+<script>
+window.VisitorLogic_CONFIG = {
+  industry: "agructulture",  // change this to your actual website industry e.g agriculture, fintech, health etc
+  audience: "individuals",        // change this to your actual target audience e.g teams, founders, enterprises etc
+  page_type: "landing"     // change this to your actual page type e.g homepage, pricing, features, landing etc
+};
+</script>
+<!-- VisitorLogic Runtime -->
+<script src="https://cdn.jsdelivr.net/gh/investor-uyah/visitor-logic/dist/visitorlogic.v1.js" defer></script>
+
 <!-- HERO -->
 <section class="dark">
     <div class="hero">
         <div class="hero-text">
-            <h1>
+            <h1 data-vl-headline>
                 Foodstuff Prices.<br>
                 No Guesswork.
             </h1>
             We’re building a marketplace where foodstuff prices are easily accessible and completely transparent.
             <p></p>
-            <div class="call-to-action">
+            <div class="call-to-action" data-vl-cta>
                 <a href="{% url 'prices' %}" style="width:300px" class="btn btn-primary">Check Today’s Prices</a>
             </div>
         </div>
