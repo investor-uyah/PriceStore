@@ -25,6 +25,7 @@ from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
 from django.conf import settings 
 import csv
+import requests
 
 
 User = get_user_model()
@@ -478,10 +479,10 @@ def login(request):
             messages.error(request, "Invalid login credentials")
             return redirect("login")
     return render(request, "registration/login.html")
-    
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect("/accounts/login/")
+
+# def logout(request):
+#     django_logout(request)
+#     return redirect("login")
 
 @ratelimit(key='ip', rate='5/m', block=True)
 def signup(request):
