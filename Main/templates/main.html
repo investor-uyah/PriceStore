@@ -343,9 +343,15 @@ window.VisitorLogic_CONFIG = {
 <!-- WELCOME -->
 <section class="light">
     <div class="welcome-box">
+        {% if user.is_authenticated %}
         <p class="text-gray-700 text-lg">
             Hello <strong class="text-green-700">{{ user.username }}</strong>, you are logged in! 🙂
         </p>
+        {% else %}
+        <p>
+            Hello. 👋🏼 Log-in to access the full features of our platform.
+        </p>
+        {% endif %}
         <p class="mt-4 text-gray-600 leading-relaxed">
             Own a foodstuff shop, minimart, or anything of that nature? If yes, then this is just the right place for you. 
             The Price Store offers you a platform to showcase the low, competitive prices of your edible goods.  
