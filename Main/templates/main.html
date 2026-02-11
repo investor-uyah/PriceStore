@@ -80,10 +80,11 @@
     }
 
     .hero-image img {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
+        width: 200px;  /* Fixed width for perfect circle */
+        height: 200px; /* Fixed height = width for circle */
+        max-width: 200px;
         border-radius: 50%;
+        object-fit: cover; /* Ensures image fills circle without distortion */
     }
 
     .call-to-action {
@@ -94,9 +95,7 @@
         cursor: pointer;
         animation: pulse 2s infinite;
         animation-delay: 2s;
-        display: block; /* Makes it sit below the text */
-        width: fit-content; /* Button only as wide as its content */
-        margin: 0; /* No auto-centering on desktop */
+        display: inline-block; /* Default for desktop */
     }
 
     @keyframes pulse {
@@ -112,27 +111,36 @@
         .hero {
             flex-direction: column-reverse;
             text-align: center;
-            padding: 2rem 1rem; /* Reduced padding */
-            align-items: center; /* Explicitly center */
-            justify-content: center; /* Center content */
+            padding: 1.5rem 1rem; /* REDUCED from 2rem - less bottom padding */
+            align-items: center;
+            justify-content: center;
         }
         
         .hero-text {
-            padding: 0; /* Remove extra padding */
-            width: 100%; /* Full width */
-            max-width: 100%; /* Prevent overflow */
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .hero-image {
+            margin-bottom: 1rem; /* REDUCED from 1.5rem */
+            width: 100%;
         }
         
         .hero-text h1 {
-            font-size: 1.8rem; /* Smaller heading on mobile */
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem; /* REDUCED from 1rem */
         }
         
         .hero-text p {
-            font-size: 1rem; /* Slightly smaller text */
+            font-size: 1rem;
+            margin-bottom: 1rem; /* REDUCED from 1.5rem */
         }
-
+        
         .call-to-action {
-            margin: 0 auto; /* Center button on mobile */
+            display: block; /* Block element on mobile */
+            margin: 0 auto; /* CENTER the button */
+            margin-bottom: 0; /* Remove bottom margin */
         }
     }
 
