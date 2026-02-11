@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     body {
-        margin-top: 100px; /* fixes content hidden by navbar */
+        margin-top: 50px; /* fixes content hidden by navbar */
     }
 
     /* --- SECTION WRAPPERS --- */
@@ -94,6 +94,9 @@
         cursor: pointer;
         animation: pulse 2s infinite;
         animation-delay: 2s;
+        display: block; /* Makes it sit below the text */
+        width: fit-content; /* Button only as wide as its content */
+        margin: 0; /* No auto-centering on desktop */
     }
 
     @keyframes pulse {
@@ -120,17 +123,16 @@
             max-width: 100%; /* Prevent overflow */
         }
         
-        .hero-image {
-            margin-bottom: 1.5rem;
-            width: 100%; /* Full width */
-        }
-        
         .hero-text h1 {
             font-size: 1.8rem; /* Smaller heading on mobile */
         }
         
         .hero-text p {
             font-size: 1rem; /* Slightly smaller text */
+        }
+
+        .call-to-action {
+            margin: 0 auto; /* Center button on mobile */
         }
     }
 
