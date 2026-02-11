@@ -52,6 +52,8 @@
     .hero-text {
         flex: 1 1 350px;
         padding: 1rem;
+        /* Added min-width to prevent overflow issues */
+        min-width: 0; 
     }
 
     .hero-text h1 {
@@ -80,10 +82,11 @@
     }
 
     .hero-image img {
-    width: 300px;
-    height: 300px; /* Make it equal to width */
-    object-fit: cover; /* Ensures image fills the circle without distortion */
-    /* box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);*/
+        width: 300px;
+        height: 300px;
+        max-width: 100%; /* Important: prevents image from overflowing mobile screens */
+        object-fit: cover;
+        border-radius: 50%; /* Added if you want the "circle" look mentioned in comments */
     }
 
     .call-to-action {
@@ -94,24 +97,41 @@
         cursor: pointer;
         animation: pulse 2s infinite;
         animation-delay: 2s;
-        }
-
-        @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.08);
-        }
+        background-color: #007bff; /* Ensure visibility */
+        color: white;
     }
 
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+    }
+
+    /* MOBILE RESPONSIVENESS */
     @media (max-width: 768px) {
         .hero {
             flex-direction: column-reverse;
             text-align: center;
+            padding: 2rem 1rem;
         }
+
+        .hero-text {
+            flex: 1 1 100%; /* Take full width on mobile */
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .hero-text h1 {
+            font-size: 1.8rem; /* Slightly smaller for mobile screens */
+        }
+
         .hero-image {
-            margin-bottom: 1.5rem;
+            flex: 1 1 100%;
+            margin-bottom: 1rem;
+        }
+
+        .hero-image img {
+            width: 200px; /* Smaller image on mobile */
+            height: 200px;
         }
     }
 
