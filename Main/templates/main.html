@@ -42,19 +42,36 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         padding: 3rem 1rem;
         background: linear-gradient(135deg, #f8f9fa, #ffffff);
         border-radius: 14px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        text-align: center; /* FORCE CENTER TEXT */
     }
 
     .hero-text {
         flex: 1 1 350px;
         padding: 1rem;
-        min-width: 0;
-        text-align: center; /* THIS WAS MISSING */
+    }
+
+    .hero-text h1 {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-text .btn-primary {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.12);
     }
 
     .hero-image {
@@ -63,13 +80,12 @@
     }
 
     .hero-image img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 50%;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        border-radius: 50%;
     }
 
-    /* CTA BUTTON FIX */
     .call-to-action {
         border: none;
         padding: 12px 24px;
@@ -78,41 +94,43 @@
         cursor: pointer;
         animation: pulse 2s infinite;
         animation-delay: 2s;
-        background-color: #007bff;
-        color: white;
-
-        /* REMOVE BLUE OVERLAY */
-        outline: none;
-        box-shadow: none;
-        -webkit-tap-highlight-color: transparent;
     }
 
-    .call-to-action:focus,
-    .call-to-action:active {
-        outline: none;
-        box-shadow: none;
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.08);
+        }
     }
 
-    /* MOBILE */
     @media (max-width: 768px) {
         .hero {
             flex-direction: column-reverse;
-            padding: 2rem 1rem;
+            text-align: center;
+            padding: 2rem 1rem; /* Reduced padding */
+            align-items: center; /* Explicitly center */
+            justify-content: center; /* Center content */
         }
-
+        
         .hero-text {
-            flex: 1 1 100%;
-            padding: 0;
-            margin-top: 1rem;
+            padding: 0; /* Remove extra padding */
+            width: 100%; /* Full width */
+            max-width: 100%; /* Prevent overflow */
         }
-
-        .hero-text h1 {
-            font-size: 1.8rem;
-        }
-
+        
         .hero-image {
-            flex: 1 1 100%;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            width: 100%; /* Full width */
+        }
+        
+        .hero-text h1 {
+            font-size: 1.8rem; /* Smaller heading on mobile */
+        }
+        
+        .hero-text p {
+            font-size: 1rem; /* Slightly smaller text */
         }
     }
 
