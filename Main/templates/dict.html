@@ -1,0 +1,1066 @@
+{% extends "master.html" %}
+
+{% block title %}
+The Price Marketplace | Food and Grocery Terms
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Optional Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DefinedTermSet",
+      "name": "Food & Groceries Dictionary",
+      "description": "Alphabetical glossary of global food and grocery terms."
+    }
+    </script>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f9f9f9;
+    }
+
+    .dictionary-header {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .alphabet-nav {
+        text-align: center;
+        padding: 15px;
+        background: #f0f0f0;
+    }
+
+    /* .alphabet-nav a {
+        margin: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        color: #333;
+    } */
+
+    .alphabet-nav a:hover,
+    .alphabet-nav a:focus,
+    .alphabet-nav a:active {
+        text-decoration: underline; /* keep a simple hover effect */
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .dictionary-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .term-card {
+        background: white;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .category-badge {
+        display: inline-block;
+        font-size: 12px;
+        padding: 5px 10px;
+        margin-bottom: 8px;
+        background: #e6f2ff;
+        border-radius: 20px;
+        color: #0056b3;
+    }
+
+    </style>
+</head>
+
+<body>
+
+<header class="dictionary-header">
+    <h1>Food & Groceries Dictionary</h1>
+    <p>Your complete alphabetical guide to global food, grocery, retail and marketplace terms.</p>
+
+    <input type="text" id="dictionarySearch" placeholder="Search for a term..." />
+</header>
+
+<!-- Alphabet Navigation -->
+<nav class="alphabet-nav">
+    <a href="#A">A</a>
+    <a href="#B">B</a>
+    <a href="#C">C</a>
+    <a href="#D">D</a>
+    <a href="#E">E</a>
+    <a href="#F">F</a>
+    <a href="#G">G</a>
+    <a href="#H">H</a>
+    <a href="#I">I</a>
+    <a href="#J">J</a>
+    <a href="#K">K</a>
+    <a href="#L">L</a>
+    <a href="#M">M</a>
+    <a href="#N">N</a>
+    <a href="#O">O</a>
+    <a href="#P">P</a>
+    <a href="#Q">Q</a>
+    <a href="#R">R</a>
+    <a href="#S">S</a>
+    <a href="#T">T</a>
+    <a href="#U">U</a>
+    <a href="#V">V</a>
+    <a href="#W">W</a>
+    <a href="#X">X</a>
+    <a href="#Y">Y</a>
+    <a href="#Z">Z</a>
+</nav>
+
+<main class="dictionary-container">
+
+    <!-- LETTER SECTION -->
+    <section id="A" class="letter-section">
+        <h2>A</h2>
+
+        <!-- TERM CARD -->
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Aisle</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                A walkway between shelves in a supermarket or grocery store.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Additives</h3>
+            <div class="category-badge">Category: Food Composition</div>
+            <p itemprop="description">
+                Substances added to improve taste, texture, or preservation.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">All-Natural</h3>
+            <div class="category-badge">Category: Labeling</div>
+            <p itemprop="description">
+                Food marketed as minimally processed without artificial ingredients.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Ambient Food</h3>
+            <div class="category-badge">Category: Storage</div>
+            <p itemprop="description">
+                Food products that can be stored safely at room temperature.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Artisanal</h3>
+            <div class="category-badge">Category: Production</div>
+            <p itemprop="description">
+                Food made in small batches using traditional or handcrafted methods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Allergen</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                A substance in food that may trigger allergic reactions in sensitive individuals.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Agribusiness</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                Commercial activities involved in farming, processing, and distributing agricultural products.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Added Sugar</h3>
+            <div class="category-badge">Category: Nutrition</div>
+            <p itemprop="description">
+                Sugars introduced during processing rather than naturally occurring in food.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Availability</h3>
+            <div class="category-badge">Category: Retail Operations</div>
+            <p itemprop="description">
+                The extent to which products are in stock and accessible to consumers.
+            </p>
+        </div>
+
+
+    </section>
+
+    <!-- LETTER SECTION -->
+    <section id="B" class="letter-section">
+        <h2>B</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Bulk Buying</h3>
+            <div class="category-badge">Category: Retail Strategy</div>
+            <p itemprop="description">
+                Purchasing large quantities of goods to reduce cost per unit.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Batch Number</h3>
+            <div class="category-badge">Category: Traceability</div>
+            <p itemprop="description">
+                Code identifying a specific production run.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Best Before Date</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                The date indicating when food is at peak quality.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Barcode</h3>
+            <div class="category-badge">Category: Retail Technology</div>
+            <p itemprop="description">
+                A machine-readable code used to track products in stores.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Basket Size</h3>
+            <div class="category-badge">Category: Retail Analytics</div>
+            <p itemprop="description">
+                The total number or value of items purchased in one transaction.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Branded Product</h3>
+            <div class="category-badge">Category: Marketing</div>
+            <p itemprop="description">
+                A product sold under a recognized company name or trademark.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Backorder</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                An order placed for an item that is temporarily out of stock.
+            </p>
+        </div>
+
+
+    </section>
+
+    <section id="C" class="letter-section">
+        <h2>C</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Cart Abandonment</h3>
+            <div class="category-badge">Category: E-commerce</div>
+            <p itemprop="description">
+                When online shoppers leave items without completing purchase.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Cross-Docking</h3>
+            <div class="category-badge">Category: Logistics</div>
+            <p itemprop="description">
+                Logistics practice minimizing warehouse storage time.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Curbside Pickup</h3>
+            <div class="category-badge">Category: Retail Model</div>
+            <p itemprop="description">
+                Customers collect orders without entering store.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Cold Chain</h3>
+            <div class="category-badge">Category: Logistics</div>
+            <p itemprop="description">
+                A temperature-controlled supply chain used for perishable goods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Commodity</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                A basic agricultural product traded in large quantities.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Consumer Packaged Goods (CPG)</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                Fast-moving everyday products such as food and beverages.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Cost of Goods Sold (COGS)</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                The direct costs attributable to producing goods sold.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Cross Merchandising</h3>
+            <div class="category-badge">Category: Retail Strategy</div>
+            <p itemprop="description">
+                Placing related products near each other to increase sales.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="D" class="letter-section">
+        <h2>D</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Dynamic Pricing</h3>
+            <div class="category-badge">Category: Pricing Strategy</div>
+            <p itemprop="description">
+                Adjusting prices based on demand and market trends.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Direct-to-Consumer (DTC)</h3>
+            <div class="category-badge">Category: Retail Model</div>
+            <p itemprop="description">
+                Producers selling directly to customers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Demand Elasticity</h3>
+            <div class="category-badge">Category: Economics</div>
+            <p itemprop="description">
+                The sensitivity of consumer demand to price changes.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Distributor</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                An intermediary that supplies goods to retailers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Dry Goods</h3>
+            <div class="category-badge">Category: Storage</div>
+            <p itemprop="description">
+                Shelf-stable products such as rice, flour, and pasta.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Discount Retailer</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                A store offering products at lower-than-average prices.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="E" class="letter-section">
+        <h2>E</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">E-commerce Grocery</h3>
+            <div class="category-badge">Category: Digital Retail</div>
+            <p itemprop="description">
+                Online platforms that sell food and grocery products directly to consumers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Edible Oil</h3>
+            <div class="category-badge">Category: Food Product</div>
+            <p itemprop="description">
+                Plant-based or animal-based oil suitable for cooking and food preparation.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Expiration Date</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                The final recommended date for safe consumption of a product.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Export</h3>
+            <div class="category-badge">Category: Trade</div>
+            <p itemprop="description">
+                Goods produced in one country and sold to another.
+            </p>
+        </div>
+    
+    </section>
+
+    <section id="F" class="letter-section">
+        <h2>F</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Food Security</h3>
+            <div class="category-badge">Category: Public Policy</div>
+            <p itemprop="description">
+                Access to sufficient nutritious food.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Fulfillment Center</h3>
+            <div class="category-badge">Category: Logistics</div>
+            <p itemprop="description">
+                Warehouse for processing online orders.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Farm Gate Price</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                The price of a product at the point of production before transport or retail markup.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Fast-Moving Consumer Goods (FMCG)</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                Products that sell quickly at relatively low cost.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Food Inflation</h3>
+            <div class="category-badge">Category: Economics</div>
+            <p itemprop="description">
+                The rate at which food prices increase over time.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Fresh Produce</h3>
+            <div class="category-badge">Category: Food Type</div>
+            <p itemprop="description">
+                Unprocessed fruits and vegetables.
+            </p>
+        </div>
+
+    </section>
+    <section id="G" class="letter-section">
+        <h2>G</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Grocery Basket Index</h3>
+            <div class="category-badge">Category: Pricing Analytics</div>
+            <p itemprop="description">
+                Measurement of price changes in selected goods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Generic Brand</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                A store-brand alternative to national branded products.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Grains</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                Cereal crops such as rice, wheat, barley, and oats.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Gross Margin</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                The difference between revenue and cost of goods sold.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="H" class="letter-section">
+        <h2>H</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Hazard Analysis (HACCP)</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                Food safety risk management system.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Harvest Season</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                The period when crops are collected from farms.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Hypermarket</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                A large retail store combining supermarket and department store features.
+            </p>
+        </div>
+    
+    </section>
+
+    <section id="I" class="letter-section">
+        <h2>I</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Impulse Buying</h3>
+            <div class="category-badge">Category: Consumer Behavior</div>
+            <p itemprop="description">
+                Unplanned purchase triggered in-store or online.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Import</h3>
+            <div class="category-badge">Category: Trade</div>
+            <p itemprop="description">
+                Goods brought into a country for sale.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Inventory Turnover</h3>
+            <div class="category-badge">Category: Retail Analytics</div>
+            <p itemprop="description">
+                The rate at which inventory is sold and replaced over a period.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="J" class="letter-section">
+        <h2>J</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Impulse Buying</h3>
+            <div class="category-badge">Category: Consumer Behavior</div>
+            <p itemprop="description">
+                Unplanned purchase triggered in-store or online.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Just-in-Time (JIT)</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                An inventory strategy where goods arrive only when needed.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="K" class="letter-section">
+        <h2>K</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Kilogram (kg)</h3>
+            <div class="category-badge">Category: Measurement</div>
+            <p itemprop="description">
+                A metric unit of weight commonly used for food products.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Kosher</h3>
+            <div class="category-badge">Category: Dietary Standards</div>
+            <p itemprop="description">
+                Food prepared according to Jewish dietary laws.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="L" class="letter-section">
+        <h2>L</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Labeling</h3>
+            <div class="category-badge">Category: Food Regulation</div>
+            <p itemprop="description">
+                Information printed on packaging about ingredients and nutrition.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Logistics</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                The coordination of transporting and storing goods efficiently.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="M" class="letter-section">
+        <h2>M</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Marketplace</h3>
+            <div class="category-badge">Category: Retail Model</div>
+            <p itemprop="description">
+                A platform connecting buyers and sellers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Markup</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                The difference between cost price and selling price.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Minimum Order Quantity (MOQ)</h3>
+            <div class="category-badge">Category: Wholesale</div>
+            <p itemprop="description">
+                The smallest quantity a supplier agrees to sell.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="N" class="letter-section">
+        <h2>N</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Non-Perishable</h3>
+            <div class="category-badge">Category: Storage</div>
+            <p itemprop="description">
+                Food items with long shelf life that do not spoil quickly.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Nutritional Label</h3>
+            <div class="category-badge">Category: Nutrition</div>
+            <p itemprop="description">
+                A panel listing calories and nutrient information.
+            </p>
+        </div>
+    
+    </section>
+
+    <section id="O" class="letter-section">
+        <h2>O</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Organic</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                Food grown without synthetic pesticides or fertilizers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Out of Stock</h3>
+            <div class="category-badge">Category: Retail Operations</div>
+            <p itemprop="description">
+                A product currently unavailable for purchase.
+            </p>
+        </div>
+    
+    </section>
+
+    <section id="P" class="letter-section">
+        <h2>P</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Perishable Goods</h3>
+            <div class="category-badge">Category: Storage</div>
+            <p itemprop="description">
+                Items that spoil quickly, such as dairy, meat, and fresh produce.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Private Label</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                Products manufactured by one company but sold under a retailer's brand.
+            </p>
+        </div>
+
+    </section>
+    
+    <section id="Q" class="letter-section">
+        <h2>Q</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Quality Control</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                Procedures ensuring food meets safety and quality standards.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="R" class="letter-section">
+        <h2>R</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Reorder Level</h3>
+            <div class="category-badge">Category: Inventory Management</div>
+            <p itemprop="description">
+                The stock level at which new inventory must be ordered.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Retail Price</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                The final price consumers pay in stores.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Refrigerated Goods</h3>
+            <div class="category-badge">Category: Storage</div>
+            <p itemprop="description">
+                Products requiring cold storage to maintain freshness.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Return Policy</h3>
+            <div class="category-badge">Category: Retail Policy</div>
+            <p itemprop="description">
+                Rules governing how customers can return purchased goods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Ready-to-Eat</h3>
+            <div class="category-badge">Category: Food Type</div>
+            <p itemprop="description">
+                Food that can be consumed without additional preparation.
+            </p>
+        </div>
+    
+    </section>
+
+    <section id="S" class="letter-section">
+        <h2>S</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Supply Chain</h3>
+            <div class="category-badge">Category: Logistics</div>
+            <p itemprop="description">
+                The network involved in producing and delivering goods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Shelf Life</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                The length of time a product remains usable.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Stock Keeping Unit (SKU)</h3>
+            <div class="category-badge">Category: Inventory</div>
+            <p itemprop="description">
+                Unique identifier assigned to each product variation.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Seasonal Produce</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                Fruits and vegetables harvested during specific times of the year.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Supplier</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                A business that provides goods to retailers or distributors.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Supermarket</h3>
+            <div class="category-badge">Category: Retail Format</div>
+            <p itemprop="description">
+                Large self-service store selling food and household goods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Sustainability</h3>
+            <div class="category-badge">Category: Environmental Practice</div>
+            <p itemprop="description">
+                Practices that minimize environmental impact in food production and retail.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="T" class="letter-section">
+        <h2>T</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Temperature Control</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                Maintaining specific temperatures to ensure food safety.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Trade Discount</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                Discount offered to retailers by manufacturers or wholesalers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Traceable Supply Chain</h3>
+            <div class="category-badge">Category: Compliance</div>
+            <p itemprop="description">
+                A system that tracks products from origin to final sale.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Traceability</h3>
+            <div class="category-badge">Category: Food Safety</div>
+            <p itemprop="description">
+                The ability to track food from origin to consumer.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="U" class="letter-section">
+        <h2>U</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Unit Price</h3>
+            <div class="category-badge">Category: Pricing</div>
+            <p itemprop="description">
+                The price per standard unit of measurement.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Ultra-Processed Food</h3>
+            <div class="category-badge">Category: Food Classification</div>
+            <p itemprop="description">
+                Industrially formulated food containing additives and preservatives.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Upselling</h3>
+            <div class="category-badge">Category: Sales Strategy</div>
+            <p itemprop="description">
+                Encouraging customers to purchase higher-value items.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="V" class="letter-section">
+        <h2>V</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Value Pack</h3>
+            <div class="category-badge">Category: Packaging</div>
+            <p itemprop="description">
+                Larger quantity packaging offered at a reduced unit price.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Vegan</h3>
+            <div class="category-badge">Category: Dietary Preference</div>
+            <p itemprop="description">
+                Food free from animal-derived ingredients.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Vendor</h3>
+            <div class="category-badge">Category: Retail</div>
+            <p itemprop="description">
+                A person or company that sells goods.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="W" class="letter-section">
+        <h2>W</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Wholesale</h3>
+            <div class="category-badge">Category: Trade</div>
+            <p itemprop="description">
+                The sale of goods in large quantities to retailers.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Warehouse</h3>
+            <div class="category-badge">Category: Logistics</div>
+            <p itemprop="description">
+                Storage facility for goods before distribution.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Waste Reduction</h3>
+            <div class="category-badge">Category: Sustainability</div>
+            <p itemprop="description">
+                Strategies to minimize food loss in retail and supply chains.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="X" class="letter-section">
+        <h2>X</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Xanthan Gum</h3>
+            <div class="category-badge">Category: Food Additive</div>
+            <p itemprop="description">
+                A thickening agent used in processed foods.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">X-Factor Product</h3>
+            <div class="category-badge">Category: Marketing</div>
+            <p itemprop="description">
+                A unique feature that differentiates a product in the marketplace.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Xylitol</h3>
+            <div class="category-badge">Category: Food Ingredient</div>
+            <p itemprop="description">
+                A sugar substitute used in certain food products.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="Y" class="letter-section">
+        <h2>Y</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Year-Round Availability</h3>
+            <div class="category-badge">Category: Supply Chain</div>
+            <p itemprop="description">
+                Continuous product supply regardless of seasonal cycles.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Yogurt Culture</h3>
+            <div class="category-badge">Category: Food Production</div>
+            <p itemprop="description">
+                Live bacteria used in fermenting milk into yogurt.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Yield</h3>
+            <div class="category-badge">Category: Agriculture</div>
+            <p itemprop="description">
+                The quantity of crop produced per unit of land.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="Z" class="letter-section">
+        <h2>Z</h2>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Zero Sugar</h3>
+            <div class="category-badge">Category: Dietary Label</div>
+            <p itemprop="description">
+                Products containing no added or natural sugars.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Zoning Regulations</h3>
+            <div class="category-badge">Category: Retail Compliance</div>
+            <p itemprop="description">
+                Local laws governing where food businesses can operate.
+            </p>
+        </div>
+
+        <div class="term-card" itemscope itemtype="https://schema.org/DefinedTerm">
+            <h3 itemprop="name">Zero-Waste Grocery</h3>
+            <div class="category-badge">Category: Sustainability</div>
+            <p itemprop="description">
+                A retail model that minimizes packaging and environmental impact.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="dictionary-footer">
+    <p>© 2026 Price Marketplace. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
+{% endblock %}

@@ -139,6 +139,9 @@ def search_view(request):
 def about(request):
     return render(request, "about.html")
 
+def terms(request):
+    return render(request, "dict.html")
+
 def add_to_cart(request, id):
     if request.method == "POST":
         name = request.POST.get("name")
