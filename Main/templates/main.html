@@ -334,7 +334,46 @@
         color: #444;
         margin: 0;
     }
-    
+
+    /* Premium Coming Soon */
+    .premium-coming-soon {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: #fff;
+        text-align: center;
+        padding: 30px 20px;
+        border-radius: 12px;
+        margin: 40px auto 0 auto;
+        max-width: 800px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .premium-coming-soon h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .premium-coming-soon p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .premium-coming-soon .btn-upgrade {
+        display: inline-block;
+        background-color: #fff;
+        color: #2575fc;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .premium-coming-soon .btn-upgrade:hover {
+        background-color: #f0f0f0;
+        color: #1a4fc2;
+        transform: translateY(-2px);
+    }
+        
 </style>
 
 <script>
@@ -357,6 +396,13 @@ window.VisitorLogic_CONFIG = {
 </script>
 <!-- VisitorLogic Runtime -->
 <script src="https://cdn.jsdelivr.net/gh/investor-uyah/visitor-logic/dist/visitorlogic.v1.js" defer></script>
+
+<!-- Place this just above your footer in the template -->
+<div class="premium-coming-soon">
+    <h2>Premium Features Coming Soon!</h2>
+    <p>We're bringing personalized prices and AI-powered summary to you.</p>
+    <a href="" class="btn-upgrade">Join the waitlist</a>
+</div>
 
 <!-- HERO -->
 <section class="dark">
