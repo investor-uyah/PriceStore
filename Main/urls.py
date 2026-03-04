@@ -15,6 +15,8 @@ urlpatterns = [
     path("verify-flutterwave/", views.verify, name="verify-flutterwave"),
     path("cart/", views.view_cart, name="view_cart"),
     path('prices/', views.prices_combined, name="prices"),
+    path('ai-price/', views.price_ai, name="price_ai"),
+    path("api/waitlist/", views.waitlist, name="waitlist"),
     path("robots.txt", TemplateView.as_view(
         template_name="robots.txt",
         content_type="text/plain"

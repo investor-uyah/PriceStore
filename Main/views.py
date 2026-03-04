@@ -25,8 +25,9 @@ from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
 from django.conf import settings 
 import csv
+from .utils import check_and_increment_usage
 
-
+client = OpenAI()
 User = get_user_model()
 
 
@@ -854,3 +855,94 @@ Category:"""
             return JsonResponse({'error': f"An unexpected error occurred: {str(e)}"}, status=500)
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+# New view for the price AI feature
+@login_required
+def price_ai(request):
+    try:
+        if request.method != "POST":
+            return JsonResponse({"error": "POST required"}, status=400)
+
+        if not check_and_increment_usage(request.user):
+            return JsonResponse({"error": "Daily limit reached (2/day)"}, status=403)
+
+        user_question = request.POST.get("question")
+        if not user_question:
+            return JsonResponse({"error": "No question provided"}, status=400)
+
+        # -------- CALL 1: Convert question to structured JSON --------
+        interpretation = client.responses.create(
+            model="gpt-4.1-nano",
+            input=f"""
+Convert this question into JSON with:
+product_name, start_date, end_date, metric (average or sum).
+
+Question: {user_question}
+
+Return JSON only.
+"""
+        )
+
+        try:
+            parsed = json.loads(interpretation.output_text)
+        except Exception as e:
+            print("JSON parse error:", e)
+            print("Raw output from OpenAI:", interpretation.output_text)
+            return JsonResponse({"error": "Could not parse request"}, status=400)
+
+        # -------- SAFE DB QUERY --------
+        queryset = Price.objects.filter(
+            foodstuff__iexact=parsed["product_name"],   # Note: your model uses 'foodstuff', not 'product_name'
+            created_at__range=[parsed["start_date"], parsed["end_date"]]
+        )
+
+        if parsed["metric"] == "average":
+            result = queryset.aggregate(Avg("price"))["price__avg"]
+        else:
+            result = queryset.aggregate(Sum("price"))["price__sum"]
+
+        # -------- CALL 2: Summarize --------
+        summary = client.responses.create(
+            model="gpt-4.1-nano",
+            input=f"""
+User asked: {user_question}
+Database result: {result}
+
+Explain clearly in 2 sentences max.
+"""
+        )
+
+        return JsonResponse({
+            "answer": summary.output_text
+        })
+
+    except Exception as e:
+        logger.error("AI Price View Error: %s", e, exc_info=True) # exc_info=True prints the full stack trace
+        return JsonResponse({"error": str(e)}, status=500)
+
+def waitlist(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            email = data.get("email")
+
+            if not email:
+                return JsonResponse({"error": "Email required"}, status=400)
+
+            # Option A: Simple send_mail
+            send_mail(
+                subject="New Waitlist Signup",
+                message=f"New email joined waitlist: {email}",
+                from_email=settings.DEFAULT_FROM_EMAIL, # MUST be your authorized email
+                recipient_list=["investor.uyah@gmail.com"],
+                fail_silently=False, # Set to False to see errors in your terminal
+            )
+
+            return JsonResponse({"success": True})
+        
+        except Exception as e:
+            # This will print the exact SMTP or JSON error to your terminal
+            print(f"Waitlist Error: {e}") 
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)

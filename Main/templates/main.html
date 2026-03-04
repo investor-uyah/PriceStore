@@ -401,8 +401,75 @@ window.VisitorLogic_CONFIG = {
 <div class="premium-coming-soon">
     <h2>Premium Features Coming Soon!</h2>
     <p>We're bringing personalized prices and AI-powered summary to you.</p>
-    <a href="" class="btn-upgrade">Join the waitlist</a>
+    <a href="#" id="waitlistBtn" class="btn-upgrade">Join the Waitlist</a>
+
+    <div id="waitlistForm" style="display:none;">
+        <input 
+            type="email" 
+            id="waitlistEmail" 
+            placeholder="Enter your email"
+            required
+        />
+        <button id="submitWaitlist">Submit</button>
+    </div>
+
+    <p id="waitlistMessage" class="waitlist-message"></p>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const waitlistBtn = document.getElementById("waitlistBtn");
+    const waitlistForm = document.getElementById("waitlistForm");
+    const emailInput = document.getElementById("waitlistEmail");
+    const submitBtn = document.getElementById("submitWaitlist");
+    const messageBox = document.getElementById("waitlistMessage");
+
+    // Show form
+    waitlistBtn.addEventListener("click", function (e) {
+        e.preventDefault(); // stop link navigation
+        waitlistBtn.style.display = "none";
+        waitlistForm.style.display = "block";
+        emailInput.focus();
+    });
+
+    // Submit email
+    submitBtn.addEventListener("click", async function (e) {
+        e.preventDefault(); // stop link navigation
+
+        const email = emailInput.value.trim();
+
+        if (!email) {
+            messageBox.textContent = "Please enter your email.";
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/waitlist/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ email })
+            });
+
+            if (!response.ok) throw new Error();
+
+            waitlistForm.style.display = "none";
+            messageBox.textContent = "✅ You're on the waitlist!";
+        } catch {
+            messageBox.textContent = "☹ Something went wrong.";
+        }
+    });
+
+    function getCSRFToken() {
+        return document.cookie
+            .split("; ")
+            .find(row => row.startsWith("csrftoken="))
+            ?.split("=")[1];
+    }
+});
+</script>
 
 <!-- HERO -->
 <section class="dark">
