@@ -854,3 +854,30 @@ Category:"""
             return JsonResponse({'error': f"An unexpected error occurred: {str(e)}"}, status=500)
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def waitlist(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            email = data.get("email")
+
+            if not email:
+                return JsonResponse({"error": "Email required"}, status=400)
+
+            # Option A: Simple send_mail
+            send_mail(
+                subject="New Waitlist Signup",
+                message=f"New email joined waitlist: {email}",
+                from_email=settings.DEFAULT_FROM_EMAIL, # MUST be your authorized email
+                recipient_list=["investor.uyah@gmail.com"],
+                fail_silently=False, # Set to False to see errors in your terminal
+            )
+
+            return JsonResponse({"success": True})
+        
+        except Exception as e:
+            # This will print the exact SMTP or JSON error to your terminal
+            print(f"Waitlist Error: {e}") 
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
