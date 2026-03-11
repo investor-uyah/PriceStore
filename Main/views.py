@@ -25,6 +25,8 @@ from geopy.geocoders import Nominatim
 from django.contrib.auth import get_user_model
 from django.conf import settings 
 import csv
+from django.utils import timezone
+from django.db.models.functions import TruncDate
 
 
 User = get_user_model()
@@ -611,6 +613,34 @@ def prices_combined(request):
         for food in summary
     }
 
+    # function for data chart
+    # queryset = Price.objects.all().order_by("created_at")
+
+    # dates = [p.created_at.strftime("%Y-%m-%d") for p in queryset]
+    # prices_chart = [p.price for p in queryset]
+
+    # context = {
+    #     'dates': dates,
+    #     'prices_chart': prices_chart,
+    # }
+
+    chart_records = Price.objects.values(
+        "foodstuff",
+        "state",
+        "price",
+        "created_at"
+    ).order_by("created_at")
+
+    chart_data = []
+
+    for r in chart_records:
+        chart_data.append({
+            "foodstuff": r["foodstuff"],
+            "state": r["state"],
+            "price": r["price"],
+            "date": r["created_at"].strftime("%Y-%m-%d")
+        })
+
 
     return render(request, 'price_page.html', {
         'prices': prices,
@@ -622,6 +652,9 @@ def prices_combined(request):
         'trends': trends,
         'average_prices': average_prices,
         'regional_comparison': regional_comparison,
+
+        # chart data
+        'chart_data': chart_data,
     })
 
 def states_listing(request, state):
@@ -881,3 +914,4 @@ def waitlist(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+

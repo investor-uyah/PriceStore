@@ -180,6 +180,138 @@
     </div>    
 </div>
 
+<!-- Price Trends Chart -->
+
+<!-- Filter UI -->
+
+<!-- Section: Highlights -->
+<h2 class="section-header">📉 Trends</h2>
+
+<div style="width:80%; margin:auto; margin-bottom:20px;">
+
+  <label>Foodstuff:</label>
+  <select id="foodFilter"></select>
+
+  <label style="margin-left:20px;">State:</label>
+  <select id="stateFilter">
+  <option value="All">All States</option>
+  {% for loc in locations %}
+  <option value="{{ loc.state }}">{{ loc.state }}</option>
+  {% endfor %}
+  </select>
+
+</div>
+
+<!-- Chart UI Container -->
+
+<div style="width: 80%; margin: auto; align-items: center; justify-content: center; margin-bottom: 10px;">
+    <canvas id="priceChart"></canvas>
+</div>
+
+{{ chart_data|json_script:"chart-data" }}
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart Logic -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const dataset = JSON.parse(
+document.getElementById("chart-data").textContent
+);
+
+const foodFilter = document.getElementById("foodFilter");
+const stateFilter = document.getElementById("stateFilter");
+
+const ctx = document.getElementById("priceChart").getContext("2d");
+
+let chart;
+
+/* Populate food dropdown */
+
+const foods = [...new Set(dataset.map(d => d.foodstuff))];
+
+foods.forEach(f=>{
+let option = document.createElement("option");
+option.value = f;
+option.textContent = f;
+foodFilter.appendChild(option);
+});
+
+/* Filtering function */
+
+function updateChart(){
+
+const selectedFood = foodFilter.value;
+const selectedState = stateFilter.value;
+
+let filtered = dataset.filter(d => d.foodstuff === selectedFood);
+
+if(selectedState !== "All"){
+filtered = filtered.filter(d => d.state === selectedState);
+}
+
+/* Aggregate by date */
+
+const grouped = {};
+
+filtered.forEach(d=>{
+if(!grouped[d.date]){
+grouped[d.date] = [];
+}
+grouped[d.date].push(d.price);
+});
+
+const labels = Object.keys(grouped);
+
+const prices = labels.map(date=>{
+const arr = grouped[date];
+return arr.reduce((a,b)=>a+b,0) / arr.length;
+});
+
+if(chart){
+chart.destroy();
+}
+
+chart = new Chart(ctx,{
+type:"line",
+data:{
+labels:labels,
+datasets:[{
+label:`${selectedFood} Price Trend`,
+data:prices,
+borderWidth:2,
+tension:0.3
+}]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{display:true}
+}
+}
+});
+
+}
+
+/* initial chart */
+
+foodFilter.selectedIndex = 0;
+
+updateChart();
+
+/* listeners */
+
+foodFilter.addEventListener("change", updateChart);
+stateFilter.addEventListener("change", updateChart);
+
+});
+
+</script>
+
 <!--
 <div class="ad">
   <div class="w-full max-w-6xl mx-auto h-auto 
@@ -233,7 +365,7 @@
 </div> 
 -->
 
-<div class="container mx-auto px-4 py-16">
+<div class="container mt-4 mx-auto px-4 py-16">
 
   <!-- Section: Highlights -->
   <h2 class="section-header">🔍 Quick Highlights</h2>
