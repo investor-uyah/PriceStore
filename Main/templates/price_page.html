@@ -104,6 +104,51 @@
     color: #495057;
   }
 
+  :root {
+    --green: #1a7a4a;
+    --green-dark: #0f5c34;
+  }
+
+  .ticker-wrap {
+    width: 100%;
+    background: var(--green);
+    overflow: hidden;
+    padding: 9px 0;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--green-dark);
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    animation: ticker-scroll 28s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-wrap:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
+  .ticker-track span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+    padding-right: 3rem;
+  }
+
+  .ticker-track .sep {
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0.5rem;
+  }
+
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   /* ─── Live Feed ──────────────────────────────────── */
   .live-feed-panel {
     background: var(--card-bg);
@@ -236,33 +281,6 @@
     overflow: hidden;
   }
 
-  .marquee-container {
-      width: 100%;
-      height: 40px;
-      margin-bottom: 40px;
-      overflow: hidden;
-      background-color: #228262;
-      color: #fff;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      white-space: nowrap;
-  }
-
-  .marquee span {
-      display: inline-block;
-      padding-right: 3rem; /* spacing between the two copies */
-  }
-
-  .marquee {
-      display: inline-block;
-      animation: scroll-left 15s linear infinite;
-      
-  }
-
-  .marquee-container:hover .marquee {
-      animation-play-state: paused;
-  }
-
   p a {
     display: inline;
     background: none;
@@ -299,17 +317,29 @@
     
 </style>
 
-<div class="marquee-container">
-    <div class="marquee">
-        <span>
-        CBN Rates — USD: ₦1455.4983  |  GBP: ₦ 1943.2358  |  EUR: ₦11706.7173  |
-        Petrol Price: ₦840/L |  Diesel Price: ₦1020/L |  CBN Inflation Rate: 14.45 % (All Items)  | CBN Inflation Rate: 11.08 % (Food)  | Cooking Gas: ₦1100 (Abuja) 
-        </span>
-        <span>
-        CBN Rates — USD: ₦1455.4983  |  GBP: ₦1943.2358  |  EUR: ₦11706.7173  |
-        Petrol Price: ₦840/L |  Diesel Price: ₦1020/L |  CBN Inflation Rate: 14.45 % (All Items)  | CBN Inflation Rate: 11.08 % (Food)  | Cooking Gas: ₦1100 (Abuja) 
-        </span>    
-    </div>    
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>
+      USD <b>₦1,343.91</b><span class="sep">|</span>
+      GBP <b>₦1,795.20</b><span class="sep">|</span>
+      EUR <b>₦1,550.87</b><span class="sep">|</span>
+      Petrol <b>₦1300/L</b>(Abuja)<span class="sep">|</span>
+      Diesel <b>₦1,492/L</b>(Abuja)<span class="sep">|</span>
+      CBN Inflation <b>15.06%</b> (All Items)<span class="sep">|</span>
+      Food Inflation <b>12.12%</b><span class="sep">|</span>
+      Cooking Gas <b>₦1,200</b> (Abuja)
+    </span>
+    <span>
+      USD <b>₦1,343.91</b><span class="sep">|</span>
+      GBP <b>₦1,795.20</b><span class="sep">|</span>
+      EUR <b>₦1,550.87</b><span class="sep">|</span>
+      Petrol <b>₦1300/L</b>(Abuja)<span class="sep">|</span>
+      Diesel <b>₦1,492/L</b>(Abuja)<span class="sep">|</span>
+      CBN Inflation <b>15.06%</b> (All Items)<span class="sep">|</span>
+      Food Inflation <b>12.12%</b><span class="sep">|</span>
+      Cooking Gas <b>₦1,200</b> (Abuja)
+    </span>
+  </div>
 </div>
 
 <!-- Price Trends Chart -->
