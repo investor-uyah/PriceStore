@@ -81,6 +81,27 @@
     line-height: 1.5;
   }
 
+  /* Cheapest Food dot*/
+  .cheapest-dot {
+    display: inline-block;
+    width: 20px;
+    height: 20%;
+    background: #28a745;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  /* Most Expensive Food dot */
+  .expensive-dot {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #dc3545;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+
   .price-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
@@ -148,6 +169,93 @@
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
+
+  /* Fact Deck */
+
+  .fact-deck {
+    position: relative;
+    width: 340px;
+    height: 220px; /* Increased slightly for better text breathing room */
+    margin: 20px auto;
+    perspective: 1000px; /* Adds a bit of 3D depth */
+  }
+
+  .fact-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    
+    /* FIX: Added a visible, light border to define the shape */
+    border: 1px solid #eaecef; 
+
+    /* FIX: The gloom-busting shadow.
+       0px: No horizontal shift. 
+       6px: Shifting slightly downwards.
+       15px: The blur is softer.
+       -2px: The spread is negative, pulling the shadow in from the edges.
+       rgba(0,0,0,0.04): Very, very light opacity (4%).
+    */
+    box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.04);
+
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Smoother "springy" feel */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .fact-card h3 {
+    margin-top: 0;
+    color: #228262; /* Using your primary green for brand consistency */
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .fact-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555; /* Slightly softer than pure #444 for less contrast gloom */
+    margin: 0;
+  }
+
+  /* Improved Stacked Layout */
+  .fact-card:nth-child(1) {
+    transform: rotate(0deg);
+    z-index: 3;
+    background: #ffffff;
+  }
+
+  .fact-card:nth-child(2) {
+    transform: rotate(2deg); /* Reduced rotation to look tighter */
+    top: 8px; /* Pulled in closer for a tidier stack */
+    left: 4px;
+    z-index: 2;
+    background: #ffffff;
+    
+    /* FIX: Slightly heavier shadow on the second card to differentiate from the first, but still light */
+    box-shadow: 0 6px 12px -1px rgba(0, 0, 0, 0.03); 
+    opacity: 0.95;
+  }
+
+  .fact-card:nth-child(3) {
+    transform: rotate(4deg);
+    top: 16px;
+    left: 8px;
+    z-index: 1;
+    background: #ffffff;
+    box-shadow: 0 5px 10px -1px rgba(0, 0, 0, 0.02);
+    opacity: 0.9;
+  }
+
+  /* Interaction: Hovering over the deck "fans" the cards out slightly */
+  .fact-deck:hover .fact-card:nth-child(1) { transform: rotate(-2deg) translateX(-10px); }
+  .fact-deck:hover .fact-card:nth-child(2) { transform: rotate(4deg) translateX(10px); }
+  .fact-deck:hover .fact-card:nth-child(3) { transform: rotate(10deg) translateX(25px); }
+
 
   /* ─── Live Feed ──────────────────────────────────── */
   .live-feed-panel {
@@ -580,7 +688,7 @@ stateFilter.addEventListener("change", updateChart);
 
     <!-- Top 3 Cheapest -->
     <div class="card">
-      <h3 class="text-success">Top 5 Cheapest Foodstuffs</h3>
+      <h3 class="text-success">Top Cheap Foodstuffs</h3>
       {% if cheapest %}
         <ul class="list-group mt-3">
           {% for item in cheapest %}
@@ -599,7 +707,7 @@ stateFilter.addEventListener("change", updateChart);
 
     <!-- Top 3 Expensive -->
     <div class="card">
-      <h3 class="text-danger">Top 5 Expensive Foodstuffs</h3>
+      <h3 class="text-danger">Top Expensive Foodstuffs</h3>
       {% if expensive %}
         <ul class="list-group mt-3">
           {% for item in expensive %}
@@ -629,7 +737,7 @@ stateFilter.addEventListener("change", updateChart);
     </div>
 
     <!-- Basket --> 
-    <div class="card">
+    <!-- <div class="card">
       <h3>Regional Comparison</h3>      
         <div class="d-flex justify-content-center align-items-center flex-column pb-3">
           <ul class="list-unstyled">
@@ -642,9 +750,10 @@ stateFilter.addEventListener("change", updateChart);
             {% endfor %}
           </ul>
         </div>
-    </div>
+    </div> -->
 
     <!-- Restaurant Menus -->
+    <!--
     <div class="card">
       <h3>Restaurant Menus Near Me</h3>
       <div class="d-flex justify-content-center align-items-center flex-column pb-3">
@@ -663,13 +772,70 @@ stateFilter.addEventListener("change", updateChart);
             </li>          
           </ul>
         </div>
+    </div> 
+  -->
+<div class="container mt-4"></div>
+  <h2 class="section-header">Fun Facts</h2>
+  <div class="fact-deck">
+    <div class="fact-card active">
+        <h3>💡 Did You Know?</h3>
+        <p>Benue State is officially nicknamed the Food Basket of the Nation because it produces the highest variety of staple crops in Nigeria.</p>
     </div>
-  
-    
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Cocoa House in Ibadan, once the tallest building in tropical Africa, was built entirely from the proceeds of Cocoa exports in the 1960s.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Michael Ibru pioneered the frozen fish business in Nigeria in 1957. Before his success, many Nigerians mockingly referred to it as 'mortuary fish.'</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Ofada Rice is named after Ofada, a small community in Ogun State where this unique, short-grain indigenous rice was first cultivated.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Zaki Biam Yam Market in Benue State is the largest mono-product market in West Africa, dedicated almost exclusively to yams.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Onitsha Main Market in Anambra State is often cited as the largest market in Africa by both geographical size and the volume of goods traded.</p>  
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Ginger from Nigeria (specifically from Kaduna State) is considered among the best in the world due to its high pungency and oil content.</p> 
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Nearly 50 percent of all fruits and vegetables produced in Nigeria are lost to post-harvest loss before they ever reach the consumer, mainly due to poor storage.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Jollof Rice actually originated from the Wolof people of Senegal and Gambia, but has become Nigeria’s most famous unofficial national dish.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Honey Beans (Oloyin) are unique to the Nigerian region and are prized specifically for their natural sweet taste compared to other brown beans.</p>
+    </div>
+
+    <div class="fact-card">
+        <h3>💡 Did You Know?</h3>
+        <p>Nigeria is the world's largest consumer of Rice in Africa, but also one of its largest producers thanks to the massive expansion of local mills in the last decade.</p>
+    </div>
+</div>
 
 <!-- Section: Insights -->
 <div class="container mt-4">
-  <h2 class="section-header">💡 Deep Insights</h2>
+  <h2 class="section-header">📚 Deep Insights</h2>
   <div class="accordion" id="priceAccordion">
 
     <!-- Average Food Prices -->
@@ -858,6 +1024,27 @@ stateFilter.addEventListener("change", updateChart);
       .addTo(map)
       .bindPopup(`<b>${market.name}</b>`);
   });
+</script>
+
+<script>
+  const deck = document.querySelector(".fact-deck");
+
+setInterval(() => {
+
+    const firstCard = deck.firstElementChild;
+
+    firstCard.style.transform = "translateX(400px) rotate(10deg)";
+    firstCard.style.opacity = "0";
+
+    setTimeout(() => {
+
+        firstCard.style.opacity = "1";
+        firstCard.style.transform = "";
+        deck.appendChild(firstCard);
+
+    }, 600);
+
+}, 7000);
 </script>
 {% endblock %}
 
