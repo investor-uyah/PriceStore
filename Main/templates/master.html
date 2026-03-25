@@ -200,19 +200,6 @@
         padding-left: 5%;
         padding-right: 5%;
     }
-    .privacy-policy {
-    background: none !important;
-    border: none !important;
-    text-decoration: none;
-    color: #0d6efd; /* Bootstrap blue, or choose your color */
-    }
-
-    .privacy-policy:hover,
-    .privacy-policy:focus {
-    text-decoration: underline; /* keep a simple hover effect */
-    outline: none !important;
-    box-shadow: none !important;
-    }
 
     #BackToTop {
         position: fixed;
@@ -356,7 +343,7 @@
           <li class="mb-2"><a href="{% url 'about' %}" class="footer-link">About</a></li>
           <li class="mb-2"><a href="{% url 'blog_list' %}" class="footer-link">Blog</a></li>
           <li class="mb-2"><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
-          <li class="mb-2"><a href="" class="footer-link">Community (coming soon)</a></li>
+          <li class="mb-2"><a href="" class="footer-link">Community(soon)</a></li>
         </ul>
       </div>
 
@@ -389,8 +376,11 @@
     <hr style="border-color: rgba(255,255,255,0.15); margin-top: 2.5rem;">
     <div class="d-flex flex-wrap justify-content-between align-items-center" style="font-size: 0.8rem; color: rgba(255,255,255,0.45);">
       <span>Built for Nigerians 🇳🇬</span>
+      <span><a href="https://paystack.shop/pay/25gv15ct-h" class="support-btn" style="font-size: 0.8rem; color: rgba(255,255,255,0.45);">
+    Support The Project ❤
+</a></span>
       <span>© 2026 The Price Marketplace. All rights reserved.</span>
-      <span><a href="{% url 'privacy' %}" class="privacy-policy">Privacy Policy</a></span>
+      <span><a href="{% url 'privacy' %}" style="font-size: 0.8rem; color: rgba(255,255,255,0.45);">Privacy Policy</a></span>
     </div>
   </div>
 </footer>
